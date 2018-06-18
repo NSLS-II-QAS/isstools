@@ -297,9 +297,9 @@ class UIProcessing(*uic.loadUiType(ui_path)):
         if hasattr(figure, 'ax2'):
             figure.ax2.clear()
         figure.canvas.draw_idle()
-        toolbar._views.clear()
-        toolbar._positions.clear()
-        toolbar._update_view()
+        #toolbar._views.clear()
+        #toolbar._positions.clear()
+        #toolbar._update_view()
 
         if self.listWidget_numerator.currentRow() is not -1:
             self.last_num = self.listWidget_numerator.currentRow()
@@ -426,16 +426,16 @@ class UIProcessing(*uic.loadUiType(ui_path)):
 
         self.figure_old_scans_2.ax.clear()
         self.figure_old_scans_2.ax2.clear()
-        self.toolbar_old_scans_2._views.clear()
-        self.toolbar_old_scans_2._positions.clear()
-        self.toolbar_old_scans_2._update_view()
+        #self.toolbar_old_scans_2._views.clear()
+        #self.toolbar_old_scans_2._positions.clear()
+        #self.toolbar_old_scans_2._update_view()
         self.canvas_old_scans_2.draw_idle()
 
         self.figure_old_scans_3.ax.clear()
         self.figure_old_scans_3.ax2.clear()
-        self.toolbar_old_scans_3._views.clear()
-        self.toolbar_old_scans_3._positions.clear()
-        self.toolbar_old_scans_3._update_view()
+        #self.toolbar_old_scans_3._views.clear()
+        #self.toolbar_old_scans_3._positions.clear()
+        #self.toolbar_old_scans_3._update_view()
         self.canvas_old_scans_3.draw_idle()
 
     def reset_data_plots(self):
