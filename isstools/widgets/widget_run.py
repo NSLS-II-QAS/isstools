@@ -296,6 +296,8 @@ class UIRun(*uic.loadUiType(ui_path)):
             else:
                 print("Warning, could not find 'i0', 'it', or 'energy' (are devices present?)")
 
+            # don't plot the rest for now (xview can do this)
+            '''
             if 'i0' in df and 'iff' in df and 'energy' in df:
                 fluorescence = (df['iff']/df['i0'])
                 self.figure.ax2.plot(df['energy'], fluorescence, color='g')
@@ -304,6 +306,7 @@ class UIRun(*uic.loadUiType(ui_path)):
             if 'it' in df and 'ir' in df and 'energy' in df:
                 reference = np.log(df['it']/df['ir'])
                 self.figure.ax3.plot(df['energy'], reference, color='b')
+            '''
 
             self.canvas.draw_idle()
 
