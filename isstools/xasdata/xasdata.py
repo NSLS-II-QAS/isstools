@@ -33,7 +33,7 @@ class XASdata:
         self.data_manager = XASDataManager()
         self.header_read = ''
         self.db = db
-
+    '''
     def loadADCtrace(self, filename = '', filepath = '/GPFS/xf08id/pizza_box_data/'):
         keys = ['times', 'timens', 'counter', 'adc']
         if os.path.isfile('{}{}'.format(filepath, filename)):
@@ -45,21 +45,29 @@ class XASdata:
             return df.iloc[:, 4:1:-1]
         else:
             return -1
+    '''
 
     def loadADCtraceDB(self, uid, stream_name):
+        '''
+            Load an ADC trace from database.
+        '''
+        # TODO : This needs to be rewritten a little better.
         hdr = self.db[uid]
-        dd = [_['data'] for _ in self.db.get_events(hdr, stream_name=stream_name, fill=True)]
-        result = {}
-        for chunk in dd:
-            for key in chunk.keys():
-                if key in result:
-                    result[key] = np.concatenate((result[key], chunk[key]))
-                    continue
-                result[key] = chunk[key]
-        columns = list(dd[0][stream_name][0]._asdict().keys())
-        df = pd.DataFrame(result[stream_name], columns=columns)
+        print("got header, getting data")
+        # the field and stream_name are the same
+        dd = [_ for _ in hdr.data(field=stream_name, stream_name=stream_name, fill=True)]
+        print("done ADC trace")
+        result = dd[0]
+        for chunk in dd[1:]:
+            result = np.concatenate((result, chunk))
+        columns = list(dd[0][0]._asdict().keys())
+        df = pd.DataFrame(result, columns=columns)
         df['timestamp'] = df['ts_s'] + 1e-9 * df['ts_ns']
         df['adc'] = df['adc'].apply(lambda x: (x >> 8) - 0x40000 if (x >> 8) > 0x1FFFF else x >> 8) * 7.62939453125e-05
+        df['counter'] = df['index']
+        # trying to conform to Bruno's standard, this needs to be rewritten completely!!!
+        df.drop(labels=['ts_s', 'ts_ns', 'index'], axis=1, inplace=True)
+        df = df[['timestamp', 'adc', 'counter']]
         return df
 
     def loadENCtrace(self, filename = '', filepath = '/GPFS/xf08id/pizza_box_data/'):
@@ -217,14 +225,22 @@ class XASdataGeneric(XASdata):
                     has_encoder = name
 
             if i['data_keys'][i['name']]['source'] == 'pizzabox-di-file':
+                print("loading data {}".format(stream_name))
                 data = self.loadTRIGtraceDB(uid, stream_name)
+                print("done")
             if i['data_keys'][i['name']]['source'] == 'pizzabox-adc-file':
+                print("loading data {}".format(stream_name))
                 data = self.loadADCtraceDB(uid, stream_name)
+                print("done")
                 if i['name'] + ' offset' in self.db[uid]['start'] and type(data) == pd.core.frame.DataFrame:
+                    print("subtracting offset : {}".format(i['name']))
                     data.iloc[:, 1] = data.iloc[:, 1] - self.db[uid]['start'][i['name'] + ' offset']
             if i['data_keys'][i['name']]['source'] == 'pizzabox-enc-file':
+                print("loading data {}".format(stream_name))
                 data = self.loadENCtraceDB(uid, stream_name)
+                print("done")
             # if type(data) == np.ndarray:
+            print("saving to {}".format(name))
             self.arrays[name] = data
 
         if has_encoder is not False:
