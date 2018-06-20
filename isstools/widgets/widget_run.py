@@ -82,13 +82,13 @@ class UIRun(*uic.loadUiType(ui_path)):
         self.canvas = FigureCanvas(self.figure)
         self.figure.ax1 = self.figure.add_subplot(111)
 
-        self.figure.ax2 = self.figure.ax1.twinx()
-        self.figure.ax3 = self.figure.ax1.twinx()
+        #self.figure.ax2 = self.figure.ax1.twinx()
+        #self.figure.ax3 = self.figure.ax1.twinx()
         self.toolbar = NavigationToolbar(self.canvas, self, coordinates=True)
         self.toolbar.setMaximumHeight(25)
         self.plots.addWidget(self.toolbar)
         self.plots.addWidget(self.canvas)
-        self.figure.ax3.grid(alpha = 0.4)
+        #self.figure.ax3.grid(alpha = 0.4)
         self.canvas.draw_idle()
 
     def run_scan(self):
@@ -150,8 +150,8 @@ class UIRun(*uic.loadUiType(ui_path)):
 
             # Erase last graph
             self.figure.ax1.clear()
-            self.figure.ax2.clear()
-            self.figure.ax3.clear()
+            #self.figure.ax2.clear()
+            #self.figure.ax3.clear()
             self.toolbar.update()
             self.canvas.draw_idle()
             self.figure.ax3.grid(alpha = 0.4)
@@ -274,9 +274,9 @@ class UIRun(*uic.loadUiType(ui_path)):
     def plot_scan(self, data):
         if self.parent_gui.run_mode == 'run':
             self.figure.ax1.clear()
-            self.figure.ax2.clear()
-            self.figure.ax3.clear()
-            self.figure.ax3.grid(alpha = 0.4)
+            #self.figure.ax2.clear()
+            #self.figure.ax3.clear()
+            #self.figure.ax3.grid(alpha = 0.4)
             #self.toolbar._views.clear()
             #self.toolbar._positions.clear()
             #self.toolbar._update_view()
