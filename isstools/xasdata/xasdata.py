@@ -11,6 +11,7 @@ import collections
 import pandas as pd
 import h5py
 from pathlib import Path
+import time
 
 
 class XASdata:
@@ -33,68 +34,45 @@ class XASdata:
         self.data_manager = XASDataManager()
         self.header_read = ''
         self.db = db
-    '''
-    def loadADCtrace(self, filename = '', filepath = '/GPFS/xf08id/pizza_box_data/'):
-        keys = ['times', 'timens', 'counter', 'adc']
-        if os.path.isfile('{}{}'.format(filepath, filename)):
-            df = pd.read_table('{}{}'.format(filepath, filename), delim_whitespace=True, comment='#', names=keys, index_col=False)
-            df['timestamp'] = df['times'] + 1e-9 * df['timens']
-            #del df['times']
-            #del df['timens']
-            df['adc'] = df['adc'].apply(lambda x: (int(x, 16) >> 8) - 0x40000 if (int(x, 16) >> 8) > 0x1FFFF else int(x, 16) >> 8) * 7.62939453125e-05
-            return df.iloc[:, 4:1:-1]
-        else:
-            return -1
-    '''
 
     def loadADCtraceDB(self, uid, stream_name):
         '''
             Load an ADC trace from database.
         '''
+        t1 = time.time()
         # TODO : This needs to be rewritten a little better.
         hdr = self.db[uid]
         print("got header, getting data")
         # the field and stream_name are the same
-        dd = [_ for _ in hdr.data(field=stream_name, stream_name=stream_name, fill=True)]
-        print("done ADC trace")
-        result = dd[0]
-        for chunk in dd[1:]:
-            result = np.concatenate((result, chunk))
-        columns = list(dd[0][0]._asdict().keys())
-        df = pd.DataFrame(result, columns=columns)
-        df['timestamp'] = df['ts_s'] + 1e-9 * df['ts_ns']
-        df['adc'] = df['adc'].apply(lambda x: (x >> 8) - 0x40000 if (x >> 8) > 0x1FFFF else x >> 8) * 7.62939453125e-05
-        df['counter'] = df['index']
-        # trying to conform to Bruno's standard, this needs to be rewritten completely!!!
-        df.drop(labels=['ts_s', 'ts_ns', 'index'], axis=1, inplace=True)
-        df = df[['timestamp', 'adc', 'counter']]
+        dd = hdr.data(field=stream_name, stream_name=stream_name, fill=True)
+        for i, new_df in enumerate(dd):
+            if i == 0:
+                df = new_df
+            else:
+                if len(new_df) > 0:
+                    df = df.append(new_df)
+        # validate columns this way
+        df = df[['timestamp', 'adc']]
+        t2 = time.time()
+        print(f"took {t2-t1} sec")
         return df
 
-    def loadENCtrace(self, filename = '', filepath = '/GPFS/xf08id/pizza_box_data/'):
-        keys = ['times', 'timens', 'encoder', 'counter', 'di']
-        if os.path.isfile('{}{}'.format(filepath, filename)):
-            df = pd.read_table('{}{}'.format(filepath, filename), delim_whitespace=True, comment='#', names=keys, index_col=False)
-            df['timestamp'] = df['times'] + 1e-9 * df['timens']
-            df['encoder'] = df['encoder'].apply(lambda x: int(x) if int(x) <= 0 else -(int(x) ^ 0xffffff - 1))
-            return df.iloc[:, [5, 2]]
-        else:
-            return -1
 
     def loadENCtraceDB(self, uid, stream_name):
         hdr = self.db[uid]
-        dd = [_['data'] for _ in self.db.get_events(hdr, stream_name=stream_name, fill=True)]
-        result = {}
-        for chunk in dd:
-            for key in chunk.keys():
-                if key in result:
-                    result[key] = np.concatenate((result[key], chunk[key]))
-                    continue
-                result[key] = chunk[key]
-        columns = list(dd[0][stream_name][0]._asdict().keys())
-        df = pd.DataFrame(result[stream_name], columns=columns)
-        df['timestamp'] = df['ts_s'] + 1e-9 * df['ts_ns']
-        df['encoder'] = df['encoder'].apply(lambda x: x if x <= 0 else -(x ^ 0xffffff - 1))
-        return df.iloc[:, [5, 2]]
+        t1 = time.time()
+        dd = hdr.data(field=stream_name, stream_name=stream_name, fill=True)
+        for i, new_df in enumerate(dd):
+            if i == 0:
+                df = new_df
+            else:
+                if len(new_df) > 0:
+                    df = df.append(new_df)
+        # make sure the columns are right, else raise
+        df = df[['timestamp', 'encoder']]
+        t2 = time.time()
+        print(f"took {t2-t1} sec")
+        return df
 
 
     def loadTRIGtrace(self, filename = '', filepath = '/GPFS/xf08id/pizza_box_data/'):
@@ -165,51 +143,11 @@ class XASdataGeneric(XASdata):
         self.uid = uid
         self.interpolate()
 
-    def load(self, uid):
-        #if self.db is None:
-        #    raise Exception('The databroker was not passed as argument to the parser. This feature is disabled.')
-        self.arrays = {}
-        self.interp_arrays = {}
-        self.uid = uid
-        has_encoder = False
-        for i in self.db[uid]['descriptors']:
-            if 'filename' in i['data_keys'][i['name']]:
-                name = i['name']
-                if name == self.mono_name:
-                    has_encoder = name
-                if 'devname' in i['data_keys'][i['name']]:
-                    name = i['data_keys'][i['name']]['devname']
-                    if name == self.mono_name:
-                        has_encoder = name
-
-                if i['data_keys'][i['name']]['source'] == 'pizzabox-di-file':
-                    data = self.loadTRIGtrace(i['data_keys'][i['name']]['filename'], '')
-                if i['data_keys'][i['name']]['source'] == 'pizzabox-adc-file':
-                    data = self.loadADCtrace(i['data_keys'][i['name']]['filename'], '')
-                    if i['name'] + ' offset' in self.db[uid]['start'] and type(data) == pd.core.frame.DataFrame:
-                        print("subtracting offset")
-                        print(self.db[uid]['start'][i['name'] + ' offset'])  
-                        data.iloc[:, 1] = data.iloc[:, 1] - self.db[uid]['start'][i['name'] + ' offset']
-
-                if i['data_keys'][i['name']]['source'] == 'pizzabox-enc-file':
-                    data = self.loadENCtrace(i['data_keys'][i['name']]['filename'], '')
-                #if type(data) == np.ndarray:
-                self.arrays[name] = data
-
-        if has_encoder is not False:
-            print("Converting to energy, using key {}".format(has_encoder))
-            energy = self.arrays.get(has_encoder).copy()
-            if 'angle_offset' in self.db[uid]['start']:
-                energy.iloc[:, 1] = xray.encoder2energy(energy.iloc[:, 1], self.pulses_per_deg, -float(self.db[uid]['start']['angle_offset']))
-                energy.columns = ['timestamp', 'energy']
-            del self.arrays[has_encoder]
-            self.arrays['energy'] = energy
-        else:
-            print("Cannot convert to energy")
 
     def loadDB(self, uid):
         # if self.db is None:
         #    raise Exception('The databroker was not passed as argument to the parser. This feature is disabled.')
+        t1 = time.time()
         self.arrays = {}
         self.interp_arrays = {}
         self.uid = uid
@@ -251,6 +189,8 @@ class XASdataGeneric(XASdata):
                 energy.columns = ['timestamp', 'energy']
             del self.arrays[has_encoder]
             self.arrays['energy'] = energy
+        t2 = time.time()
+        print(f"Data read took {t2-t1} sec")
 
     def read_header(self, filename):
         if filename[-3:] == 'txt' or filename[-3:] == 'dat':
