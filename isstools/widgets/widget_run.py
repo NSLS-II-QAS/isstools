@@ -154,7 +154,7 @@ class UIRun(*uic.loadUiType(ui_path)):
             #self.figure.ax3.clear()
             self.toolbar.update()
             self.canvas.draw_idle()
-            self.figure.ax3.grid(alpha = 0.4)
+            #self.figure.ax3.grid(alpha = 0.4)
             
             # Run the scan using the dict created before
             self.run_mode_uids = []
