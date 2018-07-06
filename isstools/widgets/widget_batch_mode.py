@@ -218,15 +218,11 @@ class UIBatchMode(*uic.loadUiType(ui_path)):
     def plot_batches(self, data):
         if self.parent_gui.run_mode == 'batch':
             self.figure_batch_waterfall.ax.clear()
-            #self.toolbar_batch_waterfall._views.clear()
-            #self.toolbar_batch_waterfall._positions.clear()
-            #self.toolbar_batch_waterfall._update_view()
+            self.toolbar_batch_waterfall.update()
             self.canvas_batch_waterfall.draw_idle()
 
             self.figure_batch_average.ax.clear()
-            #self.toolbar_batch_average._views.clear()
-            #self.toolbar_batch_average._positions.clear()
-            #self.toolbar_batch_average._update_view()
+            self.toolbar_batch_average.update()
             self.canvas_batch_average.draw_idle()
 
             #df = pd.read_msgpack(data['processing_ret']['data'])

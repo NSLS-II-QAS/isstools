@@ -322,9 +322,7 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
 
         if not repeat:
             self.figure_gen_scan.ax.clear()
-            #self.toolbar_gen_scan._views.clear()
-            #self.toolbar_gen_scan._positions.clear()
-            #self.toolbar_gen_scan._update_view()
+            self.toolbar_gen_scan.update()
             self.canvas_gen_scan.draw_idle()
             self.canvas_gen_scan.motor = curr_mot
 

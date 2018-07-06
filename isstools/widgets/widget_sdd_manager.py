@@ -148,9 +148,7 @@ class UISDDManager(*uic.loadUiType(ui_path)):
                 exec('del self.figure_xia_all_graphs.ax.roi{}l,\
                     self.figure_xia_all_graphs.ax.roi{}h'.format(roi, roi))
 
-        #self.toolbar_xia_all_graphs._views.clear()
-        #self.toolbar_xia_all_graphs._positions.clear()
-        #self.toolbar_xia_all_graphs._update_view()
+        self.toolbar_xia_all_graphs.update()
         self.xia_graphs_names.clear()
         self.xia_graphs_labels.clear()
         self.xia_handles.clear()
@@ -223,9 +221,7 @@ class UISDDManager(*uic.loadUiType(ui_path)):
                         exec('del self.figure_xia_all_graphs.ax.roi{}l,\
                             self.figure_xia_all_graphs.ax.roi{}h'.format(roi, roi))
 
-                #self.toolbar_xia_all_graphs._views.clear()
-                #self.toolbar_xia_all_graphs._positions.clear()
-                #self.toolbar_xia_all_graphs._update_view()
+                self.toolbar_xia_all_graphs.update()
                 self.xia_graphs_names.clear()
                 self.xia_graphs_labels.clear()
                 self.canvas_xia_all_graphs.draw_idle()
@@ -295,9 +291,7 @@ class UISDDManager(*uic.loadUiType(ui_path)):
             self.xia.erase_start.put(1)
             ttime.sleep(2)
             ax.clear()
-            #self.toolbar_gain_matching._views.clear()
-            #self.toolbar_gain_matching._positions.clear()
-            #self.toolbar_gain_matching._update_view()
+            self.toolbar_gain_matching.update()
 
             # For each channel:
             for chann in self.xia_channels:

@@ -277,9 +277,7 @@ class UIRun(*uic.loadUiType(ui_path)):
             #self.figure.ax2.clear()
             #self.figure.ax3.clear()
             #self.figure.ax3.grid(alpha = 0.4)
-            #self.toolbar._views.clear()
-            #self.toolbar._positions.clear()
-            #self.toolbar._update_view()
+            self.toolbar.update()
 
             df = data['processing_ret']['data']
             if isinstance(df, str):
