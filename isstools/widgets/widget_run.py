@@ -12,6 +12,7 @@ import time as ttime
 import numpy as np
 import datetime
 from timeit import default_timer as timer
+import matplotlib as mpl
 
 
 
@@ -41,6 +42,7 @@ class UIRun(*uic.loadUiType(ui_path)):
         super().__init__(*args, **kwargs)
         self.setupUi(self)
         self.addCanvas()
+        mpl.rcParams['agg.path.chunksize'] = 10000
         # TODO : remove hhm dependency
         self.gen_parser = XASdataGeneric(parent_gui.hhm.enc.pulses_per_deg, db)
 
