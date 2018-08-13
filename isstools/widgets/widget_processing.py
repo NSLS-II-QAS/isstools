@@ -280,7 +280,7 @@ class UIProcessing(*uic.loadUiType(ui_path)):
     def replot_y(self):
         #self.figure_old_scans.ax.clear()
         #self.figure_old_scans.canvas.draw_idle()
-        self.toolbar_old_scans.update()
+        # self.toolbar_old_scans.update()
 
         for data in self.bin_data_sets:
             df = data['processing_ret']['data']
@@ -411,7 +411,7 @@ class UIProcessing(*uic.loadUiType(ui_path)):
 
     def erase_plots(self):
         #self.figure_old_scans.ax.clear()
-        self.toolbar_old_scans.update()
+        #self.toolbar_old_scans.update()
         #self.canvas_old_scans.draw_idle()
 
         self.figure_old_scans_2.ax.clear()
