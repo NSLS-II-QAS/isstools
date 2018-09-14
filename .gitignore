@@ -92,3 +92,15 @@ ENV/
 .ropeproject
 .DS_Store
 .idea/
+
+# ipython profile stuff
+
+db
+log
+pid
+security
+history.sqlite
+profile_default
+
+#swap file
+*.swp
