@@ -367,7 +367,7 @@ class UIProcessing(*uic.loadUiType(ui_path)):
         self.handles_bin.append(patch)
 
         self.figure_old_scans_3.ax.legend(handles=self.handles_bin)
-        self.figure_old_scans_3.tight_layout()
+        #self.figure_old_scans_3.tight_layout()
         self.canvas_old_scans_3.draw_idle()
 
         #self.update_k_view(df)
