@@ -331,10 +331,10 @@ class UIProcessing(*uic.loadUiType(ui_path)):
             figure.ax.plot(df['energy'].iloc[:len(result)], result)
             figure.ax.set_ylabel(ylabel)
             figure.ax.set_xlabel('energy')
-            figure.tight_layout()
+            # figure.tight_layout()
 
         figure.ax.legend(handles=handles)
-        figure.tight_layout()
+        #figure.tight_layout()
 
         figure.canvas.draw_idle()
 
@@ -406,7 +406,7 @@ class UIProcessing(*uic.loadUiType(ui_path)):
         self.handles_interp.append(patch)
 
         self.figure_old_scans_2.ax.legend(handles=self.handles_interp)
-        self.figure_old_scans_2.tight_layout()
+        # self.figure_old_scans_2.tight_layout()
         self.canvas_old_scans_2.draw_idle()
 
     def erase_plots(self):

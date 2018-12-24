@@ -275,7 +275,6 @@ class XviewGui(*uic.loadUiType(ui_path)):
             handles.append(patch)
 
         self.figureBinned.ax.legend(handles=handles)
-        self.figureBinned.tight_layout()
         self.canvas.draw_idle()
 
     def push_param(self):
