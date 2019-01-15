@@ -22,6 +22,8 @@ ui_path = pkg_resources.resource_filename('isstools', 'ui/ui_batch_mode.ui')
 import json
 import pandas as pd
 
+TIMEOUT = 60
+
 class UIBatchMode(*uic.loadUiType(ui_path)):
     def __init__(self,
                  plan_funcs,
@@ -727,7 +729,7 @@ class UIBatchMode(*uic.loadUiType(ui_path)):
             self.last_lut = 0
             current_index = 0
             self.current_uid_list = []
-            if print_only is False:
+            if not print_only:
                 self.parent_gui.run_mode = 'batch'
                 self.batch_running = True
                 self.batch_pause = False
@@ -765,17 +767,20 @@ class UIBatchMode(*uic.loadUiType(ui_path)):
                     item_y = text[text.find(' Y:') + 3:]
                     print('Move to sample "{}" (X: {}, Y: {})'.format(name, item_x, item_y))
                     ### Uncomment
-                    if print_only == False:
+                    if not print_only:
                         self.label_batch_step.setText('Move to sample "{}" (X: {}, Y: {})'.format(name, item_x, item_y))
                         self.check_pause_abort_batch()
 
-                        self.motors_dict[self.stage_x]['object'].move(item_x, wait=False)
-                        self.motors_dict[self.stage_y]['object'].move(item_y, wait=False)
-                        ttime.sleep(0.2)
-                        while (self.motors_dict[self.stage_x]['object'].moving or \
-                                       self.motors_dict[self.stage_y]['object'].moving):
+                        # st_x is a status object for the x-motor
+                        st_x = self.motors_dict[self.stage_x]['object'].move(item_x, wait=False, timeout=TIMEOUT)
+                        # st_y is a status object for the y-motor
+                        st_y = self.motors_dict[self.stage_y]['object'].move(item_y, wait=False, timeout=TIMEOUT)
+                        # ttime.sleep(0.2)
+                        # print(f'Before while loop 1 (motor moving):\n{st_x}\n{st_y}')
+                        while (not st_x.done or not st_y.done):
+                            ttime.sleep(0.01)
                             QtCore.QCoreApplication.processEvents()
-                            ### Uncomment
+                            # print(f'Within while loop 1 (motor moving):\n{st_x}\n{st_y}')
 
                 if text.find('Run ') == 0:
                     scan_type = text.split()[0]
@@ -939,13 +944,17 @@ class UIBatchMode(*uic.loadUiType(ui_path)):
                                                                                                             len(
                                                                                                                 repetitions)))
                                     self.check_pause_abort_batch()
-                                    self.motors_dict[self.stage_x]['object'].move(samples[sample]['X'], wait=False)
-                                    self.motors_dict[self.stage_y]['object'].move(samples[sample]['Y'], wait=False)
-                                    ttime.sleep(0.2)
-                                    while (self.motors_dict[self.stage_x]['object'].moving or \
-                                                   self.motors_dict[self.stage_y]['object'].moving):
+
+                                    # st_x is a status object for the x-motor
+                                    st_x = self.motors_dict[self.stage_x]['object'].move(samples[sample]['X'], wait=False, timeout=TIMEOUT)
+                                    # st_y is a status object for the y-motor
+                                    st_y = self.motors_dict[self.stage_y]['object'].move(samples[sample]['Y'], wait=False, timeout=TIMEOUT)
+                                    # print(f'Before while loop 2 (motor moving):\n{st_x}\n{st_y}')
+                                    while (not st_x.done or not st_y.done):
                                         QtCore.QCoreApplication.processEvents()
-                                ### Uncomment
+                                        ttime.sleep(0.01)
+                                        # print(f'Within while loop 2 (motor moving):\n{st_x}\n{st_y}')
+
 
                                 for scan in scans:
                                     if 'Traj' in scans[scan]:
@@ -1037,13 +1046,13 @@ class UIBatchMode(*uic.loadUiType(ui_path)):
                                                                                                                 len(
                                                                                                                     repetitions)))
                                         self.check_pause_abort_batch()
-                                        self.motors_dict[self.stage_x]['object'].move(samples[sample]['X'], wait=False)
-                                        self.motors_dict[self.stage_y]['object'].move(samples[sample]['Y'], wait=False)
-                                        ttime.sleep(0.2)
-                                        while (self.motors_dict[self.stage_x]['object'].moving or \
-                                                       self.motors_dict[self.stage_y]['object'].moving):
+                                        st_x = self.motors_dict[self.stage_x]['object'].move(samples[sample]['X'], wait=False, timeout=TIMEOUT)
+                                        st_y = self.motors_dict[self.stage_y]['object'].move(samples[sample]['Y'], wait=False, timeout=TIMEOUT)
+                                        # print(f'Befor while loop 3 (motor moving):\n{st_x}\n{st_y}')
+                                        while (not st_x.done or not st_y.done):
+                                            ttime.sleep(0.01)
                                             QtCore.QCoreApplication.processEvents()
-                                    ### Uncomment
+                                            # print(f'Within while loop 3 (motor moving):\n{st_x}\n{st_y}')
 
                                     lut = scans[scan]['Traj'][:scans[scan]['Traj'].find('-')]
                                     traj_name = scans[scan]['Traj'][scans[scan]['Traj'].find('-') + 1:]

@@ -60,6 +60,7 @@ class XASdata:
 
     def loadENCtraceDB(self, uid, stream_name):
         hdr = self.db[uid]
+        print(uid)
         t1 = time.time()
         dd = hdr.data(field=stream_name, stream_name=stream_name, fill=True)
         for i, new_df in enumerate(dd):

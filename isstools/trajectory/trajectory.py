@@ -410,23 +410,26 @@ class trajectory_manager():
 
         ttime.sleep(0.5)
         while (int(self.hhm.lut_number_rbv.value) != int(lut_number)):
-            ttime.sleep(.001)
+            ttime.sleep(.01)
             QtCore.QCoreApplication.processEvents()
-    
+            # print('init Traj loop 1')
         self.hhm.lut_start_transfer.put("1")    
         while (self.hhm.lut_transfering.value == 0):
-            ttime.sleep(.001)
+            ttime.sleep(.01)
             QtCore.QCoreApplication.processEvents()
+            # print('init Traj loop 2')
         while (self.hhm.lut_transfering.value == 1):
-            ttime.sleep(.001)
+            ttime.sleep(.01)
             QtCore.QCoreApplication.processEvents()
+            # print('init Traj loop 3')
         ttime.sleep(.25)
         #while (self.hhm.trajectory_loading.value == 0):
         #    ttime.sleep(.001)
         #    QtCore.QCoreApplication.processEvents()
         while (self.hhm.trajectory_loading.value == 1):
-            ttime.sleep(.001)
+            ttime.sleep(.01)
             QtCore.QCoreApplication.processEvents()
+            # print('init Traj loop 4')
     
         ftp = FTP(ip)
         ftp.login()
@@ -464,6 +467,7 @@ class trajectory_manager():
                 self.hhm.cycle_limit.put(size)
                 while (self.hhm.cycle_limit_rbv.value != size):
                     ttime.sleep(.01)
+                    # print('init Traj loop 5')
                 print('[Init Trajectory] New lut number: {}'.format(lut_number))
                 print('[Init Trajectory] Trajectory name: {}'.format(name))
                 print('[Init Trajectory] Number of points: {}'.format(size))

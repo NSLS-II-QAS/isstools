@@ -343,7 +343,7 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
             print('[General Scan] Limit switch reached . Set narrower range and try again.')
             uid_list = []
 
-        self.figure_gen_scan.tight_layout()
+        # self.figure_gen_scan.tight_layout()
         self.canvas_gen_scan.draw_idle()
         if len(uid_list) and curr_element is None:
             self.create_log_scan(uid_list[0], self.figure_gen_scan)
