@@ -13,6 +13,7 @@ import numpy as np
 import datetime
 from timeit import default_timer as timer
 import matplotlib as mpl
+from isstools.elements.figure_update import update_figure
 
 
 
@@ -44,7 +45,7 @@ class UIRun(*uic.loadUiType(ui_path)):
         self.addCanvas()
         mpl.rcParams['agg.path.chunksize'] = 10000
         # TODO : remove hhm dependency
-        self.gen_parser = XASdataGeneric(parent_gui.hhm.enc.pulses_per_deg, db)
+        self.gen_parser = XASdataGeneric(parent_gui.mono.enc.pulses_per_deg, db)
 
         self.plan_funcs = plan_funcs
         self.plan_funcs_names = [plan.__name__ for plan in plan_funcs]
@@ -84,13 +85,13 @@ class UIRun(*uic.loadUiType(ui_path)):
         self.canvas = FigureCanvas(self.figure)
         self.figure.ax1 = self.figure.add_subplot(111)
 
-        #self.figure.ax2 = self.figure.ax1.twinx()
-        #self.figure.ax3 = self.figure.ax1.twinx()
+        self.figure.ax2 = self.figure.ax1.twinx()
+        self.figure.ax3 = self.figure.ax1.twinx()
         self.toolbar = NavigationToolbar(self.canvas, self, coordinates=True)
         self.toolbar.setMaximumHeight(25)
         self.plots.addWidget(self.toolbar)
         self.plots.addWidget(self.canvas)
-        #self.figure.ax3.grid(alpha = 0.4)
+        self.figure.ax3.grid(alpha = 0.4)
         self.canvas.draw_idle()
 
     def run_scan(self):
@@ -273,41 +274,23 @@ class UIRun(*uic.loadUiType(ui_path)):
     def setXiaSampTime(self, text):
         self.xia_samp_time = text
 
-    def plot_scan(self, data):
-        if self.parent_gui.run_mode == 'run':
-            self.figure.ax1.clear()
-            #self.figure.ax2.clear()
-            #self.figure.ax3.clear()
-            #self.figure.ax3.grid(alpha = 0.4)
-            self.toolbar.update()
 
-            df = data['processing_ret']['data']
-            if isinstance(df, str):
-                # load data, it's  astring
-                df = self.gen_parser.getInterpFromFile(df)
-            #df = pd.DataFrame.from_dict(json.loads(data['processing_ret']['data']))
-            df = df.sort_values('energy')
-            self.df = df
+    def draw_interpolated_data(self, df):
+        update_figure([self.figure.ax2, self.figure.ax1, self.figure.ax3], self.toolbar, self.canvas)
+        if 'i0' in df and 'it' in df and 'energy' in df:
+            transmission = np.array(df['i0'] / df['it'])
+        if 'i0' in df and 'pips' in df and 'energy' in df:
+            fluorescence = np.array(df['pips'] / df['i0'])
+        if 'it' in df and 'ir' in df and 'energy' in df:
+            reference = np.array(np.log(df['it'] / df['ir']))
 
-            # TODO : this should plot depending on options set in a GUI
-            if 'i0' in df and 'it' in df and 'energy' in df:
-                transmission = np.log(df['i0']/df['it'])
-                self.figure.ax1.plot(df['energy'], transmission, color='r')
-            else:
-                print("Warning, could not find 'i0', 'it', or 'energy' (are devices present?)")
+        energy = np.array(df['energy'])
+        edge = int(len(energy) * 0.02)
 
-            # don't plot the rest for now (xview can do this)
-            '''
-            if 'i0' in df and 'iff' in df and 'energy' in df:
-                fluorescence = (df['iff']/df['i0'])
-                self.figure.ax2.plot(df['energy'], fluorescence, color='g')
-
-            
-            if 'it' in df and 'ir' in df and 'energy' in df:
-                reference = np.log(df['it']/df['ir'])
-                self.figure.ax3.plot(df['energy'], reference, color='b')
-            '''
-
-            self.canvas.draw_idle()
-
-            self.create_log_scan(data['uid'], self.figure)
+        self.figure.ax1.plot(energy[edge:-edge], transmission[edge:-edge], color='r', label='Transmission')
+        self.figure.ax1.legend(loc=2)
+        self.figure.ax2.plot(energy[edge:-edge], fluorescence[edge:-edge], color='g', label='Total fluorescence')
+        self.figure.ax2.legend(loc=1)
+        self.figure.ax3.plot(energy[edge:-edge], reference[edge:-edge], color='b', label='Reference')
+        self.figure.ax3.legend(loc=3)
+        self.canvas.draw_idle()

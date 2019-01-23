@@ -18,6 +18,7 @@ from PyQt5.QtCore import QThread
 import zmq
 import pickle
 import pandas as pd
+from isstools.process_callbacks.callback import ProcessingCallback
 
 
 import kafka
@@ -43,13 +44,12 @@ class XliveGui(*uic.loadUiType(ui_path)):
                  RE=None,
                  db=None,
                  accelerator=None,
-                 hhm=None,
+                 mono=None,
                  shutters_dict={},
                  det_dict={},
                  motors_dict={},
-                 general_scan_func = None, parent=None,
-                 bootstrap_servers=['cmb01:9092', 'cmb02:9092'],
-                 kafka_topic="qas-analysis", 
+                 general_scan_func = None,
+                 sample_stages= None,
                  window_title="XLive @QAS/11-ID NSLS-II",
                  job_submitter=None,
                  *args, **kwargs):
@@ -67,8 +67,8 @@ class XliveGui(*uic.loadUiType(ui_path)):
             db : databroker.Broker, optional
                 the database to save acquired data to
             accelerator : 
-            hhm : ophyd.Device, optional
-                the monochromator. "hhm" stood for "high heatload monochromator" 
+            mono : ophyd.Device, optional
+                the monochromator.
                 and has been kept from the legacy ISS code
             shutters_dict : dict, optional
                 dictionary of available shutters
@@ -141,6 +141,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
         self.shutters_dict = shutters_dict
 
         self.RE = RE
+        self.db = db
 
 
         if self.RE is not None:
@@ -156,8 +157,8 @@ class XliveGui(*uic.loadUiType(ui_path)):
             self.push_re_abort.setEnabled(False)
             self.run_check_gains.setEnabled(False)
 
-        self.hhm = hhm
-        if self.hhm is None:
+        self.mono = mono
+        if self.mono is None:
             self.tabWidget.removeTab([self.tabWidget.tabText(index)
                                       for index in range(self.tabWidget.count())].index('Trajectory setup'))
             self.tabWidget.removeTab([self.tabWidget.tabText(index)
@@ -165,16 +166,15 @@ class XliveGui(*uic.loadUiType(ui_path)):
             self.tabWidget.removeTab([self.tabWidget.tabText(index)
                                       for index in range(self.tabWidget.count())].index('Run Batch'))
         else:
-            self.hhm.trajectory_progress.subscribe(self.update_progress)
+            self.mono.trajectory_progress.subscribe(self.update_progress)
             self.progress_sig.connect(self.update_progressbar)
             self.progressBar.setValue(0)
 
         # Activating ZeroMQ Receiving Socket
-        self.context = zmq.Context()
-        self.hostname_filter = socket.gethostname()
-        # Now using Kafka
-        self.consumer = kafka.KafkaConsumer(kafka_topic, bootstrap_servers=bootstrap_servers)
-        self.receiving_thread = ReceivingThread(self)
+
+
+
+
         self.run_mode = 'run'
 
         # Looking for analog pizzaboxes:
@@ -203,24 +203,21 @@ class XliveGui(*uic.loadUiType(ui_path)):
         self.widget_general_info = widget_general_info.UIGeneralInfo(accelerator, RE, db)
         self.layout_general_info.addWidget(self.widget_general_info)
 
-        if self.hhm is not None:
-            self.widget_trajectory_manager = widget_trajectory_manager.UITrajectoryManager(hhm, self.run_prep_traj)
+        if self.mono is not None:
+            self.widget_trajectory_manager = widget_trajectory_manager.UITrajectoryManager(mono, self.run_prep_traj)
             self.layout_trajectory_manager.addWidget(self.widget_trajectory_manager)
 
-        self.widget_processing = widget_processing.UIProcessing(hhm, db, det_dict, parent_gui=self,
+        self.widget_processing = widget_processing.UIProcessing(mono, db, det_dict, parent_gui=self,
                                                                 job_submitter=job_submitter)
         self.layout_processing.addWidget(self.widget_processing)
-        self.receiving_thread.received_bin_data.connect(self.widget_processing.plot_data)
-        self.receiving_thread.received_req_interp_data.connect(self.widget_processing.plot_interp_data)
 
         if self.RE is not None:
             self.widget_run = widget_run.UIRun(self.plan_funcs, db, shutters_dict, self.adc_list, self.enc_list,
                                                self.xia, self.html_log_func, self)
             self.layout_run.addWidget(self.widget_run)
-            self.receiving_thread.received_interp_data.connect(self.widget_run.plot_scan)
 
-            if self.hhm is not None:
-                self.widget_batch_mode = widget_batch_mode.UIBatchMode(self.plan_funcs, self.motors_dict, hhm,
+            if self.mono is not None:
+                self.widget_batch_mode = widget_batch_mode.UIBatchMode(self.plan_funcs, self.motors_dict, mono,
                                                                        RE, db, self.widget_processing.gen_parser,
                                                                        self.adc_list, self.enc_list, self.xia,
                                                                        self.run_prep_traj,
@@ -230,11 +227,11 @@ class XliveGui(*uic.loadUiType(ui_path)):
                                                                        parent_gui = self,
                                                                        job_submitter=job_submitter)
                 self.layout_batch.addWidget(self.widget_batch_mode)
-                self.receiving_thread.received_bin_data.connect(self.widget_batch_mode.plot_batches)
+
 
                 self.widget_trajectory_manager.trajectoriesChanged.connect(self.widget_batch_mode.update_batch_traj)
 
-            self.widget_beamline_setup = widget_beamline_setup.UIBeamlineSetup(RE, self.hhm, db, self.adc_list,
+            self.widget_beamline_setup = widget_beamline_setup.UIBeamlineSetup(RE, self.mono, db, self.adc_list,
                                                                                self.enc_list, self.det_dict, self.xia,
                                                                                self.ic_amplifiers,
                                                                                self.prepare_bl_plan, self.plan_funcs,
@@ -248,11 +245,13 @@ class XliveGui(*uic.loadUiType(ui_path)):
         self.layout_beamline_status.addWidget(widget_beamline_status.UIBeamlineStatus(self.shutters_dict))
 
         self.filepaths = []
+        pc = ProcessingCallback(db=self.db,draw_func_interp=self.widget_run.draw_interpolated_data)
+
+        self.token = self.RE.subscribe(pc, 'stop')
 
         self.push_re_abort.clicked.connect(self.re_abort)
 
-        # After connecting signals to slots, start receiving thread
-        self.receiving_thread.start()
+
 
         # Redirect terminal output to GUI
         self.emitstream_out = EmittingStream.EmittingStream(self.textEdit_terminal)
@@ -298,30 +297,30 @@ class XliveGui(*uic.loadUiType(ui_path)):
         self.label_11.setText(self.RE.state)
 
 
-class ReceivingThread(QThread):
-    received_interp_data = QtCore.pyqtSignal(object)
-    received_bin_data = QtCore.pyqtSignal(object)
-    received_req_interp_data = QtCore.pyqtSignal(object)
-    def __init__(self, gui):
-        QThread.__init__(self)
-        self.setParent(gui)
-
-    def run(self):
-        consumer = self.parent().consumer
-        for message in consumer:
-            # bruno concatenates and extra message at beginning of this packet
-            # we need to take it off
-            message = message.value[len(self.parent().hostname_filter):]
-            data = pickle.loads(message)
-
-            if 'data' in data['processing_ret']:
-                #data['processing_ret']['data'] = pd.read_msgpack(data['processing_ret']['data'])
-                data['processing_ret']['data'] = data['processing_ret']['data'].decode()
-
-            if data['type'] == 'spectroscopy':
-                if data['processing_ret']['type'] == 'interpolate':
-                    self.received_interp_data.emit(data)
-                if data['processing_ret']['type'] == 'bin':
-                    self.received_bin_data.emit(data)
-                if data['processing_ret']['type'] == 'request_interpolated_data':
-                    self.received_req_interp_data.emit(data)
+# class ReceivingThread(QThread):
+#     received_interp_data = QtCore.pyqtSignal(object)
+#     received_bin_data = QtCore.pyqtSignal(object)
+#     received_req_interp_data = QtCore.pyqtSignal(object)
+#     def __init__(self, gui):
+#         QThread.__init__(self)
+#         self.setParent(gui)
+#
+#     def run(self):
+#         consumer = self.parent().consumer
+#         for message in consumer:
+#             # bruno concatenates and extra message at beginning of this packet
+#             # we need to take it off
+#             message = message.value[len(self.parent().hostname_filter):]
+#             data = pickle.loads(message)
+#
+#             if 'data' in data['processing_ret']:
+#                 #data['processing_ret']['data'] = pd.read_msgpack(data['processing_ret']['data'])
+#                 data['processing_ret']['data'] = data['processing_ret']['data'].decode()
+#
+#             if data['type'] == 'spectroscopy':
+#                 if data['processing_ret']['type'] == 'interpolate':
+#                     self.received_interp_data.emit(data)
+#                 if data['processing_ret']['type'] == 'bin':
+#                     self.received_bin_data.emit(data)
+#                 if data['processing_ret']['type'] == 'request_interpolated_data':
+#                     self.received_req_interp_data.emit(data)

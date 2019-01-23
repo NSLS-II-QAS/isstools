@@ -2,8 +2,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pkg_resources
-import scipy
-from scipy import interpolate
+import scipy.integrate
+import scipy.interpolate
 import math
 from PyQt5 import QtCore
 
@@ -208,7 +208,7 @@ class trajectory():
 
 
     def interpolate(self):
-        cs = interpolate.CubicSpline(self.time, self.energy, bc_type='clamped')
+        cs = scipy.interpolate.CubicSpline(self.time, self.energy, bc_type='clamped')
         self.time_grid = np.arange(self.time[0], self.time[-1], 1 / self.servocycle)
         self.energy_grid=cs(self.time_grid)
         self.energy_grid_der=np.diff(self.energy_grid)/(self.time_grid[1] - self.time_grid[0])
