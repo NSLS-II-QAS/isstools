@@ -207,8 +207,10 @@ class XliveGui(*uic.loadUiType(ui_path)):
             self.widget_trajectory_manager = widget_trajectory_manager.UITrajectoryManager(mono, self.run_prep_traj)
             self.layout_trajectory_manager.addWidget(self.widget_trajectory_manager)
 
-        self.widget_processing = widget_processing.UIProcessing(mono, db, det_dict, parent_gui=self,
-                                                                job_submitter=job_submitter)
+        self.widget_processing = widget_processing.UIProcessing(mono,
+                                                                db,
+                                                                parent_gui = self
+                                                                )
         self.layout_processing.addWidget(self.widget_processing)
 
         if self.RE is not None:
@@ -218,10 +220,9 @@ class XliveGui(*uic.loadUiType(ui_path)):
 
             if self.mono is not None:
                 self.widget_batch_mode = widget_batch_mode.UIBatchMode(self.plan_funcs, self.motors_dict, mono,
-                                                                       RE, db, self.widget_processing.gen_parser,
+                                                                       RE, db,
                                                                        self.adc_list, self.enc_list, self.xia,
                                                                        self.run_prep_traj,
-                                                                       self.widget_run.figure,
                                                                        self.widget_run.create_log_scan,
                                                                        sample_stages=self.sample_stages,
                                                                        parent_gui = self,

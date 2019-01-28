@@ -45,7 +45,7 @@ class UIRun(*uic.loadUiType(ui_path)):
         self.addCanvas()
         mpl.rcParams['agg.path.chunksize'] = 10000
         # TODO : remove hhm dependency
-        self.gen_parser = XASdataGeneric(parent_gui.mono.enc.pulses_per_deg, db)
+
 
         self.plan_funcs = plan_funcs
         self.plan_funcs_names = [plan.__name__ for plan in plan_funcs]
@@ -276,9 +276,10 @@ class UIRun(*uic.loadUiType(ui_path)):
 
 
     def draw_interpolated_data(self, df):
+        print('Inside draw_')
         update_figure([self.figure.ax2, self.figure.ax1, self.figure.ax3], self.toolbar, self.canvas)
         if 'i0' in df and 'it' in df and 'energy' in df:
-            transmission = np.array(df['i0'] / df['it'])
+            transmission = np.array(np.log(df['i0'] / df['it']))
         if 'i0' in df and 'pips' in df and 'energy' in df:
             fluorescence = np.array(df['pips'] / df['i0'])
         if 'it' in df and 'ir' in df and 'energy' in df:

@@ -31,7 +31,7 @@
      </widget>
     </item>
     <item row="0" column="1">
-     <widget class="QLabel" name="label_24">
+     <widget class="QLabel" name="label_filenames">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
         <horstretch>0</horstretch>
@@ -121,31 +121,12 @@
     <string>Select File</string>
    </property>
   </widget>
-  <widget class="QCheckBox" name="checkBox_find_edge">
-   <property name="geometry">
-    <rect>
-     <x>580</x>
-     <y>30</y>
-     <width>161</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Find edge position</string>
-   </property>
-   <property name="checked">
-    <bool>false</bool>
-   </property>
-   <property name="tristate">
-    <bool>false</bool>
-   </property>
-  </widget>
   <widget class="QCheckBox" name="checkBox_process_bin">
    <property name="geometry">
     <rect>
      <x>580</x>
-     <y>0</y>
-     <width>161</width>
+     <y>10</y>
+     <width>211</width>
      <height>31</height>
     </rect>
    </property>
@@ -154,7 +135,7 @@
 b</string>
    </property>
    <property name="text">
-    <string>Process multiple files</string>
+    <string>Auto-process multiple files</string>
    </property>
    <property name="checked">
     <bool>false</bool>
@@ -172,7 +153,7 @@ b</string>
      <height>731</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="plot_old_scans_2"/>
+   <layout class="QVBoxLayout" name="plot_interpolated_scans"/>
   </widget>
   <widget class="QWidget" name="gridLayoutWidget_14">
    <property name="geometry">
@@ -180,7 +161,7 @@ b</string>
      <x>1070</x>
      <y>10</y>
      <width>161</width>
-     <height>111</height>
+     <height>112</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout_15">
@@ -286,7 +267,7 @@ b</string>
      </widget>
     </item>
     <item row="0" column="1">
-     <widget class="QLineEdit" name="edit_E0_2">
+     <widget class="QLineEdit" name="edit_E0">
       <property name="text">
        <string>11470</string>
       </property>
@@ -337,7 +318,7 @@ b</string>
      <height>731</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="plot_old_scans_3"/>
+   <layout class="QVBoxLayout" name="plot_binned_scans"/>
   </widget>
   <widget class="QPushButton" name="push_calibrate">
    <property name="geometry">
@@ -419,7 +400,7 @@ b</string>
     </item>
    </layout>
   </widget>
-  <widget class="QPushButton" name="push_bin_save">
+  <widget class="QPushButton" name="push_bin">
    <property name="geometry">
     <rect>
      <x>1410</x>
@@ -429,7 +410,7 @@ b</string>
     </rect>
    </property>
    <property name="text">
-    <string>Bin and Save</string>
+    <string>Bin</string>
    </property>
   </widget>
   <widget class="QPushButton" name="push_reset_data">
@@ -449,7 +430,7 @@ b</string>
    <property name="geometry">
     <rect>
      <x>260</x>
-     <y>50</y>
+     <y>90</y>
      <width>99</width>
      <height>20</height>
     </rect>
@@ -468,7 +449,7 @@ b</string>
    <property name="geometry">
     <rect>
      <x>260</x>
-     <y>70</y>
+     <y>110</y>
      <width>99</width>
      <height>20</height>
     </rect>
@@ -483,7 +464,40 @@ b</string>
     <bool>false</bool>
    </property>
   </widget>
+  <widget class="QCheckBox" name="checkBox_ratio">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>70</y>
+     <width>99</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Ratio</string>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="tristate">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="push_save_binned">
+   <property name="geometry">
+    <rect>
+     <x>1410</x>
+     <y>50</y>
+     <width>121</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
 </ui>
+
