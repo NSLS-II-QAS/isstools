@@ -167,6 +167,7 @@ class UIProcessing(*uic.loadUiType(ui_path)):
                 print(f'>>>> saving {fn}')
 
     def new_bin_df_arrived(self,df):
+ 
         self.binned_datasets.append(df)
         if not self.last_den:
             keys = df.keys()
@@ -281,11 +282,12 @@ class UIProcessing(*uic.loadUiType(ui_path)):
         self.push_save_binned.setEnabled(False)
         self.listWidget_numerator.clear()
         self.listWidget_denominator.clear()
-        self.bin_data_sets = []
-        self.interp_data_sets = []
+        self.binned_datasets = []
+        self.interpolated_dataset = []
         self.handles_interp = []
         self.handles_bin = []
         self.erase_plots()
+
 
     def update_list_widgets(self):
         index = [index for index, item in enumerate(
