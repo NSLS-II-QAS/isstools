@@ -138,7 +138,7 @@ class UIProcessing(*uic.loadUiType(ui_path)):
 
 
     def bin_selected_files(self):
-        e0 = int(self.edit_E0.text())
+        e0 = float(self.edit_E0.text())
         edge_start = int(self.edit_edge_start.text())
         edge_end = int(self.edit_edge_end.text())
         preedge_spacing = float(self.edit_preedge_spacing.text())
@@ -167,7 +167,7 @@ class UIProcessing(*uic.loadUiType(ui_path)):
                 print(f'>>>> saving {fn}')
 
     def new_bin_df_arrived(self,df):
- 
+
         self.binned_datasets.append(df)
         if not self.last_den:
             keys = df.keys()

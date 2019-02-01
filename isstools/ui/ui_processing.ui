@@ -147,7 +147,7 @@ b</string>
   <widget class="QWidget" name="verticalLayoutWidget_7">
    <property name="geometry">
     <rect>
-     <x>820</x>
+     <x>10</x>
      <y>190</y>
      <width>811</width>
      <height>731</height>
@@ -312,7 +312,7 @@ b</string>
   <widget class="QWidget" name="verticalLayoutWidget_9">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>830</x>
      <y>190</y>
      <width>801</width>
      <height>731</height>
@@ -500,4 +500,3 @@ b</string>
  <resources/>
  <connections/>
 </ui>
-
