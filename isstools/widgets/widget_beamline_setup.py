@@ -136,7 +136,7 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
                                           self.adc_list if adc.dev_name.value != adc.name]):
             checkbox = QtWidgets.QCheckBox(adc_name)
             if adc_name not in ['adc7', 'adc8']:
-                checkbox.setChecked(True)
+               checkbox.setChecked(True)
             self.adc_checkboxes.append(checkbox)
             self.gridLayout_analog_detectors.addWidget(checkbox, int(index / 2), index % 2)
 
