@@ -276,7 +276,7 @@ class UIRun(*uic.loadUiType(ui_path)):
 
 
     def draw_interpolated_data(self, df):
-        print('Inside draw_')
+        print('Inside draw_ starting time: ', datetime.now())
         update_figure([self.figure.ax2, self.figure.ax1, self.figure.ax3], self.toolbar, self.canvas)
         if 'i0' in df and 'it' in df and 'energy' in df:
             transmission = np.array(np.log(df['i0'] / df['it']))
@@ -295,3 +295,4 @@ class UIRun(*uic.loadUiType(ui_path)):
         self.figure.ax3.plot(energy[edge:-edge], reference[edge:-edge], color='b', label='Reference')
         self.figure.ax3.legend(loc=3)
         self.canvas.draw_idle()
+        print('Inside draw_ ending time: ', datetime.now())

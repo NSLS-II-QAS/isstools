@@ -51,7 +51,7 @@
      <x>50</x>
      <y>780</y>
      <width>256</width>
-     <height>62</height>
+     <height>65</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -229,7 +229,7 @@
         </size>
        </property>
        <property name="minimum">
-        <number>0</number>
+        <number>1</number>
        </property>
        <property name="maximum">
         <number>999</number>
@@ -456,7 +456,16 @@
     <string>Scans</string>
    </property>
    <layout class="QGridLayout" name="gridLayout_28">
-    <property name="margin">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
      <number>0</number>
     </property>
     <item row="0" column="5" rowspan="2">
@@ -673,7 +682,16 @@
     <string>Samples</string>
    </property>
    <layout class="QGridLayout" name="gridLayout_25">
-    <property name="margin">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
      <number>0</number>
     </property>
     <property name="horizontalSpacing">
