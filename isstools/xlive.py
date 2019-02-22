@@ -246,8 +246,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
         self.layout_beamline_status.addWidget(widget_beamline_status.UIBeamlineStatus(self.shutters_dict))
 
         self.filepaths = []
-        pc = ProcessingCallback(db=self.db,draw_func_interp=self.widget_run.draw_interpolated_data, draw_func_binned=
-                                self.widget_processing.new_bin_df_arrived)
+        pc = ProcessingCallback(db=self.db, draw_func_interp=self.widget_run.draw_interpolated_data, draw_func_binned=self.widget_processing.new_bin_df_arrived)
 
         self.token = self.RE.subscribe(pc, 'stop')
 
