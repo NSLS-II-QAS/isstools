@@ -265,7 +265,7 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
         if not ignore_shutter:
             for shutter in [self.shutters[shutter] for shutter in self.shutters if
                             self.shutters[shutter].shutter_type != 'SP']:
-                if shutter.state.value:
+                if shutter.status.value != 'Open':
                     ret = self.questionMessage('Photon shutter closed', 'Proceed with the shutter closed?')
                     if not ret:
                         print('Aborted!')
@@ -576,22 +576,33 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
 
         for shutter in [self.shutters[shutter] for shutter in self.shutters if
                         self.shutters[shutter].shutter_type != 'SP' and
-                                        self.shutters[shutter].state.read()['{}_state'.format(shutter)]['value'] != 0]:
+                        self.shutters[shutter].status.value != 'Open']:
             try:
-                shutter.open()
+                st = shutter.set('Open')
+                while True:
+                    if not st.done:
+                        time.sleep(0.01)
+                    else:
+                        break
             except Exception as exc:
                 print('Timeout! Aborting!')
                 return
 
-            while shutter.state.read()['{}_state'.format(shutter.name)]['value'] != 0:
+            while shutter.status.value != 'Open':
                 QtWidgets.QApplication.processEvents()
                 ttime.sleep(0.1)
 
         signal.alarm(0)
 
         for shutter in [self.shutters[shutter] for shutter in self.shutters if
-                        self.shutters[shutter].shutter_type == 'SP' and self.shutters[shutter].state == 'closed']:
-            shutter.open()
+                        self.shutters[shutter].shutter_type == 'SP' and
+                        self.shutters[shutter].status.value != 'Open']:
+            st = shutter.set('Open')
+            while True:
+                if not st.done:
+                    time.sleep(0.01)
+                else:
+                    break
 
         for func in self.plan_funcs:
             if func.__name__ == 'get_offsets':
@@ -604,8 +615,14 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
         self.current_uid_list = list(getoffsets_func(20, *adcs, dummy_read=True))
 
         for shutter in [self.shutters[shutter] for shutter in self.shutters if
-                        self.shutters[shutter].shutter_type == 'SP' and self.shutters[shutter].state == 'open']:
-            shutter.close()
+                        self.shutters[shutter].shutter_type == 'SP' and
+                        self.shutters[shutter].status.value == 'Open']:
+            st = shutter.set('Close')
+            while True:
+                if not st.done:
+                    time.sleep(0.01)
+                else:
+                    break
         print('Done!')
 
     def adjust_ic_gains(self, trajectory: int = -1):
@@ -625,17 +642,18 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
 
         for shutter in [self.shutters[shutter] for shutter in self.shutters if
                         self.shutters[shutter].shutter_type != 'SP' and
-                                        self.shutters[shutter].state.read()['{}_state'.format(shutter)]['value'] != 0]:
+                        self.shutters[shutter].status.value != 'Open']:
 
             try:
-                shutter.open()
+                st = shutter.set('Open')
+                while True:
+                    if not st.done:
+                        time.sleep(0.01)
+                    else:
+                        break
             except Exception as exc:
                 print('Timeout! Aborting!')
                 return
-
-        # while shutter.state.read()['{}_state'.format(shutter.name)]['value'] != 0:
-        #        QtWidgets.QApplication.processEvents()
-        #        ttime.sleep(0.1)
 
         signal.alarm(0)
 
@@ -696,8 +714,14 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
             max_tries -= 1
 
             for shutter in [self.shutters[shutter] for shutter in self.shutters if
-                            self.shutters[shutter].shutter_type == 'SP' and self.shutters[shutter].state == 'closed']:
-                shutter.open()
+                            self.shutters[shutter].shutter_type == 'SP' and
+                            self.shutters[shutter].status.value != 'Open']:
+                st = shutter.set('Open')
+                while True:
+                    if not st.done:
+                        time.sleep(0.01)
+                    else:
+                        break
 
             for func in self.plan_funcs:
                 if func.__name__ == 'tscan':
@@ -706,8 +730,14 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
             self.current_uid_list = list(tscan_func('Check gains', ''))
 
             for shutter in [self.shutters[shutter] for shutter in self.shutters if
-                            self.shutters[shutter].shutter_type == 'SP' and self.shutters[shutter].state == 'open']:
-                shutter.close()
+                            self.shutters[shutter].shutter_type == 'SP' and
+                            self.shutters[shutter].status.value == 'Open']:
+                st = shutter.set('Close')
+                while True:
+                    if not st.done:
+                        time.sleep(0.01)
+                    else:
+                        break
 
             # Send sampling time to the pizzaboxes:
             self.comboBox_samp_time.setCurrentIndex(current_adc_index)
@@ -993,9 +1023,14 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
     def run_get_offsets(self):
         for shutter in [self.shutters[shutter] for shutter in self.shutters
                         if self.shutters[shutter].shutter_type == 'PH' and
-                        self.shutters[shutter].state.read()['{}_state'.format(shutter)]['value'] != 1]:
-            shutter.close()
-            while shutter.state.read()['{}_state'.format(shutter.name)]['value'] != 1:
+                        self.shutters[shutter].status.value == 'Open']:
+            st = shutter.set('Close')
+            while True:
+                if not st.done:
+                    time.sleep(0.01)
+                else:
+                    break
+            while shutter.status.value == 'Open':
                 QtWidgets.QApplication.processEvents()
                 ttime.sleep(0.1)
         get_offsets = [func for func in self.plan_funcs if func.__name__ == 'get_offsets'][0]
@@ -1109,8 +1144,7 @@ class piezo_fb_thread(QThread):
             #print("Here all the time? 1")
             if len([self.gui.shutters[shutter] for shutter in self.gui.shutters if
                     self.gui.shutters[shutter].shutter_type != 'SP' and
-                                    self.gui.shutters[shutter].state.read()['{}_state'.format(shutter)][
-                                        'value'] != 0]) == 0:
+                    self.gui.shutters[shutter].status.value == 'Open']):
                 self.gaussian_piezo_feedback(line=self.gui.piezo_line, center_point=self.gui.piezo_center,
                                              n_lines=self.gui.piezo_nlines, n_measures=self.gui.piezo_nmeasures)
                 #print("Here all the time? 4")
