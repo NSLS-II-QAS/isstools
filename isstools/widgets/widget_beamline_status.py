@@ -1,3 +1,4 @@
+import time
 from PyQt5 import uic, QtCore, QtWidgets
 import pkg_resources
 
@@ -20,9 +21,8 @@ class UIBeamlineStatus(*uic.loadUiType(ui_path)):
         self.shutters_sig.connect(self.change_shutter_color)
         self.shutters = shutters
 
-
         self.shutters_buttons = []
-        for key, item in zip(self.shutters.keys(), self.shutters.items()):
+        for key, item in self.shutters.items():
             self.shutter_layout = QtWidgets.QVBoxLayout()
 
             label = QtWidgets.QLabel(key)
@@ -41,45 +41,29 @@ class UIBeamlineStatus(*uic.loadUiType(ui_path)):
             button.setFixedWidth(button.height() * 1.2)
             QtCore.QCoreApplication.processEvents()
 
-            if hasattr(item[1].state, 'subscribe'):
-                item[1].button = button
-                item[1].state.subscribe(self.update_shutter)
+            if hasattr(item.status, 'subscribe'):
+                item.button = button
+                item.status.subscribe(self.update_shutter)
 
                 def toggle_shutter_call(shutter):
                     def toggle_shutter():
-                        if int(shutter.state.value):
-                            shutter.open()
+                        if shutter.status.value == 'Open':
+                            st = shutter.set('Close')
                         else:
-                            shutter.close()
-
+                            st = shutter.set('Open')
+                        while True:
+                            if not st.done:
+                                time.sleep(0.01)
+                            else:
+                                break
                     return toggle_shutter
 
-                button.clicked.connect(toggle_shutter_call(item[1]))
+                button.clicked.connect(toggle_shutter_call(item))
 
-                if item[1].state.value == 0:
+                if item.status.value == 'Open':
                     button.setStyleSheet("background-color: lime")
                 else:
                     button.setStyleSheet("background-color: red")
-
-            elif hasattr(item[1], 'subscribe'):
-                item[1].output.parent.button = button
-                item[1].subscribe(self.update_shutter)
-
-                def toggle_shutter_call(shutter):
-                    def toggle_shutter():
-                        if shutter.state == 'closed':
-                            shutter.open()
-                        else:
-                            shutter.close()
-
-                    return toggle_shutter
-
-                if item[1].state == 'closed':
-                    button.setStyleSheet("background-color: red")
-                elif item[1].state == 'open':
-                    button.setStyleSheet("background-color: lime")
-
-                button.clicked.connect(toggle_shutter_call(item[1]))
 
         if self.horizontalLayout_shutters.count() <= 1:
             self.groupBox_shutters.setVisible(False)
@@ -88,10 +72,9 @@ class UIBeamlineStatus(*uic.loadUiType(ui_path)):
         if 'obj' in kwargs.keys():
             if hasattr(kwargs['obj'].parent, 'button'):
                 self.current_button = kwargs['obj'].parent.button
-
-                if int(value) == 0:
+                if kwargs['obj'].value == 'Open':
                     self.current_button_color = 'lime'
-                elif int(value) == 1:
+                else:
                     self.current_button_color = 'red'
 
                 self.shutters_sig.emit()
