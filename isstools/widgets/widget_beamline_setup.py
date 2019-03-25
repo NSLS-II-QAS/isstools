@@ -579,11 +579,8 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
                         self.shutters[shutter].status.value != 'Open']:
             try:
                 st = shutter.set('Open')
-                while True:
-                    if not st.done:
-                        time.sleep(0.01)
-                    else:
-                        break
+                while not st.done:
+                    time.sleep(0.01)
             except Exception as exc:
                 print('Timeout! Aborting!')
                 return
@@ -598,11 +595,8 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
                         self.shutters[shutter].shutter_type == 'SP' and
                         self.shutters[shutter].status.value != 'Open']:
             st = shutter.set('Open')
-            while True:
-                if not st.done:
-                    time.sleep(0.01)
-                else:
-                    break
+            while not st.done:
+                time.sleep(0.01)
 
         for func in self.plan_funcs:
             if func.__name__ == 'get_offsets':
@@ -618,11 +612,8 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
                         self.shutters[shutter].shutter_type == 'SP' and
                         self.shutters[shutter].status.value == 'Open']:
             st = shutter.set('Close')
-            while True:
-                if not st.done:
-                    time.sleep(0.01)
-                else:
-                    break
+            while not st.done:
+                time.sleep(0.01)
         print('Done!')
 
     def adjust_ic_gains(self, trajectory: int = -1):
@@ -646,11 +637,8 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
 
             try:
                 st = shutter.set('Open')
-                while True:
-                    if not st.done:
-                        time.sleep(0.01)
-                    else:
-                        break
+                while not st.done:
+                    time.sleep(0.01)
             except Exception as exc:
                 print('Timeout! Aborting!')
                 return
@@ -717,11 +705,8 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
                             self.shutters[shutter].shutter_type == 'SP' and
                             self.shutters[shutter].status.value != 'Open']:
                 st = shutter.set('Open')
-                while True:
-                    if not st.done:
-                        time.sleep(0.01)
-                    else:
-                        break
+                while not st.done:
+                    time.sleep(0.01)
 
             for func in self.plan_funcs:
                 if func.__name__ == 'tscan':
@@ -733,11 +718,8 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
                             self.shutters[shutter].shutter_type == 'SP' and
                             self.shutters[shutter].status.value == 'Open']:
                 st = shutter.set('Close')
-                while True:
-                    if not st.done:
-                        time.sleep(0.01)
-                    else:
-                        break
+                while not st.done:
+                    time.sleep(0.01)
 
             # Send sampling time to the pizzaboxes:
             self.comboBox_samp_time.setCurrentIndex(current_adc_index)
@@ -1025,12 +1007,7 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
                         if self.shutters[shutter].shutter_type == 'PH' and
                         self.shutters[shutter].status.value == 'Open']:
             st = shutter.set('Close')
-            while True:
-                if not st.done:
-                    time.sleep(0.01)
-                else:
-                    break
-            while shutter.status.value == 'Open':
+            while not st.done:
                 QtWidgets.QApplication.processEvents()
                 ttime.sleep(0.1)
         get_offsets = [func for func in self.plan_funcs if func.__name__ == 'get_offsets'][0]

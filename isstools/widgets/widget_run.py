@@ -99,17 +99,16 @@ class UIRun(*uic.loadUiType(ui_path)):
         if self.run_type.currentText() == 'get_offsets':
             for shutter in [self.shutters[shutter] for shutter in self.shutters if
                             self.shutters[shutter].shutter_type == 'PH' and
-                                            self.shutters[shutter].state.read()['{}_state'.format(shutter)][
-                                                'value'] != 1]:
-                shutter.close()
-                while shutter.state.read()['{}_state'.format(shutter.name)]['value'] != 1:
+                            self.shutters[shutter].status.value == 'Open']:
+                st = shutter.set('Close')
+                while not st.done:
                     QtWidgets.QApplication.processEvents()
                     ttime.sleep(0.1)
 
         else:
             for shutter in [self.shutters[shutter] for shutter in self.shutters if
                             self.shutters[shutter].shutter_type != 'SP']:
-                if shutter.state.value:
+                if shutter.status.value != 'Open':
                     ret = self.questionMessage('Shutter closed',
                                                'Would you like to run the scan with the shutter closed?')
                     if not ret:
