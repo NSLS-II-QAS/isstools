@@ -41,7 +41,7 @@ class UIBeamlineStatus(*uic.loadUiType(ui_path)):
             button.setFixedWidth(button.height() * 1.2)
             QtCore.QCoreApplication.processEvents()
 
-            if hasattr(item.status, 'subscribe'):
+            if hasattr(item, 'status') and hasattr(item.status, 'subscribe'):
                 item.button = button
                 item.status.subscribe(self.update_shutter)
 
@@ -51,11 +51,8 @@ class UIBeamlineStatus(*uic.loadUiType(ui_path)):
                             st = shutter.set('Close')
                         else:
                             st = shutter.set('Open')
-                        while True:
-                            if not st.done:
-                                time.sleep(0.01)
-                            else:
-                                break
+                        while not st.done:
+                            time.sleep(0.01)
                     return toggle_shutter
 
                 button.clicked.connect(toggle_shutter_call(item))
