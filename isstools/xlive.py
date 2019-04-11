@@ -20,9 +20,6 @@ import pickle
 import pandas as pd
 from isstools.process_callbacks.callback import ProcessingCallback
 
-
-import kafka
-
 ui_path = pkg_resources.resource_filename('isstools', 'ui/XLive.ui')
 
 def auto_redraw_factory(fnc):
