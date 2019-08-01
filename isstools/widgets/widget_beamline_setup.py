@@ -44,6 +44,7 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
                  plan_funcs,
                  prepare_bl_list,
                  set_gains_offsets_scan,
+                 aux_plan_funcs,
                  motors_dict,
                  general_scan_func,
                  create_log_scan,
@@ -66,6 +67,7 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
         self.prepare_bl_plan = prepare_bl_plan
         self.plan_funcs = plan_funcs
         self.prepare_bl_list = prepare_bl_list
+        self.aux_plan_funcs = aux_plan_funcs
         self.set_gains_offsets_scan = set_gains_offsets_scan
         self.motors_dict = motors_dict
         self.gen_scan_func = general_scan_func
@@ -126,7 +128,8 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
             self.piezo_thread = piezo_fb_thread(self) 
             self.update_piezo.clicked.connect(self.update_piezo_params)
             self.push_update_piezo_center.clicked.connect(self.update_piezo_center)
-
+            
+        self.push_set_reference_foil.clicked.connect(self.set_reference_foil)
 
 
 
@@ -233,6 +236,11 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
             self.push_read_amp_gains.setEnabled(False)
         else:
             self.push_read_amp_gains.clicked.connect(self.read_amp_gains)
+
+        reference_foils = ['Ti', 'V', 'Cr', 'Mn', 'Fe', 'Co', 'Ni', 'Cu', 'Zn', 'Pt', 'Au', 'Mo', 'Pd', 'Sn']
+
+        for foil in reference_foils:
+            self.comboBox_reference_foils.addItem(foil)
 
     def addCanvas(self):
         self.figure_gen_scan = Figure()
@@ -882,6 +890,10 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
             else:
                 self.fb_master = -1
                 self.pushEnableHHMFeedback.setChecked(True)
+
+    def set_reference_foil(self):
+        foil = self.comboBox_reference_foils.currentText()
+        self.RE(self.aux_plan_funcs['set_reference_foil'](foil))
 
     def update_fb_status(self, pvname=None, value=None, char_value=None, **kwargs):
         if self.radioButton_fb_local.isChecked():

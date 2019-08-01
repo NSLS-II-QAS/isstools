@@ -47,6 +47,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
                  shutters_dict={},
                  det_dict={},
                  motors_dict={},
+                 aux_plan_funcs={},
                  general_scan_func = None,
                  sample_stages= None,
                  window_title="XLive @QAS/11-ID NSLS-II",
@@ -243,12 +244,14 @@ class XliveGui(*uic.loadUiType(ui_path)):
 
                 self.widget_trajectory_manager.trajectoriesChanged.connect(self.widget_batch_mode.update_batch_traj)
 
-            self.widget_beamline_setup = widget_beamline_setup.UIBeamlineSetup(RE, self.mono, db, self.adc_list,
+            self.widget_beamline_setup = widget_beamline_setup.UIBeamlineSetup(RE, self.mono, db, 
+                                                                               self.adc_list,
                                                                                self.enc_list, self.det_dict, self.xia,
                                                                                self.ic_amplifiers,
                                                                                self.prepare_bl_plan, self.plan_funcs,
                                                                                self.prepare_bl_list,
                                                                                self.set_gains_offsets_scan,
+                                                                               aux_plan_funcs,
                                                                                self.motors_dict, general_scan_func,
                                                                                self.widget_run.create_log_scan,
                                                                                self.auto_tune_dict, shutters_dict, self)
