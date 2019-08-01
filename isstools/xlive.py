@@ -9,7 +9,8 @@ from PyQt5 import uic, QtGui, QtCore
 from matplotlib.figure import Figure
 
 from isstools.widgets import (widget_general_info, widget_trajectory_manager, widget_processing, widget_batch_mode,
-                              widget_run, widget_beamline_setup, widget_sdd_manager, widget_beamline_status)
+                              widget_run, widget_beamline_setup, widget_sdd_manager, widget_beamline_status,
+                              widget_run_diff)
 
 from isstools.elements import EmittingStream
 #Libs for ZeroMQ communication
@@ -38,6 +39,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
     def __init__(self,
                  plan_funcs=[],
                  prep_traj_plan=None,
+                 diff_plans=[],
                  RE=None,
                  db=None,
                  accelerator=None,
@@ -133,6 +135,8 @@ class XliveGui(*uic.loadUiType(ui_path)):
 
         self.prep_traj_plan = prep_traj_plan
 
+        self.diff_plans = diff_plans
+
         self.motors_dict = motors_dict
 
         self.shutters_dict = shutters_dict
@@ -209,6 +213,16 @@ class XliveGui(*uic.loadUiType(ui_path)):
                                                                 parent_gui = self
                                                                 )
         self.layout_processing.addWidget(self.widget_processing)
+
+        self.widget_run_diff = widget_run_diff.UIRunDiff(RE,
+                                                         diff_plans,
+                                                         parent_gui=self,
+                                                         )
+        self.layout_run_diff.addWidget(self.widget_run_diff)
+
+
+
+
 
         if self.RE is not None:
             self.widget_run = widget_run.UIRun(self.plan_funcs, db, shutters_dict, self.adc_list, self.enc_list,
