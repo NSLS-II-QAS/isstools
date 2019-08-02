@@ -9,8 +9,7 @@ from PyQt5 import uic, QtGui, QtCore
 from matplotlib.figure import Figure
 
 from isstools.widgets import (widget_general_info, widget_trajectory_manager, widget_processing, widget_batch_mode,
-                              widget_run, widget_beamline_setup, widget_sdd_manager, widget_beamline_status,
-                              widget_run_diff)
+                              widget_run, widget_beamline_setup, widget_run_diff, widget_sdd_manager, widget_beamline_status)
 
 from isstools.elements import EmittingStream
 #Libs for ZeroMQ communication
@@ -136,11 +135,11 @@ class XliveGui(*uic.loadUiType(ui_path)):
 
         self.prep_traj_plan = prep_traj_plan
 
-        self.diff_plans = diff_plans
-
         self.motors_dict = motors_dict
 
         self.shutters_dict = shutters_dict
+
+        self.diff_plans = diff_plans
 
         self.RE = RE
         self.db = db
@@ -215,19 +214,16 @@ class XliveGui(*uic.loadUiType(ui_path)):
                                                                 )
         self.layout_processing.addWidget(self.widget_processing)
 
-        self.widget_run_diff = widget_run_diff.UIRunDiff(RE,
-                                                         diff_plans,
-                                                         parent_gui=self,
-                                                         )
-        self.layout_run_diff.addWidget(self.widget_run_diff)
-
-
-
-
-
         if self.RE is not None:
-            self.widget_run = widget_run.UIRun(self.plan_funcs, db, shutters_dict, self.adc_list, self.enc_list,
-                                               self.xia, self.html_log_func, self)
+            self.widget_run = widget_run.UIRun(self.plan_funcs, 
+                                               db, 
+                                               shutters_dict, 
+                                               self.adc_list, 
+                                               self.enc_list,
+                                               self.xia, 
+                                               self.html_log_func, 
+                                               self)
+
             self.layout_run.addWidget(self.widget_run)
 
             if self.mono is not None:
@@ -256,6 +252,11 @@ class XliveGui(*uic.loadUiType(ui_path)):
                                                                                self.widget_run.create_log_scan,
                                                                                self.auto_tune_dict, shutters_dict, self)
             self.layout_beamline_setup.addWidget(self.widget_beamline_setup)
+
+            self.widget_run_diff = widget_run_diff.UIRunDiff(RE,
+                                                             self.diff_plans,
+                                                             parent_gui = self)
+            self.layout_run_diff.addWidget(self.widget_run_diff)
    
         self.layout_beamline_status.addWidget(widget_beamline_status.UIBeamlineStatus(self.shutters_dict))
 
@@ -292,6 +293,9 @@ class XliveGui(*uic.loadUiType(ui_path)):
 
     def run_prep_traj(self):
         self.RE(self.prep_traj_plan())
+
+    def plans_diff(self):
+        self.RE(self.plans_diff())
 
     def re_abort(self):
         if self.RE.state != 'idle':
