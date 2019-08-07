@@ -253,7 +253,8 @@ class XliveGui(*uic.loadUiType(ui_path)):
                                                                                self.auto_tune_dict, shutters_dict, self)
             self.layout_beamline_setup.addWidget(self.widget_beamline_setup)
 
-            self.widget_run_diff = widget_run_diff.UIRunDiff(RE,
+            self.widget_run_diff = widget_run_diff.UIRunDiff(RE, 
+                                                             db,
                                                              self.diff_plans,
                                                              parent_gui = self)
             self.layout_run_diff.addWidget(self.widget_run_diff)

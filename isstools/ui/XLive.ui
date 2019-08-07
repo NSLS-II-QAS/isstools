@@ -45,7 +45,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="tab_beamline_setup_manager">
      <attribute name="title">
@@ -129,7 +129,7 @@
     </widget>
     <widget class="QWidget" name="tab">
      <attribute name="title">
-      <string>Run Diff</string>
+      <string>XRD</string>
      </attribute>
      <widget class="QWidget" name="horizontalLayoutWidget_11">
       <property name="geometry">
@@ -328,7 +328,7 @@
      <x>0</x>
      <y>0</y>
      <width>2220</width>
-     <height>18</height>
+     <height>16</height>
     </rect>
    </property>
   </widget>

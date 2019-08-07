@@ -34,7 +34,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>run start</string>
+    <string>Run</string>
    </property>
   </widget>
   <widget class="QSpinBox" name="spinBox_num_dark_frames">
@@ -45,6 +45,9 @@
      <width>50</width>
      <height>25</height>
     </rect>
+   </property>
+   <property name="minimum">
+    <number>1</number>
    </property>
   </widget>
   <widget class="QLabel" name="label">
@@ -118,6 +121,9 @@
      <height>25</height>
     </rect>
    </property>
+   <property name="minimum">
+    <number>1</number>
+   </property>
   </widget>
   <widget class="QSpinBox" name="spinBox_exposure">
    <property name="geometry">
@@ -127,6 +133,12 @@
      <width>50</width>
      <height>25</height>
     </rect>
+   </property>
+   <property name="minimum">
+    <number>1</number>
+   </property>
+   <property name="maximum">
+    <number>9</number>
    </property>
   </widget>
  </widget>

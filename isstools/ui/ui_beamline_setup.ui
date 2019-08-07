@@ -509,6 +509,9 @@ Gains</string>
          <height>21</height>
         </size>
        </property>
+       <property name="editable">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="1" column="0">
@@ -972,7 +975,7 @@ position</string>
     </rect>
    </property>
    <property name="title">
-    <string>GroupBox</string>
+    <string>Reference Foil</string>
    </property>
    <widget class="QComboBox" name="comboBox_reference_foils">
     <property name="geometry">
@@ -993,11 +996,11 @@ position</string>
       <height>21</height>
      </rect>
     </property>
-    <property name="toolTipDuration">
-     <number>0</number>
-    </property>
     <property name="text">
      <string>Set</string>
+    </property>
+    <property name="toolTipDuration" stdset="0">
+     <number>0</number>
     </property>
    </widget>
   </widget>

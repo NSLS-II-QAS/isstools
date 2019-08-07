@@ -217,6 +217,8 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
             self.comboBox_samp_time.currentTextChanged.connect(self.parent_gui.widget_batch_mode.setAnalogSampTime)
             self.comboBox_samp_time.currentTextChanged.connect(self.parent_gui.widget_run.setAnalogSampTime)
             self.comboBox_samp_time.setCurrentIndex(self.adc_list[0].averaging_points.value)
+            #self.comboBox_samp_time.setCurrentIndex(7)
+            print(adc_list[0].averaging_points)
 
         if len(self.enc_list):
             self.lineEdit_samp_time.textChanged.connect(self.parent_gui.widget_batch_mode.setEncSampTime)
@@ -237,7 +239,7 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
         else:
             self.push_read_amp_gains.clicked.connect(self.read_amp_gains)
 
-        reference_foils = ['Ti', 'V', 'Cr', 'Mn', 'Fe', 'Co', 'Ni', 'Cu', 'Zn', 'Pt', 'Au', 'Mo', 'Pd', 'Sn']
+        reference_foils = ['None','Ti', 'V', 'Cr', 'Mn', 'Fe', 'Co', 'Ni', 'Cu', 'Zn', 'Pt', 'Au', 'Mo', 'Pd', 'Sn']
 
         for foil in reference_foils:
             self.comboBox_reference_foils.addItem(foil)
@@ -730,7 +732,7 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
                     time.sleep(0.01)
 
             # Send sampling time to the pizzaboxes:
-            self.comboBox_samp_time.setCurrentIndex(current_adc_index)
+            self.comboBox_samp_time.setCurrentIndex(0)
             self.current_enc_value = self.lineEdit_samp_time.setText(current_enc_value)
             value = int(
                 round(float(self.comboBox_samp_time.currentText()) / self.adc_list[0].sample_rate.value * 100000))

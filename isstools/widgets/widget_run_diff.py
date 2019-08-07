@@ -30,6 +30,7 @@ from isstools.xasdata.xasdata import XASdataGeneric
 class UIRunDiff(*uic.loadUiType(ui_path)):
     def __init__(self,
                  RE,
+                 db,
                  plans_diff,
                  parent_gui,
                  *args, **kwargs):
@@ -39,12 +40,13 @@ class UIRunDiff(*uic.loadUiType(ui_path)):
 
         mpl.rcParams['agg.path.chunksize'] = 10000
         self.RE = RE
-        self.plan_diff = plans_diff[0]
+        self.db = db
+        self.plans_diff = plans_diff[0]
         self.run_start.clicked.connect(self.run_diffraction)
 
         # TODO : remove hhm dependency
 
-    def run_diffraction(self):
+    def run_diffraction(self,db):
         run_parameters = []
 
         # for shutter in [self.shutter_dictionary[shutter] for shutter in self.shutter_dictionary if
@@ -67,7 +69,7 @@ class UIRunDiff(*uic.loadUiType(ui_path)):
 
             # Run the scan using the dict created before
             self.run_mode_uids = []
-            self.run_mode_uids = self.RE(self.plan_diff(**run_parameters ))
+            self.run_mode_uids = self.RE(self.plans_diff(**run_parameters))
 
 
 
