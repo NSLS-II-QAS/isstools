@@ -97,37 +97,12 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
         else:
             self.prepare_bl_plan = None
 
-        self.plan_funcs_names = [plan.__name__ for plan in plan_funcs]
-        if 'get_offsets' in self.plan_funcs_names:
-            self.push_get_offsets.clicked.connect(self.run_get_offsets)
-        else:
-            self.push_get_offsets.setEnabled(False)
-
-        if self.prepare_bl_plan is not None:
-            self.plan_funcs.append(self.prepare_bl)
-            self.plan_funcs_names.append(self.prepare_bl.__name__)
-
-        self.plan_funcs.append(self.adjust_ic_gains)
-        self.plan_funcs_names.append(self.adjust_ic_gains.__name__)
-        if self.set_gains_offsets_scan is not None:
-            self.plan_funcs.append(self.set_gains_offsets_scan)
-            self.plan_funcs_names.append(self.set_gains_offsets_scan.__name__)
 
         if self.hhm is None:
             self.pushEnableHHMFeedback.setEnabled(False)
             self.update_piezo.setEnabled(False)
 
-        if hasattr(hhm, 'fb_line'):
-            self.fb_master = 0
-            self.piezo_line = int(self.hhm.fb_line.value)
-            self.piezo_center = float(self.hhm.fb_center.value)
-            self.piezo_nlines = int(self.hhm.fb_nlines.value)
-            self.piezo_nmeasures = int(self.hhm.fb_nmeasures.value)
-            self.piezo_kp = float(self.hhm.fb_pcoeff.value)
-            self.hhm.fb_status.subscribe(self.update_fb_status)
-            self.piezo_thread = piezo_fb_thread(self) 
-            self.update_piezo.clicked.connect(self.update_piezo_params)
-            self.push_update_piezo_center.clicked.connect(self.update_piezo_center)
+
             
         self.push_set_reference_foil.clicked.connect(self.set_reference_foil)
 
@@ -214,21 +189,21 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
             times_arr = list(times_arr.astype(np.float) * self.adc_list[0].sample_rate.value / 100000)
             times_arr = [str(elem) for elem in times_arr]
             self.comboBox_samp_time.addItems(times_arr)
-            self.comboBox_samp_time.currentTextChanged.connect(self.parent_gui.widget_batch_mode.setAnalogSampTime)
+            #self.comboBox_samp_time.currentTextChanged.connect(self.parent_gui.widget_batch_mode.setAnalogSampTime)
             self.comboBox_samp_time.currentTextChanged.connect(self.parent_gui.widget_run.setAnalogSampTime)
             self.comboBox_samp_time.setCurrentIndex(self.adc_list[0].averaging_points.value)
             #self.comboBox_samp_time.setCurrentIndex(7)
             print(adc_list[0].averaging_points)
 
         if len(self.enc_list):
-            self.lineEdit_samp_time.textChanged.connect(self.parent_gui.widget_batch_mode.setEncSampTime)
+            #self.lineEdit_samp_time.textChanged.connect(self.parent_gui.widget_batch_mode.setEncSampTime)
             self.lineEdit_samp_time.textChanged.connect(self.parent_gui.widget_run.setEncSampTime)
             self.lineEdit_samp_time.setText(str(self.enc_list[0].filter_dt.value / 100000))
 
         if hasattr(self.xia, 'input_trigger'):
             if self.xia.input_trigger is not None:
                 self.xia.input_trigger.unit_sel.put(1)  # ms, not us
-                self.lineEdit_xia_samp.textChanged.connect(self.parent_gui.widget_batch_mode.setXiaSampTime)
+                #self.lineEdit_xia_samp.textChanged.connect(self.parent_gui.widget_batch_mode.setXiaSampTime)
                 self.lineEdit_xia_samp.textChanged.connect(self.parent_gui.widget_run.setXiaSampTime)
                 self.lineEdit_xia_samp.setText(str(self.xia.input_trigger.period_sp.value))
 

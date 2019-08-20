@@ -31,6 +31,7 @@ from isstools.xasdata.xasdata import XASdataGeneric
 class UIRun(*uic.loadUiType(ui_path)):
     def __init__(self,
                  plan_funcs,
+                 RE,
                  db,
                  shutters,
                  adc_list,
@@ -48,8 +49,9 @@ class UIRun(*uic.loadUiType(ui_path)):
 
 
         self.plan_funcs = plan_funcs
-        self.plan_funcs_names = [plan.__name__ for plan in plan_funcs]
+        self.plan_funcs_names = plan_funcs.keys()
         self.db = db
+        self.RE = RE
         if self.db is None:
             self.run_start.setEnabled(False)
 
@@ -61,14 +63,13 @@ class UIRun(*uic.loadUiType(ui_path)):
         self.parent_gui = parent_gui
 
         self.filepaths = []
-        self.xia_parser = xiaparser.xiaparser()
 
-        self.run_type.addItems(self.plan_funcs_names)
+        self.comboBox_scan_type.addItems(self.plan_funcs_names)
+
+        self.comboBox_scan_type.currentIndexChanged.connect(self.populateParams)
+
         self.run_start.clicked.connect(self.run_scan)
 
-        self.pushButton_scantype_help.clicked.connect(self.show_scan_help)
-
-        self.run_type.currentIndexChanged.connect(self.populateParams)
 
         # List with uids of scans created in the "run" mode:
         self.run_mode_uids = []
@@ -96,26 +97,6 @@ class UIRun(*uic.loadUiType(ui_path)):
 
     def run_scan(self):
         ignore_shutter=False
-        if self.run_type.currentText() == 'get_offsets':
-            for shutter in [self.shutters[shutter] for shutter in self.shutters if
-                            self.shutters[shutter].shutter_type == 'PH' and
-                            self.shutters[shutter].status.value == 'Open']:
-                st = shutter.set('Close')
-                while not st.done:
-                    QtWidgets.QApplication.processEvents()
-                    ttime.sleep(0.1)
-
-        else:
-            for shutter in [self.shutters[shutter] for shutter in self.shutters if
-                            self.shutters[shutter].shutter_type != 'SP']:
-                if shutter.status.value != 'Open':
-                    ret = self.questionMessage('Shutter closed',
-                                               'Would you like to run the scan with the shutter closed?')
-                    if not ret:
-                        print('Aborted!')
-                        return False
-                    ignore_shutter=True
-                    break
 
         # Send sampling time to the pizzaboxes:
         value = int(round(float(self.analog_samp_time) / self.adc_list[0].sample_rate.value * 100000))
@@ -125,12 +106,6 @@ class UIRun(*uic.loadUiType(ui_path)):
 
         for enc in self.enc_list:
             enc.filter_dt.put(float(self.enc_samp_time) * 100000)
-
-        # not needed at QAS this is a detector
-        if self.xia is not None:
-            if self.xia.input_trigger is not None:
-                self.xia.input_trigger.unit_sel.put(1)  # ms, not us
-                self.xia.input_trigger.period_sp.put(int(self.xia_samp_time))
 
         self.comment = self.params2[0].text()
         if (self.comment):
@@ -161,11 +136,15 @@ class UIRun(*uic.loadUiType(ui_path)):
             # Run the scan using the dict created before
             self.run_mode_uids = []
             self.parent_gui.run_mode = 'run'
-            for uid in self.plan_funcs[self.run_type.currentIndex()](**run_params,
-                                                                     ax=self.figure.ax1,
-                                                                     ignore_shutter=ignore_shutter,
-                                                                     stdout=self.parent_gui.emitstream_out):
-                self.run_mode_uids.append(uid)
+            plan_func = self.plan_funcs[self.comboBox_scan_type.currentText()]
+            self.run_mode_uids = self.RE(plan_func(**run_params,
+                                                   ax=self.figure.ax1,
+                                                   ignore_shutter=ignore_shutter,
+                                                   stdout=self.parent_gui.emitstream_out))
+            timenow = datetime.datetime.now()
+            print('Scan complete at {}'.format(timenow.strftime("%H:%M:%S")))
+            stop_scan_timer = timer()
+            print('Scan duration {} s'.format(stop_scan_timer - start_scan_timer))
 
             timenow = datetime.datetime.now()    
             print('Scan complete at {}'.format(timenow.strftime("%H:%M:%S")))
@@ -175,13 +154,7 @@ class UIRun(*uic.loadUiType(ui_path)):
         else:
             print('\nPlease, type the name of the scan in the field "name"\nTry again')
 
-    def show_scan_help(self):
-        title = self.run_type.currentText()
-        message = self.plan_funcs[self.run_type.currentIndex()].__doc__
-        QtWidgets.QMessageBox.question(self,
-                                       'Help! - {}'.format(title),
-                                       message,
-                                       QtWidgets.QMessageBox.Ok)
+
 
     def create_log_scan(self, uid, figure):
         self.canvas.draw_idle()
@@ -200,7 +173,8 @@ class UIRun(*uic.loadUiType(ui_path)):
         self.params2 = []
         self.params3 = []
         self.param_types = []
-        plan_func = self.plan_funcs[index]
+        plan_func = self.plan_funcs[self.comboBox_scan_type.currentText()]
+
         signature = inspect.signature(plan_func)
         for i in range(0, len(signature.parameters)):
             default = re.sub(r':.*?=', '=', str(signature.parameters[list(signature.parameters)[i]]))

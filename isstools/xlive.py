@@ -131,7 +131,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
 
         self.det_dict = det_dict
         self.plan_funcs = plan_funcs
-        self.plan_funcs_names = [plan.__name__ for plan in plan_funcs]
+
 
         self.prep_traj_plan = prep_traj_plan
 
@@ -216,8 +216,9 @@ class XliveGui(*uic.loadUiType(ui_path)):
 
         if self.RE is not None:
             self.widget_run = widget_run.UIRun(self.plan_funcs, 
-                                               db, 
-                                               shutters_dict, 
+                                               RE,
+                                               db,
+                                               shutters_dict,
                                                self.adc_list, 
                                                self.enc_list,
                                                self.xia, 
@@ -225,7 +226,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
                                                self)
 
             self.layout_run.addWidget(self.widget_run)
-
+            '''
             if self.mono is not None:
                 self.widget_batch_mode = widget_batch_mode.UIBatchMode(self.plan_funcs, self.motors_dict, mono,
                                                                        RE, db,
@@ -236,10 +237,10 @@ class XliveGui(*uic.loadUiType(ui_path)):
                                                                        parent_gui = self,
                                                                        job_submitter=job_submitter)
                 self.layout_batch.addWidget(self.widget_batch_mode)
+            
 
-
-                self.widget_trajectory_manager.trajectoriesChanged.connect(self.widget_batch_mode.update_batch_traj)
-
+            self.widget_trajectory_manager.trajectoriesChanged.connect(self.widget_batch_mode.update_batch_traj)
+            '''
             self.widget_beamline_setup = widget_beamline_setup.UIBeamlineSetup(RE, self.mono, db, 
                                                                                self.adc_list,
                                                                                self.enc_list, self.det_dict, self.xia,
