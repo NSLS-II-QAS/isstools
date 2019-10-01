@@ -14,21 +14,32 @@
    <string>Form</string>
   </property>
   <widget class="QWidget" name="verticalLayoutWidget_2">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>420</x>
      <y>30</y>
-     <width>1341</width>
-     <height>1051</height>
+     <width>971</width>
+     <height>851</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="plots"/>
+   <layout class="QVBoxLayout" name="plots">
+    <item>
+     <widget class="QGraphicsView" name="graphicsView">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QPushButton" name="run_start">
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>330</y>
+     <y>470</y>
      <width>80</width>
      <height>30</height>
     </rect>
@@ -40,14 +51,14 @@
   <widget class="QSpinBox" name="spinBox_num_dark_frames">
    <property name="geometry">
     <rect>
-     <x>210</x>
+     <x>220</x>
      <y>270</y>
      <width>50</width>
      <height>25</height>
     </rect>
    </property>
    <property name="minimum">
-    <number>1</number>
+    <number>0</number>
    </property>
   </widget>
   <widget class="QLabel" name="label">
@@ -60,7 +71,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Number of dark patterns</string>
+    <string>Number of dark patterns (0-99)</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
@@ -68,12 +79,12 @@
     <rect>
      <x>60</x>
      <y>220</y>
-     <width>120</width>
+     <width>150</width>
      <height>30</height>
     </rect>
    </property>
    <property name="text">
-    <string>Number of patterns</string>
+    <string>Number of patterns (1-99)</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">
@@ -86,13 +97,13 @@
     </rect>
    </property>
    <property name="text">
-    <string>Exposure time</string>
+    <string>Exposure time (Second)</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit_filename">
    <property name="geometry">
     <rect>
-     <x>210</x>
+     <x>220</x>
      <y>120</y>
      <width>150</width>
      <height>25</height>
@@ -115,7 +126,7 @@
   <widget class="QSpinBox" name="spinBox_num_frames">
    <property name="geometry">
     <rect>
-     <x>210</x>
+     <x>220</x>
      <y>220</y>
      <width>50</width>
      <height>25</height>
@@ -128,7 +139,7 @@
   <widget class="QSpinBox" name="spinBox_exposure">
    <property name="geometry">
     <rect>
-     <x>210</x>
+     <x>220</x>
      <y>170</y>
      <width>50</width>
      <height>25</height>
@@ -138,7 +149,97 @@
     <number>1</number>
    </property>
    <property name="maximum">
-    <number>9</number>
+    <number>6</number>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox_num_repetitions">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>350</y>
+     <width>50</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="minimum">
+    <number>1</number>
+   </property>
+   <property name="maximum">
+    <number>99999</number>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox_delay">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>400</y>
+     <width>50</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="minimum">
+    <number>0</number>
+   </property>
+   <property name="maximum">
+    <number>9999</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>350</y>
+     <width>160</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Repetitions</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>400</y>
+     <width>160</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Delay time (Second)</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>550</y>
+     <width>371</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Number of dark patterns = 0 uses most recent dark pattern measured.</string>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>600</y>
+     <width>80</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Open Pattern</string>
    </property>
   </widget>
  </widget>

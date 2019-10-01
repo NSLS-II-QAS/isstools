@@ -960,7 +960,13 @@ class UIBatchMode(*uic.loadUiType(ui_path)):
                 self.label_batch_step.setText('Finished (Idle)')
 
         except Exception as e:
-            print(e)
+            # jlynch 8/30 - we need more information about exceptions that land here
+            import sys
+            import traceback
+            etype, evalue, tb = sys.exc_info()
+            traceback.print_exception(etype, evalue, tb)
+            #print(e)
+            # jlynch 8/30
             print('Batch run aborted!')
             font = QtGui.QFont()
             item.setFont(font)

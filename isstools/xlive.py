@@ -144,7 +144,6 @@ class XliveGui(*uic.loadUiType(ui_path)):
         self.RE = RE
         self.db = db
 
-
         if self.RE is not None:
             self.RE.is_aborted = False
             self.timer = QtCore.QTimer()

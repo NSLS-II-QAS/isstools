@@ -231,7 +231,10 @@ class XASdataGeneric(XASdata):
         elif 'timestamp' in keys:
             timestamp_index = keys.index('timestamp')
 
-        df = pd.read_table(filename, delim_whitespace=True, comment='#', names=keys, index_col=False).sort_values(keys[1])
+        # jlynch 8/30 - I want to clean up the terminal output
+        #df = pd.read_table(filename, delim_whitespace=True, comment='#', names=keys, index_col=False).sort_values(keys[1])
+        df = pd.read_csv(filename, delim_whitespace=True, comment='#', names=keys, index_col=False).sort_values(keys[1])
+        # jlynch 8/30
         df['1'] = pd.Series(np.ones(len(df.iloc[:, 0])), index=df.index)
 
 

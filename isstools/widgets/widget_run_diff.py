@@ -63,7 +63,9 @@ class UIRunDiff(*uic.loadUiType(ui_path)):
             run_parameters = {'filename': self.lineEdit_filename.text(),
                               'exposure': self.spinBox_exposure.value(),
                               'num_images': self.spinBox_num_frames.value(),
-                              'num_dark_images': self.spinBox_num_dark_frames.value()
+                              'num_dark_images': self.spinBox_num_dark_frames.value(),
+                              'num_repetitions': self.spinBox_num_repetitions.value(),
+                              'delay': self.spinBox_delay.value()
                               }
 
 
