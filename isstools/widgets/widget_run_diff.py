@@ -1,23 +1,31 @@
+import sys
 import pkg_resources
 import inspect
 import re
 import os
+from PIL import Image
 from subprocess import call
-from PyQt5 import uic, QtWidgets, QtCore
+from PyQt5 import uic, QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtCore import QThread, QSettings
 from matplotlib.backends.backend_qt5agg import (
     FigureCanvasQTAgg as FigureCanvas,
     NavigationToolbar2QT as NavigationToolbar)
 from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
+import matplotlib.colors as colors
 import time as ttime
 import numpy as np
 import datetime
 from timeit import default_timer as timer
+from skimage import exposure
 import matplotlib as mpl
 from isstools.elements.figure_update import update_figure
 
 # Libs needed by the ZMQ communication
 import json
 import pandas as pd
+import numpy as np
 
 timenow = datetime.datetime.now()
 
@@ -44,7 +52,11 @@ class UIRunDiff(*uic.loadUiType(ui_path)):
         self.plans_diff = plans_diff[0]
         self.run_start.clicked.connect(self.run_diffraction)
 
-        # TODO : remove hhm dependency
+        self.settings = QSettings(parent_gui.window_title, 'XLive')
+        self.user_dir = self.settings.value('usr_dir', defaultValue = '/nsls2/xf07bm/users', type = str)
+
+        self.push_open_pattern.clicked.connect(self.open_tiff_files)
+        self.addCanvas()
 
     def run_diffraction(self,db):
         run_parameters = []
@@ -83,3 +95,29 @@ class UIRunDiff(*uic.loadUiType(ui_path)):
 
         else:
             print('Error', 'Please provide the name for the scan')
+
+
+    def open_tiff_files(self):
+
+        self.tiff_file_to_view = QtWidgets.QFileDialog.getOpenFileName(directory = self.user_dir,
+                                                              filter = '*.tiff', parent = self)[0]
+
+        #img = Image.open(self.tiff_file_to_view).convert("L")
+        img = plt.imread(self.tiff_file_to_view)
+        #tiff_np_array = np.asarray(img)
+
+        #gamma_corrected = exposure.adjust_gamma(img, 2)
+        logarithmic_corrected = exposure.adjust_log(img, 1)
+        
+        self.figure_tiff_image.ax.imshow(logarithmic_corrected, cmap='gray')
+        self.canvas_tiff_image.draw_idle()
+
+    def addCanvas(self):
+        self.figure_tiff_image = Figure()
+        self.figure_tiff_image.set_facecolor(color='#FcF9F6')
+        self.canvas_tiff_image = FigureCanvas(self.figure_tiff_image)
+        self.figure_tiff_image.ax = self.figure_tiff_image.add_subplot(111)
+        self.toolbar_tiff_image = NavigationToolbar(self.canvas_tiff_image, self, coordinates=True)
+        self.plot_tiff_image.addWidget(self.toolbar_tiff_image)
+        self.plot_tiff_image.addWidget(self.canvas_tiff_image)
+        self.canvas_tiff_image.draw_idle()
