@@ -3,7 +3,6 @@ import pkg_resources
 import inspect
 import re
 import os
-from PIL import Image
 from subprocess import call
 from PyQt5 import uic, QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QPixmap
@@ -102,14 +101,11 @@ class UIRunDiff(*uic.loadUiType(ui_path)):
         self.tiff_file_to_view = QtWidgets.QFileDialog.getOpenFileName(directory = self.user_dir,
                                                               filter = '*.tiff', parent = self)[0]
 
-        #img = Image.open(self.tiff_file_to_view).convert("L")
         img = plt.imread(self.tiff_file_to_view)
-        #tiff_np_array = np.asarray(img)
-
-        #gamma_corrected = exposure.adjust_gamma(img, 2)
         logarithmic_corrected = exposure.adjust_log(img, 1)
-        
-        self.figure_tiff_image.ax.imshow(logarithmic_corrected, cmap='gray')
+  
+        self.figure_tiff_image.ax.clear()      
+        self.figure_tiff_image.ax.imshow(logarithmic_corrected, cmap='BuPu_r', vmax=2000)
         self.canvas_tiff_image.draw_idle()
 
     def addCanvas(self):
