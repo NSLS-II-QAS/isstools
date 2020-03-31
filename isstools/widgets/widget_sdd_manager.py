@@ -20,76 +20,76 @@ ui_path = pkg_resources.resource_filename('isstools', 'ui/ui_sdd_manager.ui')
 class UISDDManager(*uic.loadUiType(ui_path)):
 
     def __init__(self,
-                 xia_list=[],
                  *args, **kwargs):
 
         super().__init__(*args, **kwargs)
         self.setupUi(self)
-        self.addCanvas()
 
-        self.xia_list = xia_list
-        self.xia_parser = xiaparser.xiaparser()
-        self.xia_graphs_names = []
-        self.xia_graphs_labels = []
-        self.xia_handles = []
-
-
-
-        self.xia = self.xia_list[0]
-        self.xia_channels = [int(mca.split('mca')[1]) for mca in
-                             set(self.xia.read_attrs) & set(self.xia.component_names)]
-        self.xia_tog_channels = []
-
-        self.xia.mca_max_energy.subscribe(self.update_xia_params)
-        self.xia.real_time.subscribe(self.update_xia_params)
-        self.xia.real_time_rb.subscribe(self.update_xia_params)
-        self.edit_xia_acq_time.returnPressed.connect(self.update_xia_acqtime_pv)
-        self.edit_xia_energy_range.returnPressed.connect(self.update_xia_energyrange_pv)
-        self.push_gain_matching.clicked.connect(self.run_gain_matching)
-
-        self.push_run_xia_measurement.clicked.connect(self.update_xia_rois)
-        self.push_run_xia_measurement.clicked.connect(self.start_xia_spectra)
-        if self.xia.connected:
-            max_en = self.xia.mca_max_energy.value
-            energies = np.linspace(0, max_en, 2048)
-    
-            self.roi_colors = []
-            for mult in range(4):
-                self.roi_colors.append((.4 + (.2 * mult), 0, 0))
-                self.roi_colors.append((0, .4 + (.2 * mult), 0))
-                self.roi_colors.append((0, 0, .4 + (.2 * mult)))
-    
-            for roi in range(12):
-                low = getattr(self.xia, "mca1.roi{}".format(roi)).low.value
-                high = getattr(self.xia, "mca1.roi{}".format(roi)).high.value
-                if low > 0:
-                    getattr(self, 'edit_roi_from_{}'.format(roi)).setText('{:.0f}'.format(
-                        np.floor(energies[getattr(self.xia, "mca1.roi{}".format(roi)).low.value] * 1000)))
-                else:
-                    getattr(self, 'edit_roi_from_{}'.format(roi)).setText('{:.0f}'.format(low))
-                if high > 0:
-                    getattr(self, 'edit_roi_to_{}'.format(roi)).setText('{:.0f}'.format(
-                        np.floor(energies[getattr(self.xia, "mca1.roi{}".format(roi)).high.value] * 1000)))
-                else:
-                    getattr(self, 'edit_roi_to_{}'.format(roi)).setText('{:.0f}'.format(high))
-    
-                label = getattr(self.xia, "mca1.roi{}".format(roi)).label.value
-                getattr(self, 'edit_roi_name_{}'.format(roi)).setText(label)
-    
-                getattr(self, 'edit_roi_from_{}'.format(roi)).returnPressed.connect(self.update_xia_rois)
-                getattr(self, 'edit_roi_to_{}'.format(roi)).returnPressed.connect(self.update_xia_rois)
-                getattr(self, 'edit_roi_name_{}'.format(roi)).returnPressed.connect(self.update_xia_rois)
-    
-    
-            for channel in self.xia_channels:
-                getattr(self, "checkBox_gm_ch{}".format(channel)).setEnabled(True)
-                getattr(self.xia, "mca{}".format(channel)).array.subscribe(self.update_xia_graph)
-                getattr(self, "checkBox_gm_ch{}".format(channel)).toggled.connect(self.toggle_xia_checkbox)
-            self.push_checkall_xia.clicked.connect(self.toggle_xia_all)
-    
-            if hasattr(self.xia, 'input_trigger'):
-                if self.xia.input_trigger is not None:
-                    self.xia.input_trigger.unit_sel.put(1)  # ms, not us
+        # self.addCanvas()
+        #
+        # self.xia_list = xia_list
+        # self.xia_parser = xiaparser.xiaparser()
+        # self.xia_graphs_names = []
+        # self.xia_graphs_labels = []
+        # self.xia_handles = []
+        #
+        #
+        #
+        # self.xia = self.xia_list[0]
+        # self.xia_channels = [int(mca.split('mca')[1]) for mca in
+        #                      set(self.xia.read_attrs) & set(self.xia.component_names)]
+        # self.xia_tog_channels = []
+        #
+        # self.xia.mca_max_energy.subscribe(self.update_xia_params)
+        # self.xia.real_time.subscribe(self.update_xia_params)
+        # self.xia.real_time_rb.subscribe(self.update_xia_params)
+        # self.edit_xia_acq_time.returnPressed.connect(self.update_xia_acqtime_pv)
+        # self.edit_xia_energy_range.returnPressed.connect(self.update_xia_energyrange_pv)
+        # self.push_gain_matching.clicked.connect(self.run_gain_matching)
+        #
+        # self.push_run_xia_measurement.clicked.connect(self.update_xia_rois)
+        # self.push_run_xia_measurement.clicked.connect(self.start_xia_spectra)
+        # if self.xia.connected:
+        #     max_en = self.xia.mca_max_energy.value
+        #     energies = np.linspace(0, max_en, 2048)
+        #
+        #     self.roi_colors = []
+        #     for mult in range(4):
+        #         self.roi_colors.append((.4 + (.2 * mult), 0, 0))
+        #         self.roi_colors.append((0, .4 + (.2 * mult), 0))
+        #         self.roi_colors.append((0, 0, .4 + (.2 * mult)))
+        #
+        #     for roi in range(12):
+        #         low = getattr(self.xia, "mca1.roi{}".format(roi)).low.value
+        #         high = getattr(self.xia, "mca1.roi{}".format(roi)).high.value
+        #         if low > 0:
+        #             getattr(self, 'edit_roi_from_{}'.format(roi)).setText('{:.0f}'.format(
+        #                 np.floor(energies[getattr(self.xia, "mca1.roi{}".format(roi)).low.value] * 1000)))
+        #         else:
+        #             getattr(self, 'edit_roi_from_{}'.format(roi)).setText('{:.0f}'.format(low))
+        #         if high > 0:
+        #             getattr(self, 'edit_roi_to_{}'.format(roi)).setText('{:.0f}'.format(
+        #                 np.floor(energies[getattr(self.xia, "mca1.roi{}".format(roi)).high.value] * 1000)))
+        #         else:
+        #             getattr(self, 'edit_roi_to_{}'.format(roi)).setText('{:.0f}'.format(high))
+        #
+        #         label = getattr(self.xia, "mca1.roi{}".format(roi)).label.value
+        #         getattr(self, 'edit_roi_name_{}'.format(roi)).setText(label)
+        #
+        #         getattr(self, 'edit_roi_from_{}'.format(roi)).returnPressed.connect(self.update_xia_rois)
+        #         getattr(self, 'edit_roi_to_{}'.format(roi)).returnPressed.connect(self.update_xia_rois)
+        #         getattr(self, 'edit_roi_name_{}'.format(roi)).returnPressed.connect(self.update_xia_rois)
+        #
+        #
+        #     for channel in self.xia_channels:
+        #         getattr(self, "checkBox_gm_ch{}".format(channel)).setEnabled(True)
+        #         getattr(self.xia, "mca{}".format(channel)).array.subscribe(self.update_xia_graph)
+        #         getattr(self, "checkBox_gm_ch{}".format(channel)).toggled.connect(self.toggle_xia_checkbox)
+        #     self.push_checkall_xia.clicked.connect(self.toggle_xia_all)
+        #
+        #     if hasattr(self.xia, 'input_trigger'):
+        #         if self.xia.input_trigger is not None:
+        #             self.xia.input_trigger.unit_sel.put(1)  # ms, not us
 
     def addCanvas(self):
         self.figure_gain_matching = Figure()
