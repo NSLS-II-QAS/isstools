@@ -13,7 +13,7 @@ from isstools.batch.batch import BatchManager
 ui_path = pkg_resources.resource_filename('isstools', 'ui/ui_batch_mode.ui')
 
 
-TIMEOUT = 60
+TIMEOUT = 120
 
 class UIBatchMode(*uic.loadUiType(ui_path)):
     def __init__(self,
