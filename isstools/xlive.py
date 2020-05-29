@@ -43,7 +43,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
                  db=None,
                  accelerator=None,
                  mono=None,
-                 xs3 = None,
+                 sdd = None,
                  shutters_dict={},
                  det_dict={},
                  motors_dict={},
@@ -260,7 +260,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
             self.layout_run_diff.addWidget(self.widget_run_diff)
 
 
-            self.widget_sdd_manager = widget_sdd_manager.UISDDManager()
+            self.widget_sdd_manager = widget_sdd_manager.UISDDManager(self.plan_funcs, sdd, RE)
             self.layout_xspress3_setup.addWidget(self.widget_sdd_manager)
 
    
