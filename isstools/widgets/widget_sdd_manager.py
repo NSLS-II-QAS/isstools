@@ -46,40 +46,71 @@ class UISDDManager(*uic.loadUiType(ui_path)):
 
 
         self.push_xs3_acquire.clicked.connect(self.run_xs3_acquire)
-        spinboxes = [
-            self.spinBox_roi1_lo,
-            self.spinBox_roi1_hi,
-            self.spinBox_roi2_lo,
-            self.spinBox_roi2_hi,
-            self.spinBox_roi3_lo,
-            self.spinBox_roi3_hi,
-            self.spinBox_roi4_lo,
-            self.spinBox_roi4_hi,
-        ]
-        checkboxes = [
+
+        self.checkboxes_roi = [
             self.checkBox_roi1_show,
-            self.checkBox_roi2_show,
-            self.checkBox_roi3_show,
-            self.checkBox_roi4_show,
+            # self.checkBox_roi2_show,
+            # self.checkBox_roi3_show,
+            # self.checkBox_roi4_show,
         ]
 
-        for checkbox in checkboxes:
+        for checkbox in self.checkboxes_roi:
             checkbox.stateChanged.connect(self.update_roi_plot)
 
-        self.roi_spinbox_dict = {
-            'spinBox_roi1_lo': {'roi': [self.xs.channel1.rois.roi01.bin_low],  'value': 0, 'color': 'r', 'checkbox': self.checkBox_roi1_show},
-            'spinBox_roi1_hi': {'roi': [self.xs.channel1.rois.roi01.bin_high], 'value': 0, 'color': 'r', 'checkbox': self.checkBox_roi1_show},
-            'spinBox_roi2_lo': {'roi': [self.xs.channel1.rois.roi02.bin_low],  'value': 0, 'color': 'b', 'checkbox': self.checkBox_roi2_show},
-            'spinBox_roi2_hi': {'roi': [self.xs.channel1.rois.roi02.bin_high], 'value': 0, 'color': 'b', 'checkbox': self.checkBox_roi2_show},
-            'spinBox_roi3_lo': {'roi': [self.xs.channel1.rois.roi03.bin_low],  'value': 0, 'color': 'g', 'checkbox': self.checkBox_roi3_show},
-            'spinBox_roi3_hi': {'roi': [self.xs.channel1.rois.roi03.bin_high], 'value': 0, 'color': 'g', 'checkbox': self.checkBox_roi3_show},
-            'spinBox_roi4_lo': {'roi': [self.xs.channel1.rois.roi04.bin_low],  'value': 0, 'color': 'm', 'checkbox': self.checkBox_roi4_show},
-            'spinBox_roi4_hi': {'roi': [self.xs.channel1.rois.roi04.bin_high], 'value': 0, 'color': 'm', 'checkbox': self.checkBox_roi4_show},
+        self.checkboxes_ch = {
+            'checkBox_ch1_show':{'ch': self.xs.mca1_sum, 'color':'r'},
+            'checkBox_ch2_show':{'ch': self.xs.mca2_sum, 'color':'b'},
+            'checkBox_ch3_show':{'ch': self.xs.mca3_sum, 'color':'g'},
+            'checkBox_ch4_show':{'ch': self.xs.mca4_sum, 'color':'m'}
         }
 
+        self.spinboxes_roi = {
+            'spinBox_ch1_roi1_lo': {'roi': [self.xs.channel1.rois.roi01.bin_low], 'value': 0, 'color': 'r',
+                                    'checkbox': self.checkBox_roi1_show,
+                                    'signal': self.xs.channel1.rois.roi01.bin_low},
+            'spinBox_ch1_roi1_hi': {'roi': [self.xs.channel1.rois.roi01.bin_high], 'value': 0, 'color': 'r',
+                                    'checkbox': self.checkBox_roi1_show,
+                                    'signal': self.xs.channel1.rois.roi01.bin_high},
+            'spinBox_ch2_roi1_lo': {'roi': [self.xs.channel2.rois.roi01.bin_low], 'value': 0, 'color': 'r',
+                                    'checkbox': self.checkBox_roi1_show,
+                                    'signal': self.xs.channel2.rois.roi01.bin_low},
+            'spinBox_ch2_roi1_hi': {'roi': [self.xs.channel2.rois.roi01.bin_high], 'value': 0, 'color': 'r',
+                                    'checkbox': self.checkBox_roi1_show,
+                                    'signal': self.xs.channel2.rois.roi01.bin_high},
+            'spinBox_ch3_roi1_lo': {'roi': [self.xs.channel3.rois.roi01.bin_low], 'value': 0, 'color': 'r',
+                                    'checkbox': self.checkBox_roi1_show,
+                                    'signal': self.xs.channel3.rois.roi01.bin_low},
+            'spinBox_ch3_roi1_hi': {'roi': [self.xs.channel3.rois.roi01.bin_high], 'value': 0, 'color': 'r',
+                                    'checkbox': self.checkBox_roi1_show,
+                                    'signal': self.xs.channel3.rois.roi01.bin_high},
+            'spinBox_ch4_roi1_lo': {'roi': [self.xs.channel4.rois.roi01.bin_low], 'value': 0, 'color': 'r',
+                                    'checkbox': self.checkBox_roi1_show,
+                                    'signal': self.xs.channel4.rois.roi01.bin_low},
+            'spinBox_ch4_roi1_hi': {'roi': [self.xs.channel4.rois.roi01.bin_high], 'value': 0, 'color': 'r',
+                                    'checkbox': self.checkBox_roi1_show,
+                                    'signal': self.xs.channel4.rois.roi01.bin_high},
+
+        }
+
+        self.labels_rbk = {
+            'label_ch1_roi1_lo_rbk': self.xs.channel1.rois.roi01.bin_low,
+            'label_ch1_roi1_hi_rbk': self.xs.channel1.rois.roi01.bin_high,
+            'label_ch2_roi1_lo_rbk': self.xs.channel2.rois.roi01.bin_low,
+            'label_ch2_roi1_hi_rbk': self.xs.channel2.rois.roi01.bin_high,
+            'label_ch3_roi1_lo_rbk': self.xs.channel3.rois.roi01.bin_low,
+            'label_ch3_roi1_hi_rbk': self.xs.channel3.rois.roi01.bin_high,
+            'label_ch4_roi1_lo_rbk': self.xs.channel4.rois.roi01.bin_low,
+            'label_ch4_roi1_hi_rbk': self.xs.channel4.rois.roi01.bin_high,
+        }
+
+
+
+
+
+
         self.update_spinboxes()
-        for spinbox in spinboxes:
-            spinbox.valueChanged.connect(self.set_roi_value)
+        for spinbox in self.spinboxes_roi.keys():
+            getattr(self,spinbox).valueChanged.connect(self.set_roi_value)
 
     def update_roi_plot(self):
         for roi_plot in self.roi_plots:
@@ -87,16 +118,15 @@ class UISDDManager(*uic.loadUiType(ui_path)):
 
         self.roi_plots = []
         ylims=self.figure_xs3_mca.ax.get_ylim()
-        spinboxes = self.roi_spinbox_dict.keys()
+        spinboxes = self.spinboxes_roi.keys()
         for spinbox in spinboxes:
-            value = self.roi_spinbox_dict[spinbox]['value']
-            color = self.roi_spinbox_dict[spinbox]['color']
-            checkbox = self.roi_spinbox_dict[spinbox]['checkbox']
+            value = self.spinboxes_roi[spinbox]['value']
+            color = self.spinboxes_roi[spinbox]['color']
+            checkbox = self.spinboxes_roi[spinbox]['checkbox']
             if checkbox.isChecked():
-                h=self.figure_xs3_mca.ax.plot([value, value], [ylims[0]*0.90, ylims[1]*0.90], color)
+                h=self.figure_xs3_mca.ax.plot([value, value], [0, ylims[1]*0.85], color,linestyle='dashed',linewidth=0.5)
                 self.roi_plots.append(h)
         self.canvas_xs3_mca.draw_idle()
-
 
 
     def addCanvas(self):
@@ -115,14 +145,12 @@ class UISDDManager(*uic.loadUiType(ui_path)):
     def set_roi_value(self):
         sender = QObject()
         sender_object = sender.sender().objectName()
-        rois = self.roi_spinbox_dict[sender_object]['roi']
+        rois = self.spinboxes_roi[sender_object]['roi']
         value =  sender.sender().value()
-        self.roi_spinbox_dict[sender_object]['value']=value
+        self.spinboxes_roi[sender_object]['value']=value
         for roi in rois:
             roi.put(value)
         self.update_roi_plot()
-
-
 
 
     def run_xs3_acquire(self):
@@ -134,35 +162,29 @@ class UISDDManager(*uic.loadUiType(ui_path)):
 
 
         update_figure([self.figure_xs3_mca.ax], self.toolbar_xs3_mca, self.canvas_xs3_mca)
-        self.figure_xs3_mca.ax.plot(self.xs.mca1_sum.get(),'b')
-        self.figure_xs3_mca.ax.plot(self.xs.mca2_sum.get(), 'r')
-        self.figure_xs3_mca.ax.plot(self.xs.mca3_sum.get(), 'g')
-        self.figure_xs3_mca.ax.plot(self.xs.mca4_sum.get(), 'm')
+        self.plot_traces()
         self.update_roi_plot()
         self.canvas_xs3_mca.draw_idle()
 
-
-
+    def plot_traces(self):
+        for checkbox in self.checkboxes_ch.keys():
+            if getattr(self, checkbox).isChecked():
+                self.figure_xs3_mca.ax.plot(self.checkboxes_ch[checkbox]['ch'].get(),
+                                            self.checkboxes_ch[checkbox]['color'])
 
     def update_xs_parameters(self):
-        self.label_roi1_lo_rbk.setText(str(self.xs.channel1.rois.roi01.bin_low.get()))
-        self.label_roi2_lo_rbk.setText(str(self.xs.channel1.rois.roi02.bin_low.get()))
-        self.label_roi3_lo_rbk.setText(str(self.xs.channel1.rois.roi03.bin_low.get()))
-        self.label_roi4_lo_rbk.setText(str(self.xs.channel1.rois.roi04.bin_low.get()))
+        for label in self.labels_rbk.keys():
+            label_object = getattr(self, label)
+            value = self.labels_rbk[label].get()
+            label_object.setText(str(value))
 
-
-        self.label_roi1_hi_rbk.setText(str(self.xs.channel1.rois.roi01.bin_high.get()))
-        self.label_roi2_hi_rbk.setText(str(self.xs.channel1.rois.roi02.bin_high.get()))
-        self.label_roi3_hi_rbk.setText(str(self.xs.channel1.rois.roi03.bin_high.get()))
-        self.label_roi4_hi_rbk.setText(str(self.xs.channel1.rois.roi04.bin_high.get()))
 
     def update_spinboxes(self):
-        spinboxes = self.roi_spinbox_dict.keys()
-        for spinbox in spinboxes:
+        for spinbox in self.spinboxes_roi:
             spinbox_object = getattr(self, spinbox)
-            value = self.roi_spinbox_dict[spinbox]['roi'][0].get()
+            value = self.spinboxes_roi[spinbox]['roi'][0].get()
             spinbox_object.setValue(value)
-            self.roi_spinbox_dict[spinbox]['value']=value
+            self.spinboxes_roi[spinbox]['value']=value
         self.update_roi_plot()
 
 
