@@ -57,7 +57,7 @@ class UISDDManager(*uic.loadUiType(ui_path)):
         for checkbox in self.checkboxes_roi:
             checkbox.stateChanged.connect(self.update_roi_plot)
 
-        self.checkboxes_ch = {
+        self.checkboxe_ch = {
             'checkBox_ch1_show':{'ch': self.xs.mca1_sum, 'color':'r'},
             'checkBox_ch2_show':{'ch': self.xs.mca2_sum, 'color':'b'},
             'checkBox_ch3_show':{'ch': self.xs.mca3_sum, 'color':'g'},
