@@ -12,9 +12,9 @@ from matplotlib.backends.backend_qt5agg import (
 from matplotlib.figure import Figure
 from matplotlib.widgets import Cursor
 from PyQt5.Qt import QSplashScreen, QObject
+import numpy
 
 
-from isstools.xiaparser import xiaparser
 from isstools.elements.figure_update import update_figure
 
 
@@ -41,93 +41,103 @@ class UISDDManager(*uic.loadUiType(ui_path)):
 
         self.timer_update_time = QtCore.QTimer(self)
         self.timer_update_time.setInterval(1000)
-        self.timer_update_time.timeout.connect(self.update_xs_parameters)
+        self.timer_update_time.timeout.connect(self.update_roi_labels)
         self.timer_update_time.start()
 
+        self.push_xs3_acquire.clicked.connect(self.xs3_acquire)
 
-        self.push_xs3_acquire.clicked.connect(self.run_xs3_acquire)
-
-        self.checkboxes_roi = [
-            self.checkBox_roi1_show,
-            # self.checkBox_roi2_show,
-            # self.checkBox_roi3_show,
-            # self.checkBox_roi4_show,
-        ]
-
-        for checkbox in self.checkboxes_roi:
-            checkbox.stateChanged.connect(self.update_roi_plot)
-
-        self.checkboxe_ch = {
-            'checkBox_ch1_show':{'ch': self.xs.mca1_sum, 'color':'r'},
-            'checkBox_ch2_show':{'ch': self.xs.mca2_sum, 'color':'b'},
-            'checkBox_ch3_show':{'ch': self.xs.mca3_sum, 'color':'g'},
-            'checkBox_ch4_show':{'ch': self.xs.mca4_sum, 'color':'m'}
-        }
-
-        self.spinboxes_roi = {
-            'spinBox_ch1_roi1_lo': {'roi': [self.xs.channel1.rois.roi01.bin_low], 'value': 0, 'color': 'r',
-                                    'checkbox': self.checkBox_roi1_show,
-                                    'signal': self.xs.channel1.rois.roi01.bin_low},
-            'spinBox_ch1_roi1_hi': {'roi': [self.xs.channel1.rois.roi01.bin_high], 'value': 0, 'color': 'r',
-                                    'checkbox': self.checkBox_roi1_show,
-                                    'signal': self.xs.channel1.rois.roi01.bin_high},
-            'spinBox_ch2_roi1_lo': {'roi': [self.xs.channel2.rois.roi01.bin_low], 'value': 0, 'color': 'r',
-                                    'checkbox': self.checkBox_roi1_show,
-                                    'signal': self.xs.channel2.rois.roi01.bin_low},
-            'spinBox_ch2_roi1_hi': {'roi': [self.xs.channel2.rois.roi01.bin_high], 'value': 0, 'color': 'r',
-                                    'checkbox': self.checkBox_roi1_show,
-                                    'signal': self.xs.channel2.rois.roi01.bin_high},
-            'spinBox_ch3_roi1_lo': {'roi': [self.xs.channel3.rois.roi01.bin_low], 'value': 0, 'color': 'r',
-                                    'checkbox': self.checkBox_roi1_show,
-                                    'signal': self.xs.channel3.rois.roi01.bin_low},
-            'spinBox_ch3_roi1_hi': {'roi': [self.xs.channel3.rois.roi01.bin_high], 'value': 0, 'color': 'r',
-                                    'checkbox': self.checkBox_roi1_show,
-                                    'signal': self.xs.channel3.rois.roi01.bin_high},
-            'spinBox_ch4_roi1_lo': {'roi': [self.xs.channel4.rois.roi01.bin_low], 'value': 0, 'color': 'r',
-                                    'checkbox': self.checkBox_roi1_show,
-                                    'signal': self.xs.channel4.rois.roi01.bin_low},
-            'spinBox_ch4_roi1_hi': {'roi': [self.xs.channel4.rois.roi01.bin_high], 'value': 0, 'color': 'r',
-                                    'checkbox': self.checkBox_roi1_show,
-                                    'signal': self.xs.channel4.rois.roi01.bin_high},
-
-        }
-
-        self.labels_rbk = {
-            'label_ch1_roi1_lo_rbk': self.xs.channel1.rois.roi01.bin_low,
-            'label_ch1_roi1_hi_rbk': self.xs.channel1.rois.roi01.bin_high,
-            'label_ch2_roi1_lo_rbk': self.xs.channel2.rois.roi01.bin_low,
-            'label_ch2_roi1_hi_rbk': self.xs.channel2.rois.roi01.bin_high,
-            'label_ch3_roi1_lo_rbk': self.xs.channel3.rois.roi01.bin_low,
-            'label_ch3_roi1_hi_rbk': self.xs.channel3.rois.roi01.bin_high,
-            'label_ch4_roi1_lo_rbk': self.xs.channel4.rois.roi01.bin_low,
-            'label_ch4_roi1_hi_rbk': self.xs.channel4.rois.roi01.bin_high,
-        }
+        self.colors = ['r', 'b', 'g', 'm']
+        self.num_channels = 4
+        self.num_rois = 4
+        self.roi_values = numpy.zeros((4, 4, 2))
+        self.roi_plots = []
+        self.acquired = 0
 
 
+        self.checkbox_ch = 'checkBox_ch{}_show'
 
+        for indx in range(self.num_channels):
+             getattr(self, self.checkbox_ch.format(indx + 1)).stateChanged.connect(self.plot_traces)
 
+        self.checkbox_roi = 'checkBox_roi{}_show'
+        for indx in range(self.num_rois):
+             getattr(self, self.checkbox_roi.format(indx + 1)).stateChanged.connect(self.update_roi_plot)
 
+        self.lo_hi = ['lo','hi']
+        self.lo_hi_def = {'lo':'low', 'hi':'high'}
+
+        self.spinbox_roi = 'spinBox_ch{}_roi{}_{}'
+
+        self.label_roi_rbk = 'label_ch{}_roi{}_{}_rbk'
 
         self.update_spinboxes()
-        for spinbox in self.spinboxes_roi.keys():
-            getattr(self,spinbox).valueChanged.connect(self.set_roi_value)
+        for indx_ch in range(self.num_channels):
+            for indx_roi in range(self.num_rois):
+                for indx_lo_hi in range(2):
+                    spinbox_name = self.spinbox_roi.format(indx_ch + 1, indx_roi + 1, self.lo_hi[indx_lo_hi])
+                    spinbox_object = getattr(self, spinbox_name)
+                    spinbox_object.valueChanged.connect(self.set_roi_value)
+
+
+    def set_roi_value(self):
+        sender = QObject()
+        sender_object = sender.sender().objectName()
+        indx_ch = sender_object[10]
+        indx_roi = sender_object[15]
+        lo_hi = sender_object[17:]
+        signal = self.get_roi_signal(indx_ch, indx_roi, self.lo_hi.index(lo_hi))
+        value = sender.sender().value()
+        signal.put(value)
+        self.roi_values[int(indx_ch), int(indx_roi), self.lo_hi.index(lo_hi)] = value
+        self.update_roi_plot()
+
+
+    def get_roi_signal(self, indx_ch,indx_roi,indx_lo_hi):
+        signal_ch = getattr(self.xs, 'channel{}'.format(indx_ch))
+        signal_roi = getattr(signal_ch.rois, 'roi0{}'.format(indx_roi))
+        signal = getattr(signal_roi, 'bin_{}'.format(self.lo_hi_def[self.lo_hi[indx_lo_hi]]))
+        return signal
+
+
+    def update_roi_labels(self):
+        for indx_ch in range(self.num_channels):
+            for indx_roi in range(self.num_rois):
+                for indx_lo_hi in range(2):
+                    label_name =self.label_roi_rbk.format(indx_ch+1, indx_roi+1, self.lo_hi[indx_lo_hi])
+                    label_object = getattr(self,label_name)
+                    value = self.get_roi_signal( indx_ch+1, indx_roi+1, indx_lo_hi).get()
+                    label_object.setText(str(value))
+
+
+    def update_spinboxes(self):
+        for indx_ch in range(self.num_channels):
+            for indx_roi in range(self.num_rois):
+                for indx_lo_hi in range(2):
+                    spinbox_name = self.spinbox_roi.format(indx_ch+1,indx_roi+1,self.lo_hi[indx_lo_hi])
+                    spinbox_object = getattr(self,spinbox_name)
+                    value = self.get_roi_signal(indx_ch+1, indx_roi+1, indx_lo_hi).get()
+                    spinbox_object.setValue(value)
+                    self.roi_values[indx_ch,indx_roi,indx_lo_hi] = value
+        self.update_roi_plot()
 
     def update_roi_plot(self):
         for roi_plot in self.roi_plots:
             self.figure_xs3_mca.ax.lines.remove(roi_plot[0])
-
         self.roi_plots = []
         ylims=self.figure_xs3_mca.ax.get_ylim()
-        spinboxes = self.spinboxes_roi.keys()
-        for spinbox in spinboxes:
-            value = self.spinboxes_roi[spinbox]['value']
-            color = self.spinboxes_roi[spinbox]['color']
-            checkbox = self.spinboxes_roi[spinbox]['checkbox']
-            if checkbox.isChecked():
-                h=self.figure_xs3_mca.ax.plot([value, value], [0, ylims[1]*0.85], color,linestyle='dashed',linewidth=0.5)
-                self.roi_plots.append(h)
-        self.canvas_xs3_mca.draw_idle()
+        for indx_ch in range(self.num_channels):
+            show_ch = getattr(self, 'checkBox_ch{}_show'.format(indx_ch + 1)).isChecked()
+            for indx_roi in range(self.num_rois):
+                show_roi = getattr(self, 'checkBox_roi{}_show'.format(indx_roi + 1)).isChecked()
+                for indx_hi_lo in range(2):
+                    if show_ch and show_roi:
+                        color = self.colors[indx_ch]
+                        value = self.roi_values[indx_ch,indx_roi,indx_hi_lo]
+                        h = self.figure_xs3_mca.ax.plot([value, value], [0, ylims[1] * 0.85], color, linestyle='dashed',
+                                                        linewidth=0.5)
+                        self.roi_plots.append(h)
 
+        self.canvas_xs3_mca.draw_idle()
 
     def addCanvas(self):
         self.figure_xs3_mca = Figure()
@@ -141,24 +151,13 @@ class UISDDManager(*uic.loadUiType(ui_path)):
         #self.cursor_xs3_mca = Cursor(self.figure_xia_all_graphs.ax, useblit=True, color='green', linewidth=0.75)
         self.figure_xs3_mca.ax.clear()
 
-
-    def set_roi_value(self):
-        sender = QObject()
-        sender_object = sender.sender().objectName()
-        rois = self.spinboxes_roi[sender_object]['roi']
-        value =  sender.sender().value()
-        self.spinboxes_roi[sender_object]['value']=value
-        for roi in rois:
-            roi.put(value)
-        self.update_roi_plot()
-
-
-    def run_xs3_acquire(self):
+    def xs3_acquire(self):
         self.roi_plots = []
         print('acquiring...')
         plan = self.plan_funcs[3]
         acq_time = self.spinBox_acq_time.value()
         self.RE(plan(acq_time = acq_time))
+        self.acquired = True
 
 
         update_figure([self.figure_xs3_mca.ax], self.toolbar_xs3_mca, self.canvas_xs3_mca)
@@ -167,26 +166,12 @@ class UISDDManager(*uic.loadUiType(ui_path)):
         self.canvas_xs3_mca.draw_idle()
 
     def plot_traces(self):
-        for checkbox in self.checkboxes_ch.keys():
-            if getattr(self, checkbox).isChecked():
-                self.figure_xs3_mca.ax.plot(self.checkboxes_ch[checkbox]['ch'].get(),
-                                            self.checkboxes_ch[checkbox]['color'])
-
-    def update_xs_parameters(self):
-        for label in self.labels_rbk.keys():
-            label_object = getattr(self, label)
-            value = self.labels_rbk[label].get()
-            label_object.setText(str(value))
-
-
-    def update_spinboxes(self):
-        for spinbox in self.spinboxes_roi:
-            spinbox_object = getattr(self, spinbox)
-            value = self.spinboxes_roi[spinbox]['roi'][0].get()
-            spinbox_object.setValue(value)
-            self.spinboxes_roi[spinbox]['value']=value
+        if self.acquired:
+            for indx in range(self.num_channels):
+                if getattr(self, self.checkbox_ch.format(indx+1)).isChecked():
+                    ch = getattr(self.xs,'mca{}_sum'.format(indx+1))
+                    self.figure_xs3_mca.ax.plot(ch.get(),self.colors[indx])
         self.update_roi_plot()
-
 
 
     '''

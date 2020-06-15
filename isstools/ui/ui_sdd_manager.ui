@@ -126,16 +126,19 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_3">
     <item>
-     <widget class="QCheckBox" name="checkBox">
+     <widget class="QRadioButton" name="radioButton">
       <property name="text">
-       <string>4-channel detector</string>
+       <string>4 channel detector</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QCheckBox" name="checkBox_2">
+     <widget class="QRadioButton" name="radioButton_2">
       <property name="text">
-       <string>1-channel detector</string>
+       <string>1 channel detector</string>
       </property>
      </widget>
     </item>
@@ -445,6 +448,765 @@
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QSpinBox" name="spinBox_ch3_roi2_hi">
+   <property name="geometry">
+    <rect>
+     <x>1400</x>
+     <y>370</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>4060</number>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox_ch1_roi2_hi">
+   <property name="geometry">
+    <rect>
+     <x>1400</x>
+     <y>290</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>4060</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ch2_roi2_hi_rbk">
+   <property name="geometry">
+    <rect>
+     <x>1400</x>
+     <y>350</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ch2_roi2_lo_rbk">
+   <property name="geometry">
+    <rect>
+     <x>1281</x>
+     <y>350</y>
+     <width>91</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ch4_roi2_hi_rbk">
+   <property name="geometry">
+    <rect>
+     <x>1401</x>
+     <y>430</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_roi1_fix_2">
+   <property name="geometry">
+    <rect>
+     <x>1090</x>
+     <y>320</y>
+     <width>79</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>fix</string>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ch3_roi2_hi_rbk">
+   <property name="geometry">
+    <rect>
+     <x>1401</x>
+     <y>390</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox_ch2_roi2_hi">
+   <property name="geometry">
+    <rect>
+     <x>1400</x>
+     <y>330</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>4060</number>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox_ch4_roi2_lo">
+   <property name="geometry">
+    <rect>
+     <x>1280</x>
+     <y>410</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>4060</number>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_2">
+   <property name="geometry">
+    <rect>
+     <x>1150</x>
+     <y>290</y>
+     <width>113</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Pt K</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_roi2_show">
+   <property name="geometry">
+    <rect>
+     <x>1090</x>
+     <y>290</y>
+     <width>79</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>ROI 2</string>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ch4_roi2_lo_rbk">
+   <property name="geometry">
+    <rect>
+     <x>1281</x>
+     <y>430</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ch1_roi2_lo_rbk">
+   <property name="geometry">
+    <rect>
+     <x>1281</x>
+     <y>310</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox_ch2_roi2_lo">
+   <property name="geometry">
+    <rect>
+     <x>1280</x>
+     <y>330</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>4060</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ch3_roi2_lo_rbk">
+   <property name="geometry">
+    <rect>
+     <x>1281</x>
+     <y>390</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox_ch4_roi2_hi">
+   <property name="geometry">
+    <rect>
+     <x>1400</x>
+     <y>410</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>4060</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ch1_roi2_hi_rbk">
+   <property name="geometry">
+    <rect>
+     <x>1401</x>
+     <y>310</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox_ch1_roi2_lo">
+   <property name="geometry">
+    <rect>
+     <x>1280</x>
+     <y>290</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>4060</number>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox_ch3_roi2_lo">
+   <property name="geometry">
+    <rect>
+     <x>1280</x>
+     <y>370</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>4060</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ch1_roi3_lo_rbk">
+   <property name="geometry">
+    <rect>
+     <x>1281</x>
+     <y>500</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_roi1_fix_3">
+   <property name="geometry">
+    <rect>
+     <x>1090</x>
+     <y>510</y>
+     <width>79</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>fix</string>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ch1_roi3_hi_rbk">
+   <property name="geometry">
+    <rect>
+     <x>1401</x>
+     <y>500</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox_ch1_roi3_hi">
+   <property name="geometry">
+    <rect>
+     <x>1400</x>
+     <y>480</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>4060</number>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox_ch3_roi3_hi">
+   <property name="geometry">
+    <rect>
+     <x>1400</x>
+     <y>560</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>4060</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ch3_roi3_hi_rbk">
+   <property name="geometry">
+    <rect>
+     <x>1401</x>
+     <y>580</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_3">
+   <property name="geometry">
+    <rect>
+     <x>1150</x>
+     <y>480</y>
+     <width>113</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Pt K</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox_ch2_roi3_lo">
+   <property name="geometry">
+    <rect>
+     <x>1280</x>
+     <y>520</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>4060</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ch3_roi3_lo_rbk">
+   <property name="geometry">
+    <rect>
+     <x>1281</x>
+     <y>580</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox_ch4_roi3_lo">
+   <property name="geometry">
+    <rect>
+     <x>1280</x>
+     <y>600</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>4060</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ch4_roi3_lo_rbk">
+   <property name="geometry">
+    <rect>
+     <x>1281</x>
+     <y>620</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox_ch3_roi3_lo">
+   <property name="geometry">
+    <rect>
+     <x>1280</x>
+     <y>560</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>4060</number>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox_ch4_roi3_hi">
+   <property name="geometry">
+    <rect>
+     <x>1400</x>
+     <y>600</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>4060</number>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox_ch2_roi3_hi">
+   <property name="geometry">
+    <rect>
+     <x>1400</x>
+     <y>520</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>4060</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ch4_roi3_hi_rbk">
+   <property name="geometry">
+    <rect>
+     <x>1401</x>
+     <y>620</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_roi3_show">
+   <property name="geometry">
+    <rect>
+     <x>1090</x>
+     <y>480</y>
+     <width>79</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>ROI 3</string>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ch2_roi3_hi_rbk">
+   <property name="geometry">
+    <rect>
+     <x>1400</x>
+     <y>540</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ch2_roi3_lo_rbk">
+   <property name="geometry">
+    <rect>
+     <x>1281</x>
+     <y>540</y>
+     <width>91</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox_ch1_roi3_lo">
+   <property name="geometry">
+    <rect>
+     <x>1280</x>
+     <y>480</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>4060</number>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox_ch2_roi4_hi">
+   <property name="geometry">
+    <rect>
+     <x>1400</x>
+     <y>720</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>4060</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ch1_roi4_lo_rbk">
+   <property name="geometry">
+    <rect>
+     <x>1281</x>
+     <y>700</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_4">
+   <property name="geometry">
+    <rect>
+     <x>1150</x>
+     <y>680</y>
+     <width>113</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Pt K</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox_ch3_roi4_lo">
+   <property name="geometry">
+    <rect>
+     <x>1280</x>
+     <y>760</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>4060</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ch3_roi4_hi_rbk">
+   <property name="geometry">
+    <rect>
+     <x>1401</x>
+     <y>780</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_roi1_fix_4">
+   <property name="geometry">
+    <rect>
+     <x>1090</x>
+     <y>710</y>
+     <width>79</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>fix</string>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ch4_roi4_lo_rbk">
+   <property name="geometry">
+    <rect>
+     <x>1281</x>
+     <y>820</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox_ch1_roi4_lo">
+   <property name="geometry">
+    <rect>
+     <x>1280</x>
+     <y>680</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>4060</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ch2_roi4_hi_rbk">
+   <property name="geometry">
+    <rect>
+     <x>1400</x>
+     <y>740</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ch1_roi4_hi_rbk">
+   <property name="geometry">
+    <rect>
+     <x>1401</x>
+     <y>700</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ch2_roi4_lo_rbk">
+   <property name="geometry">
+    <rect>
+     <x>1281</x>
+     <y>740</y>
+     <width>91</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox_ch1_roi4_hi">
+   <property name="geometry">
+    <rect>
+     <x>1400</x>
+     <y>680</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>4060</number>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox_ch4_roi4_hi">
+   <property name="geometry">
+    <rect>
+     <x>1400</x>
+     <y>800</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>4060</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ch3_roi4_lo_rbk">
+   <property name="geometry">
+    <rect>
+     <x>1281</x>
+     <y>780</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox_ch4_roi4_lo">
+   <property name="geometry">
+    <rect>
+     <x>1280</x>
+     <y>800</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>4060</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ch4_roi4_hi_rbk">
+   <property name="geometry">
+    <rect>
+     <x>1401</x>
+     <y>820</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox_ch2_roi4_lo">
+   <property name="geometry">
+    <rect>
+     <x>1280</x>
+     <y>720</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>4060</number>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_roi4_show">
+   <property name="geometry">
+    <rect>
+     <x>1090</x>
+     <y>680</y>
+     <width>79</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>ROI 4</string>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox_ch3_roi4_hi">
+   <property name="geometry">
+    <rect>
+     <x>1400</x>
+     <y>760</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>4060</number>
+   </property>
   </widget>
  </widget>
  <resources/>
