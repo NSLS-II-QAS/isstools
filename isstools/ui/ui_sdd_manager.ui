@@ -381,22 +381,6 @@
     <number>4060</number>
    </property>
   </widget>
-  <widget class="QCheckBox" name="checkBox_roi1_fix">
-   <property name="geometry">
-    <rect>
-     <x>1090</x>
-     <y>130</y>
-     <width>79</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>fix</string>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-  </widget>
   <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
     <rect>
@@ -406,48 +390,7 @@
      <height>21</height>
     </rect>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <item>
-     <widget class="QCheckBox" name="checkBox_ch1_show">
-      <property name="text">
-       <string>Channel 1</string>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QCheckBox" name="checkBox_ch2_show">
-      <property name="text">
-       <string>Channel 2</string>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QCheckBox" name="checkBox_ch3_show">
-      <property name="text">
-       <string>Channel 3</string>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QCheckBox" name="checkBox_ch4_show">
-      <property name="text">
-       <string>Channel 4</string>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-   </layout>
+   <layout class="QHBoxLayout" name="horizontalLayout"/>
   </widget>
   <widget class="QSpinBox" name="spinBox_ch3_roi2_hi">
    <property name="geometry">
@@ -512,22 +455,6 @@
    </property>
    <property name="text">
     <string>TextLabel</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="checkBox_roi1_fix_2">
-   <property name="geometry">
-    <rect>
-     <x>1090</x>
-     <y>320</y>
-     <width>79</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>fix</string>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
    </property>
   </widget>
   <widget class="QLabel" name="label_ch3_roi2_hi_rbk">
@@ -713,22 +640,6 @@
    </property>
    <property name="text">
     <string>TextLabel</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="checkBox_roi1_fix_3">
-   <property name="geometry">
-    <rect>
-     <x>1090</x>
-     <y>510</y>
-     <width>79</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>fix</string>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
    </property>
   </widget>
   <widget class="QLabel" name="label_ch1_roi3_hi_rbk">
@@ -1020,22 +931,6 @@
     <string>TextLabel</string>
    </property>
   </widget>
-  <widget class="QCheckBox" name="checkBox_roi1_fix_4">
-   <property name="geometry">
-    <rect>
-     <x>1090</x>
-     <y>710</y>
-     <width>79</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>fix</string>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_ch4_roi4_lo_rbk">
    <property name="geometry">
     <rect>
@@ -1207,6 +1102,114 @@
    <property name="maximum">
     <number>4060</number>
    </property>
+  </widget>
+  <widget class="QLabel" name="label_144">
+   <property name="geometry">
+    <rect>
+     <x>1280</x>
+     <y>80</y>
+     <width>76</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Low limit</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_145">
+   <property name="geometry">
+    <rect>
+     <x>1400</x>
+     <y>80</y>
+     <width>76</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>High limit</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>420</x>
+     <y>50</y>
+     <width>441</width>
+     <height>44</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="2">
+     <widget class="QCheckBox" name="checkBox_ch3_show">
+      <property name="text">
+       <string>Channel 3</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QCheckBox" name="checkBox_ch1_show">
+      <property name="text">
+       <string>Channel 1</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QCheckBox" name="checkBox_ch2_show">
+      <property name="text">
+       <string>Channel 2</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="3">
+     <widget class="QCheckBox" name="checkBox_ch4_show">
+      <property name="text">
+       <string>Channel 4</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QCheckBox" name="checkBox_ch2_fix_roi">
+      <property name="text">
+       <string>fix ROIs</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QCheckBox" name="checkBox_ch3_fix_roi">
+      <property name="text">
+       <string>fix ROIs</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QCheckBox" name="checkBox_ch4_fix_roi">
+      <property name="text">
+       <string>fix ROIs</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>
