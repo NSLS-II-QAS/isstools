@@ -110,8 +110,6 @@ class UISDDManager(*uic.loadUiType(ui_path)):
                     spinbox_object = getattr(self, spinbox_name)
                     spinbox_object.setEnabled(True)
 
-
-
     def set_roi_value(self):
         proceed = False
         sender = QObject()
@@ -138,7 +136,6 @@ class UISDDManager(*uic.loadUiType(ui_path)):
         else:
             sender.sender().setValue(counter_value)
         self.update_roi_plot()
-
 
     def get_roi_signal(self, indx_ch,indx_roi,indx_lo_hi):
         signal_ch = getattr(self.xs, 'channel{}'.format(indx_ch))
@@ -206,9 +203,6 @@ class UISDDManager(*uic.loadUiType(ui_path)):
         acq_time = self.spinBox_acq_time.value()
         self.RE(plan(acq_time = acq_time))
         self.acquired = True
-
-
-
         self.plot_traces()
         self.update_roi_plot()
         self.canvas_xs3_mca.draw_idle()
