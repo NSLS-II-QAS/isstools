@@ -896,6 +896,7 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
     def set_reference_foil(self):
         foil = self.comboBox_reference_foils.currentText()
         self.RE(self.aux_plan_funcs['set_reference_foil'](foil))
+        self.RE.md['foil_element'] = self.aux_plan_funcs['get_reference_foil']()
 
     def update_fb_status(self, pvname=None, value=None, char_value=None, **kwargs):
         if self.radioButton_fb_local.isChecked():

@@ -65,9 +65,7 @@ class UISDDManager(*uic.loadUiType(ui_path)):
 
         self.lo_hi = ['lo','hi']
         self.lo_hi_def = {'lo':'low', 'hi':'high'}
-
         self.spinbox_roi = 'spinBox_ch{}_roi{}_{}'
-
         self.label_roi_rbk = 'label_ch{}_roi{}_{}_rbk'
 
 
@@ -79,6 +77,7 @@ class UISDDManager(*uic.loadUiType(ui_path)):
 
 
         self.update_spinboxes()
+
         for indx_ch in range(self.num_channels):
             for indx_roi in range(self.num_rois):
                 for indx_lo_hi in range(2):
@@ -111,6 +110,7 @@ class UISDDManager(*uic.loadUiType(ui_path)):
                     spinbox_object.setEnabled(True)
 
     def set_roi_value(self):
+        print('Setting Roi')
         proceed = False
         sender = QObject()
         sender_object = sender.sender().objectName()
@@ -122,16 +122,16 @@ class UISDDManager(*uic.loadUiType(ui_path)):
         #validate  limits
         if lo_hi == 'lo':
             counter_signal = self.get_roi_signal(indx_ch, indx_roi, self.lo_hi.index('hi'))
-            counter_value = counter_signal.get()
+            counter_value = counter_signal.get()*10
             if value < counter_value:
                 proceed = True
         elif lo_hi == 'hi':
             counter_signal = self.get_roi_signal(indx_ch, indx_roi, self.lo_hi.index('lo'))
-            counter_value = counter_signal.get()
+            counter_value = counter_signal.get()*10
             if value > counter_value:
                 proceed = True
         if proceed:
-            signal.put(value)
+            signal.put(int(value/10))
             self.roi_values[int(indx_ch)-1, int(indx_roi)-1, self.lo_hi.index(lo_hi)] = value
         else:
             sender.sender().setValue(counter_value)
@@ -151,17 +151,18 @@ class UISDDManager(*uic.loadUiType(ui_path)):
                     label_name =self.label_roi_rbk.format(indx_ch+1, indx_roi+1, self.lo_hi[indx_lo_hi])
                     label_object = getattr(self,label_name)
                     value = self.get_roi_signal( indx_ch+1, indx_roi+1, indx_lo_hi).get()
-                    label_object.setText(str(value))
+                    label_object.setText(str(value*10))
 
 
     def update_spinboxes(self):
+        print('Updating spinboxes')
         for indx_ch in range(self.num_channels):
             for indx_roi in range(self.num_rois):
                 for indx_lo_hi in range(2):
                     spinbox_name = self.spinbox_roi.format(indx_ch+1,indx_roi+1,self.lo_hi[indx_lo_hi])
                     spinbox_object = getattr(self,spinbox_name)
                     value = self.get_roi_signal(indx_ch+1, indx_roi+1, indx_lo_hi).get()
-                    spinbox_object.setValue(value)
+                    spinbox_object.setValue(value*10)
                     self.roi_values[indx_ch,indx_roi,indx_lo_hi] = value
         self.update_roi_plot()
 
@@ -176,6 +177,7 @@ class UISDDManager(*uic.loadUiType(ui_path)):
                 show_roi = getattr(self, 'checkBox_roi{}_show'.format(indx_roi + 1)).isChecked()
                 for indx_hi_lo in range(2):
                     if show_ch and show_roi:
+                        print('plotting')
                         color = self.colors[indx_ch]
                         value = self.roi_values[indx_ch,indx_roi,indx_hi_lo]
                         h = self.figure_xs3_mca.ax.plot([value, value], [0, ylims[1] * 0.85], color, linestyle='dashed',
@@ -208,32 +210,17 @@ class UISDDManager(*uic.loadUiType(ui_path)):
         self.canvas_xs3_mca.draw_idle()
 
     def plot_traces(self):
+        #THis method plot the MCA signal
         update_figure([self.figure_xs3_mca.ax], self.toolbar_xs3_mca, self.canvas_xs3_mca)
         self.roi_plots = []
         if self.acquired:
             for indx in range(self.num_channels):
                 if getattr(self, self.checkbox_ch.format(indx+1)).isChecked():
                     ch = getattr(self.xs,'mca{}_sum'.format(indx+1))
-                    self.figure_xs3_mca.ax.plot(ch.get(),self.colors[indx], label = 'Channel {}'.format(indx+1))
+                    mca = ch.get()
+                    energy = np.array(list(range(len(mca))))*10
+                    self.figure_xs3_mca.ax.plot(energy,mca,self.colors[indx], label = 'Channel {}'.format(indx+1))
                     self.figure_xs3_mca.ax.legend(loc=1)
         self.update_roi_plot()
 
 
-    def update_roi_plot(self):
-        for roi_plot in self.roi_plots:
-            self.figure_xs3_mca.ax.lines.remove(roi_plot[0])
-        self.roi_plots = []
-        ylims=self.figure_xs3_mca.ax.get_ylim()
-        for indx_ch in range(self.num_channels):
-            show_ch = getattr(self, 'checkBox_ch{}_show'.format(indx_ch + 1)).isChecked()
-            for indx_roi in range(self.num_rois):
-                show_roi = getattr(self, 'checkBox_roi{}_show'.format(indx_roi + 1)).isChecked()
-                for indx_hi_lo in range(2):
-                    if show_ch and show_roi:
-                        color = self.colors[indx_ch]
-                        value = self.roi_values[indx_ch,indx_roi,indx_hi_lo]
-                        h = self.figure_xs3_mca.ax.plot([value, value], [0, ylims[1] * 0.85], color, linestyle='dashed',
-                                                        linewidth=0.5)
-                        self.roi_plots.append(h)
-
-        self.canvas_xs3_mca.draw_idle()
