@@ -177,7 +177,7 @@ class UISDDManager(*uic.loadUiType(ui_path)):
                 show_roi = getattr(self, 'checkBox_roi{}_show'.format(indx_roi + 1)).isChecked()
                 for indx_hi_lo in range(2):
                     if show_ch and show_roi:
-                        print('plotting')
+                        #print('plotting')
                         color = self.colors[indx_ch]
                         value = self.roi_values[indx_ch,indx_roi,indx_hi_lo]
                         h = self.figure_xs3_mca.ax.plot([value, value], [0, ylims[1] * 0.85], color, linestyle='dashed',
