@@ -50,7 +50,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
                  aux_plan_funcs={},
                  general_scan_func = None,
                  sample_stages= None,
-                 window_title="XLive @QAS/11-ID NSLS-II",
+                 window_title="XLive @QAS/07-BM NSLS-II",
                  job_submitter=None,
                  *args, **kwargs):
         '''
