@@ -407,6 +407,7 @@ class trajectory_manager():
         print('[Init Trajectory] Starting...')
 
         self.hhm.lut_number.put(lut_number)
+        print('############### Inside Initi Trajectory; Done lut_put and begining while loops ###############')
 
         ttime.sleep(0.5)
         while (int(self.hhm.lut_number_rbv.value) != int(lut_number)):
@@ -434,7 +435,8 @@ class trajectory_manager():
         ftp = FTP(ip)
         ftp.login()
         ftp.cwd('/usrflash/lut/{}'.format(lut_number))
-    
+        print('End of FTP CWD')    
+
         file_list = ftp.nlst()
         file_exists = 0
         for file_name in file_list:

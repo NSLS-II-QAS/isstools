@@ -239,7 +239,7 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
         else:
             self.push_read_amp_gains.clicked.connect(self.read_amp_gains)
 
-        reference_foils = ['None','Ti', 'V', 'Cr', 'Mn', 'Fe', 'Co', 'Ni', 'Cu', 'Zn', 'Pt', 'Au', 'Mo', 'Ru', 'Pd']
+        reference_foils = ['None','Ti', 'V', 'Cr', 'Mn', 'Fe', 'Co', 'Ni', 'Cu', 'Zn', 'W', 'Ir', 'Pt', 'Au', 'Zr', 'Nb', 'Mo', 'Ru', 'Rh', 'Pd', 'Ag', 'Sn']
 
         for foil in reference_foils:
             self.comboBox_reference_foils.addItem(foil)
