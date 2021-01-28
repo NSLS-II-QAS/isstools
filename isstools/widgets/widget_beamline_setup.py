@@ -89,7 +89,7 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
         #self.mot_list = self.motors_dict.keys()
         self.mot_list = [self.motors_dict[motor]['description'] for motor in self.motors_dict]
         self.mot_sorted_list = list(self.mot_list)
-        self.mot_sorted_list.sort()
+        #self.mot_sorted_list.sort()
 
         if len(self.prepare_bl_list) == 2:
             self.prepare_bl_plan = self.prepare_bl_list[0]
