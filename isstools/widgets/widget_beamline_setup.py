@@ -27,6 +27,8 @@ import signal
 from isstools.pid import PID
 from isstools.dialogs import (UpdatePiezoDialog, Prepare_BL_Dialog, MoveMotorDialog)
 
+from .widget_beamline_status import get_state
+
 ui_path = pkg_resources.resource_filename('isstools', 'ui/ui_beamline_setup.ui')
 
 
@@ -275,7 +277,8 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
         if not ignore_shutter:
             for shutter in [self.shutters[shutter] for shutter in self.shutters if
                             self.shutters[shutter].shutter_type != 'SP']:
-                if shutter.status.value != 'Open':
+                shutter_state = get_state(shutter)
+                if shutter_state != 'Open':
                     ret = self.questionMessage('Photon shutter closed', 'Proceed with the shutter closed?')
                     if not ret:
                         print('Aborted!')

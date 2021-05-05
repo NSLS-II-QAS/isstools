@@ -15,6 +15,7 @@ from timeit import default_timer as timer
 import matplotlib as mpl
 from isstools.elements.figure_update import update_figure
 
+from .widget_beamline_status import get_state
 
 
 # Libs needed by the ZMQ communication
@@ -108,7 +109,8 @@ class UIRun(*uic.loadUiType(ui_path)):
         else:
             for shutter in [self.shutters[shutter] for shutter in self.shutters if
                             self.shutters[shutter].shutter_type != 'SP']:
-                if shutter.status.value != 'Open':
+                shutter_state = get_state(shutter)
+                if shutter_state != 'Open':
                     ret = self.questionMessage('Shutter closed',
                                                'Would you like to run the scan with the shutter closed?')
                     if not ret:
