@@ -9,7 +9,7 @@ import h5py
 import os
 import os.path
 from scipy.optimize import curve_fit
-import smbc
+#import smbc
 import time as ttime
 import warnings
 from pathlib import Path
@@ -432,6 +432,7 @@ def frange(start, stop, step):
 
 class smbclient:
     def __init__(self, filename = '', dest_filename = '', **kwargs):
+        import smbc 
         self.ctx = smbc.Context()
         self.ctx.optionNoAutoAnonymousLogin = True
         self.ctx.functionAuthData = self.auth_fn

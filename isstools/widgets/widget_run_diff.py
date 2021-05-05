@@ -66,17 +66,16 @@ class UIRunDiff(*uic.loadUiType(ui_path)):
         #         print(self, 'Shutter closed')
         #         break
 
-        name_provided = self.lineEdit_filename.text()
+        name_provided = self.lineEdit_sample_name.text()
         if name_provided:
             timenow = datetime.datetime.now()
             print('\nStarting scan at {}'.format(timenow.strftime("%H:%M:%S"), flush='true'))
             start_scan_timer = timer()
-            run_parameters = {'filename': self.lineEdit_filename.text(),
-                              'exposure': self.spinBox_exposure.value(),
-                              'num_images': self.spinBox_num_frames.value(),
-                              'num_dark_images': self.spinBox_num_dark_frames.value(),
-                              'num_repetitions': self.spinBox_num_repetitions.value(),
-                              'delay': self.spinBox_delay.value()
+            run_parameters = {'sample_name'   : self.lineEdit_sample_name.text(),
+                              'frame_count'   : self.spinBox_frame_count.value(),
+                              'subframe_time' : self.doubleSpinBox_subframe_time.value(),
+                              'subframe_count': self.spinBox_subframe_count.value(),
+                              #'delay': self.spinBox_delay.value()
                               }
 
 
