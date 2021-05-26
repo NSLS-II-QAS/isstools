@@ -55,7 +55,7 @@
   <widget class="QLineEdit" name="lineEdit_sample_name">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>260</x>
      <y>120</y>
      <width>150</width>
      <height>25</height>
@@ -78,7 +78,7 @@
   <widget class="QSpinBox" name="spinBox_subframe_count">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>260</x>
      <y>220</y>
      <width>50</width>
      <height>25</height>
@@ -91,7 +91,7 @@
   <widget class="QSpinBox" name="spinBox_frame_count">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>260</x>
      <y>270</y>
      <width>50</width>
      <height>25</height>
@@ -107,7 +107,7 @@
   <widget class="QSpinBox" name="spinBox_delay">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>260</x>
      <y>320</y>
      <width>50</width>
      <height>25</height>
@@ -138,25 +138,28 @@
     <rect>
      <x>40</x>
      <y>320</y>
-     <width>160</width>
+     <width>201</width>
      <height>30</height>
     </rect>
    </property>
    <property name="text">
-    <string>Delay time (Second)</string>
+    <string>Interval between frames (Sec)</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_7">
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>440</y>
-     <width>391</width>
-     <height>41</height>
+     <y>430</y>
+     <width>401</width>
+     <height>31</height>
     </rect>
    </property>
+   <property name="lineWidth">
+    <number>1</number>
+   </property>
    <property name="text">
-    <string>Always take a fresh dark frame at the beginign of each run</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Always take a fresh dark frame at the beginign of each frame&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -195,7 +198,7 @@
   <widget class="QDoubleSpinBox" name="doubleSpinBox_subframe_time">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>260</x>
      <y>160</y>
      <width>129</width>
      <height>36</height>

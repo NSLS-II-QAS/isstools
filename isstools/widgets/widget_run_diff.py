@@ -75,7 +75,7 @@ class UIRunDiff(*uic.loadUiType(ui_path)):
                               'frame_count'   : self.spinBox_frame_count.value(),
                               'subframe_time' : self.doubleSpinBox_subframe_time.value(),
                               'subframe_count': self.spinBox_subframe_count.value(),
-                              #'delay': self.spinBox_delay.value()
+                              'delay'         : self.spinBox_delay.value()
                               }
 
 
