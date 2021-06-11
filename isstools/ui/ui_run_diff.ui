@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>380</y>
+     <y>440</y>
      <width>80</width>
      <height>30</height>
     </rect>
@@ -36,7 +36,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Number of sub_frames</string>
+    <string>Number of Patterns</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">
@@ -49,13 +49,13 @@
     </rect>
    </property>
    <property name="text">
-    <string>Exposure time (Sec)</string>
+    <string>Exposure Time (Sec)</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit_sample_name">
    <property name="geometry">
     <rect>
-     <x>260</x>
+     <x>320</x>
      <y>120</y>
      <width>150</width>
      <height>25</height>
@@ -72,13 +72,13 @@
     </rect>
    </property>
    <property name="text">
-    <string>Sample name</string>
+    <string>Sample Name</string>
    </property>
   </widget>
   <widget class="QSpinBox" name="spinBox_subframe_count">
    <property name="geometry">
     <rect>
-     <x>260</x>
+     <x>320</x>
      <y>220</y>
      <width>50</width>
      <height>25</height>
@@ -91,7 +91,7 @@
   <widget class="QSpinBox" name="spinBox_frame_count">
    <property name="geometry">
     <rect>
-     <x>260</x>
+     <x>320</x>
      <y>270</y>
      <width>50</width>
      <height>25</height>
@@ -107,7 +107,7 @@
   <widget class="QSpinBox" name="spinBox_delay">
    <property name="geometry">
     <rect>
-     <x>260</x>
+     <x>320</x>
      <y>320</y>
      <width>50</width>
      <height>25</height>
@@ -130,42 +130,42 @@
     </rect>
    </property>
    <property name="text">
-    <string>Number of frames</string>
+    <string>Number of Repetitions</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>320</y>
-     <width>201</width>
-     <height>30</height>
+     <y>280</y>
+     <width>271</width>
+     <height>161</height>
     </rect>
    </property>
    <property name="text">
-    <string>Interval between frames (Sec)</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Interval between Repetition Starts (Sec)(should be larger than [exposure time* number of patterns], or else it will be ignored)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QLabel" name="label_7">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>430</y>
-     <width>401</width>
-     <height>31</height>
+     <x>30</x>
+     <y>510</y>
+     <width>451</width>
+     <height>61</height>
     </rect>
    </property>
    <property name="lineWidth">
     <number>1</number>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Always take a fresh dark frame at the beginign of each frame&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>Always take a fresh dark pattern at the beginning of each repetition</string>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignHCenter|Qt::AlignTop</set>
    </property>
    <property name="wordWrap">
     <bool>true</bool>
@@ -175,7 +175,7 @@
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>490</y>
+     <y>600</y>
      <width>101</width>
      <height>30</height>
     </rect>
@@ -187,8 +187,8 @@
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>439</x>
-     <y>9</y>
+     <x>480</x>
+     <y>10</y>
      <width>1001</width>
      <height>941</height>
     </rect>
@@ -198,7 +198,7 @@
   <widget class="QDoubleSpinBox" name="doubleSpinBox_subframe_time">
    <property name="geometry">
     <rect>
-     <x>260</x>
+     <x>320</x>
      <y>160</y>
      <width>129</width>
      <height>36</height>
