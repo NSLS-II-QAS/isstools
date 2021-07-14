@@ -282,6 +282,8 @@ class UIRun(*uic.loadUiType(ui_path)):
             transmission = np.array(np.log(df['i0'] / df['it']))
         if 'i0' in df and 'pips' in df and 'energy' in df:
             fluorescence = np.array(df['pips'] / df['i0'])
+        if 'i0' in df and 'iff' in df and 'energy' in df:
+            fluorescence = np.array(df['iff'] / df['i0'])
         if 'it' in df and 'ir' in df and 'energy' in df:
             reference = np.array(np.log(df['it'] / df['ir']))
 
