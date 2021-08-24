@@ -41,6 +41,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
                  diff_plans=[],
                  RE=None,
                  db=None,
+                 apb=None,
                  accelerator=None,
                  mono=None,
                  sdd = None,
@@ -264,7 +265,10 @@ class XliveGui(*uic.loadUiType(ui_path)):
             self.layout_xspress3_setup.addWidget(self.widget_sdd_manager)
 
    
-        self.layout_beamline_status.addWidget(widget_beamline_status.UIBeamlineStatus(self.shutters_dict))
+        self.layout_beamline_status.addWidget(widget_beamline_status.UIBeamlineStatus(
+                                                                    shutters=self.shutters_dict,
+                                                                    apb=apb,
+                                                                    mono=mono,))
 
         self.filepaths = []
         pc = ProcessingCallback(db=self.db, draw_func_interp=self.widget_run.draw_interpolated_data, draw_func_binned=self.widget_processing.new_bin_df_arrived)

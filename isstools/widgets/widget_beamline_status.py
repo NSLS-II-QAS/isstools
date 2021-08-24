@@ -37,12 +37,28 @@ class UIBeamlineStatus(*uic.loadUiType(ui_path)):
     shutters_sig = QtCore.pyqtSignal()
     def __init__(self,
                  shutters={},
+                 apb=None,
+                 mono=None,
                  *args, **kwargs):
 
         super().__init__(*args, **kwargs)
         self.setupUi(self)
         # Initialize Ophyd elements
         self.shutters_sig.connect(self.change_shutter_color)
+        self.apb = apb
+        self.mono = mono
+
+
+        daq_rate = self.apb.acq_rate.get()
+        self.spinBox_daq_rate.setValue(daq_rate)
+        self.spinBox_daq_rate.valueChanged.connect(self.update_daq_rate)
+
+        enc_rate_in_points = mono.enc.filter_dt.get()
+        enc_rate = 1 / (enc_rate_in_points * 10 * 1e-9) / 1e3
+        #TODO Something is fishy here
+        self.spinBox_enc_rate.setValue(enc_rate)
+        self.spinBox_enc_rate.valueChanged.connect(self.update_enc_rate)
+
         self.shutters = shutters
         self.color_map = {'Open': 'lime', 'Close': 'red', 'Not Open': 'red'}
         self.shutters_buttons = []
@@ -100,3 +116,19 @@ class UIBeamlineStatus(*uic.loadUiType(ui_path)):
 
     def change_shutter_color(self):
         self.current_button.setStyleSheet("background-color: " + self.current_button_color)
+
+
+    def update_daq_rate(self):
+        daq_rate = self.spinBox_daq_rate.value()
+        # 374.94 is the nominal RF frequency
+        divider = int(374.94 / daq_rate)
+        self.apb.divide.set(divider)
+
+    def update_enc_rate(self):
+        enc_rate = self.spinBox_enc_rate.value()
+        rate_in_points = (1 / (enc_rate * 1e3)) * 1e9 / 10
+
+        rate_in_points_rounded = int(np.ceil(rate_in_points / 100.0) * 100)
+        #elf.mono.enc.filter_dt, rate_in_points_rounded, wait=True))
+
+        # self.RE(bps.abs_set(self.mono.enc.filter_dt, rate_in_points, wait=True))
