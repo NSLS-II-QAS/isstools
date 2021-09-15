@@ -119,11 +119,11 @@ class UIRun(*uic.loadUiType(ui_path)):
                     ignore_shutter=True
                     break
 
-        # Send sampling time to the pizzaboxes:
-        value = int(round(float(self.analog_samp_time) / self.adc_list[0].sample_rate.value * 100000))
-
-        for adc in self.adc_list:
-            adc.averaging_points.put(str(value))
+        # # Send sampling time to the pizzaboxes:
+        #        value = int(round(float(self.analog_samp_time) / self.adc_list[0].sample_rate.value * 100000))
+        #
+        # for adc in self.adc_list:
+        #     adc.averaging_points.put(str(value))
 
         for enc in self.enc_list:
             enc.filter_dt.put(float(self.enc_samp_time) * 100000)
