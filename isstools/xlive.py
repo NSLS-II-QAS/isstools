@@ -37,6 +37,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
 
     def __init__(self,
                  plan_funcs=[],
+                 service_plan_funcs={},
                  prep_traj_plan=None,
                  diff_plans=[],
                  RE=None,
@@ -241,17 +242,16 @@ class XliveGui(*uic.loadUiType(ui_path)):
 
                 self.widget_trajectory_manager.trajectoriesChanged.connect(self.widget_batch_mode.update_batch_traj)
 
-            self.widget_beamline_setup = widget_beamline_setup.UIBeamlineSetup(RE, self.mono, db, 
-                                                                               self.adc_list,
-                                                                               self.enc_list, self.det_dict, self.xia,
-                                                                               self.ic_amplifiers,
-                                                                               self.prepare_bl_plan, self.plan_funcs,
-                                                                               self.prepare_bl_list,
-                                                                               self.set_gains_offsets_scan,
+            self.widget_beamline_setup = widget_beamline_setup.UIBeamlineSetup(RE,
+                                                                               db,
+                                                                               det_dict,
+                                                                               plan_funcs,
+                                                                               service_plan_funcs,
                                                                                aux_plan_funcs,
-                                                                               self.motors_dict, general_scan_func,
-                                                                               self.widget_run.create_log_scan,
-                                                                               self.auto_tune_dict, shutters_dict, self)
+                                                                               motors_dict,
+                                                                               general_scan_func,
+                                                                               shutters_dict,
+                                                                               self)
             self.layout_beamline_setup.addWidget(self.widget_beamline_setup)
 
             self.widget_run_diff = widget_run_diff.UIRunDiff(RE,
