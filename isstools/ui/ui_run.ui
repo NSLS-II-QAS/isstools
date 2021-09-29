@@ -27,7 +27,7 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <layout class="QGridLayout" name="gridLayout_13">
+     <layout class="QGridLayout" name="gridLayout_parameters">
       <property name="sizeConstraint">
        <enum>QLayout::SetNoConstraint</enum>
       </property>
@@ -74,7 +74,7 @@
    <property name="geometry">
     <rect>
      <x>410</x>
-     <y>20</y>
+     <y>10</y>
      <width>1201</width>
      <height>881</height>
     </rect>
@@ -123,7 +123,7 @@ file and switch to
      </widget>
     </item>
     <item row="0" column="1">
-     <widget class="QComboBox" name="run_type">
+     <widget class="QComboBox" name="comboBox_scan_type">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
         <horstretch>0</horstretch>

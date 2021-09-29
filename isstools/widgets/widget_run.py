@@ -17,6 +17,8 @@ from isstools.elements.figure_update import update_figure
 
 from .widget_beamline_status import get_state
 
+from isstools.elements.parameter_handler import parse_plan_parameters, return_parameters_from_widget
+
 
 # Libs needed by the ZMQ communication
 import json
@@ -49,7 +51,7 @@ class UIRun(*uic.loadUiType(ui_path)):
 
 
         self.plan_funcs = plan_funcs
-        self.plan_funcs_names = [plan.__name__ for plan in plan_funcs]
+
         self.db = db
         if self.db is None:
             self.run_start.setEnabled(False)
@@ -64,21 +66,20 @@ class UIRun(*uic.loadUiType(ui_path)):
         self.filepaths = []
         self.xia_parser = xiaparser.xiaparser()
 
-        self.run_type.addItems(self.plan_funcs_names)
-        self.run_start.clicked.connect(self.run_scan)
+        self.plan_funcs = plan_funcs
+        self.plan_funcs_names = plan_funcs.keys()
+        self.comboBox_scan_type.addItems(self.plan_funcs_names)
 
         self.pushButton_scantype_help.clicked.connect(self.show_scan_help)
 
-        self.run_type.currentIndexChanged.connect(self.populateParams)
+        self.comboBox_scan_type.currentIndexChanged.connect(self.populate_parameter_grid)
 
         # List with uids of scans created in the "run" mode:
         self.run_mode_uids = []
 
-        self.params1 = []
-        self.params2 = []
-        self.params3 = []
-        if len(self.plan_funcs) != 0:
-            self.populateParams(0)
+        self.parameter_values = []
+        self.parameter_descriptions = []
+        self.populate_parameter_grid(0)
 
     def addCanvas(self):
         self.figure = Figure()
@@ -190,28 +191,23 @@ class UIRun(*uic.loadUiType(ui_path)):
         if self.html_log_func is not None:
             self.html_log_func(uid, figure)
 
-    def populateParams(self, index):
-        for i in range(len(self.params1)):
-            self.gridLayout_13.removeWidget(self.params1[i])
-            self.gridLayout_13.removeWidget(self.params2[i])
-            self.gridLayout_13.removeWidget(self.params3[i])
-            self.params1[i].deleteLater()
-            self.params2[i].deleteLater()
-            self.params3[i].deleteLater()
-        self.params1 = []
-        self.params2 = []
-        self.params3 = []
-        self.param_types = []
-        plan_func = self.plan_funcs[index]
-        signature = inspect.signature(plan_func)
-        for i in range(0, len(signature.parameters)):
-            default = re.sub(r':.*?=', '=', str(signature.parameters[list(signature.parameters)[i]]))
-            if default == str(signature.parameters[list(signature.parameters)[i]]):
-                default = re.sub(r':.*', '', str(signature.parameters[list(signature.parameters)[i]]))
-            self.addParamControl(list(signature.parameters)[i], default,
-                                 signature.parameters[list(signature.parameters)[i]].annotation,
-                                 grid=self.gridLayout_13, params=[self.params1, self.params2, self.params3])
-            self.param_types.append(signature.parameters[list(signature.parameters)[i]].annotation)
+    def populate_parameter_grid(self, index):
+        for i in range(len(self.parameter_values)):
+            self.gridLayout_parameters.removeWidget(self.parameter_values[i])
+            self.gridLayout_parameters.removeWidget(self.parameter_descriptions[i])
+            self.parameter_values[i].deleteLater()
+            self.parameter_descriptions[i].deleteLater()
+
+        plan_key = self.comboBox_scan_type.currentText()
+        plan_func = self.plan_funcs[plan_key]
+        [self.parameter_values, self.parameter_descriptions, self.parameter_types] = parse_plan_parameters(plan_func)
+
+        for i in range(len(self.parameter_values)):
+            self.gridLayout_parameters.addWidget(self.parameter_values[i], i, 0, QtCore.Qt.AlignTop)
+            self.gridLayout_parameters.addWidget(self.parameter_descriptions[i], i, 1, QtCore.Qt.AlignTop)
+
+
+
 
     def addParamControl(self, name, default, annotation, grid, params):
         rows = int((grid.count()) / 3)

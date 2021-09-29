@@ -6,18 +6,14 @@ import pkg_resources
 import math
 
 from PyQt5 import uic, QtGui, QtCore
-from matplotlib.figure import Figure
 
-from isstools.widgets import (widget_general_info, widget_trajectory_manager, widget_processing, widget_batch_mode,
+from PyQt5.QtCore import QThread, QSettings
+
+from isstools.widgets import (widget_general_info, widget_trajectory_manager, widget_processing, widget_batch,
                               widget_run, widget_beamline_setup, widget_run_diff, widget_sdd_manager, widget_beamline_status)
 
 from isstools.elements import EmittingStream
-#Libs for ZeroMQ communication
-import socket
-from PyQt5.QtCore import QThread
-import zmq
-import pickle
-import pandas as pd
+from isstools.elements.batch_motion import SamplePositioner
 from isstools.process_callbacks.callback import ProcessingCallback
 
 ui_path = pkg_resources.resource_filename('isstools', 'ui/XLive.ui')
@@ -51,7 +47,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
                  motors_dict={},
                  aux_plan_funcs={},
                  general_scan_func = None,
-                 sample_stages= None,
+                 sample_stage= None,
                  window_title="XLive @QAS/07-BM NSLS-II",
                  job_submitter=None,
                  *args, **kwargs):
@@ -134,7 +130,6 @@ class XliveGui(*uic.loadUiType(ui_path)):
 
         self.det_dict = det_dict
         self.plan_funcs = plan_funcs
-        self.plan_funcs_names = [plan.__name__ for plan in plan_funcs]
 
         self.prep_traj_plan = prep_traj_plan
 
@@ -174,9 +169,18 @@ class XliveGui(*uic.loadUiType(ui_path)):
             self.progressBar.setValue(0)
 
         # Activating ZeroMQ Receiving Socket
+        self.settings = QSettings(self.window_title, 'XLive')
 
-
-
+        stage_park_x = self.settings.value('stage_park_x', defaultValue=0, type=float)
+        stage_park_y = self.settings.value('stage_park_y', defaultValue=0, type=float)
+        sample_park_x = self.settings.value('sample_park_x', defaultValue=0, type=float)
+        sample_park_y = self.settings.value('sample_park_y', defaultValue=0, type=float)
+        self.sample_positioner = SamplePositioner(self.RE,
+                                                  sample_stage,
+                                                  stage_park_x,
+                                                  stage_park_y,
+                                                  delta_first_holder_x=sample_park_x - stage_park_x,
+                                                  delta_first_holder_y=sample_park_y - stage_park_y)
 
         self.run_mode = 'run'
 
@@ -228,19 +232,21 @@ class XliveGui(*uic.loadUiType(ui_path)):
 
             self.layout_run.addWidget(self.widget_run)
 
-            if self.mono is not None:
-                self.widget_batch_mode = widget_batch_mode.UIBatchMode(self.plan_funcs, self.motors_dict, mono,
-                                                                       RE, db,
-                                                                       self.adc_list, self.enc_list, self.xia,
-                                                                       self.run_prep_traj,
-                                                                       self.widget_run.create_log_scan,
-                                                                       sample_stages=sample_stages,
-                                                                       parent_gui = self,
-                                                                       job_submitter=job_submitter)
-                self.layout_batch.addWidget(self.widget_batch_mode)
+
+            self.widget_batch_mode = widget_batch.UIBatch(
+                plan_funcs,
+                service_plan_funcs,
+                mono,
+                RE,
+                sample_stage,
+                self,
+                motors_dict,
+                self.sample_positioner
+            )
+            self.layout_batch.addWidget(self.widget_batch_mode)
 
 
-                self.widget_trajectory_manager.trajectoriesChanged.connect(self.widget_batch_mode.update_batch_traj)
+            # self.widget_trajectory_manager.trajectoriesChanged.connect(self.widget_batch_mode.update_batch_traj)
 
             self.widget_beamline_setup = widget_beamline_setup.UIBeamlineSetup(RE,
                                                                                db,
