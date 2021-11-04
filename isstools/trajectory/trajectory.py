@@ -410,24 +410,24 @@ class trajectory_manager():
         print('############### Inside Initi Trajectory; Done lut_put and begining while loops ###############')
 
         ttime.sleep(0.5)
-        while (int(self.hhm.lut_number_rbv.value) != int(lut_number)):
+        while (int(self.hhm.lut_number_rbv.get()) != int(lut_number)):
             ttime.sleep(.01)
             QtCore.QCoreApplication.processEvents()
             # print('init Traj loop 1')
         self.hhm.lut_start_transfer.put("1")    
-        while (self.hhm.lut_transfering.value == 0):
+        while (self.hhm.lut_transfering.get() == 0):
             ttime.sleep(.01)
             QtCore.QCoreApplication.processEvents()
             # print('init Traj loop 2')
-        while (self.hhm.lut_transfering.value == 1):
+        while (self.hhm.lut_transfering.get() == 1):
             ttime.sleep(.01)
             QtCore.QCoreApplication.processEvents()
             # print('init Traj loop 3')
         ttime.sleep(.25)
-        #while (self.hhm.trajectory_loading.value == 0):
+        #while (self.hhm.trajectory_loading.get == 0):
         #    ttime.sleep(.001)
         #    QtCore.QCoreApplication.processEvents()
-        while (self.hhm.trajectory_loading.value == 1):
+        while (self.hhm.trajectory_loading.get() == 1):
             ttime.sleep(.01)
             QtCore.QCoreApplication.processEvents()
             # print('init Traj loop 4')
@@ -467,7 +467,7 @@ class trajectory_manager():
                 return False
             else:
                 self.hhm.cycle_limit.put(size)
-                while (self.hhm.cycle_limit_rbv.value != size):
+                while (self.hhm.cycle_limit_rbv.get() != size):
                     ttime.sleep(.01)
                     # print('init Traj loop 5')
                 print('[Init Trajectory] New lut number: {}'.format(lut_number))
@@ -538,5 +538,5 @@ class trajectory_manager():
     
 
     def current_lut(self):
-        return self.hhm.lut_number_rbv.value
+        return self.hhm.lut_number_rbv.get()
         

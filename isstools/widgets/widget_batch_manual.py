@@ -13,7 +13,6 @@ from isstools.elements.batch_elements import *
 from isstools.elements.batch_elements import (_create_batch_experiment, _create_new_sample, _create_new_scan,
                                               _clone_scan_item, _clone_sample_item)
 import json
-from isstools.widgets import widget_sample_positioner
 
 from isstools.dialogs import UpdateSampleInfo, UpdateScanInfo
 
@@ -93,16 +92,12 @@ class UIBatchManual(*uic.loadUiType(ui_path)):
 
         self.push_check_all.clicked.connect(self.check_all_samples)
         self.push_uncheck_all.clicked.connect(self.uncheck_all_samples)
-        self.push_import_from_autopilot.clicked.connect(self.get_info_from_autopilot)
+
 
         self.sample_positioner = sample_positioner
         self.parent_gui = parent_gui.parent_gui
         self.settings = parent_gui.parent_gui.settings
-        self.widget_sample_positioner = widget_sample_positioner.UISamplePositioner(parent=self,
-                                                                                    settings=self.settings,
-                                                                                    RE=RE,
-                                                                                    sample_positioner=sample_positioner)
-        self.layout_sample_positioner.addWidget(self.widget_sample_positioner)
+
 
     '''
     Dealing with batch experiemnts
@@ -226,15 +221,7 @@ class UIBatchManual(*uic.loadUiType(ui_path)):
             item = self.model_samples.item(i)
             item.setCheckState(0)
 
-    def get_info_from_autopilot(self):
-        sample_df = self.parent_gui.widget_autopilot.sample_df
-        sample_number = int(self.lineEdit_autopilot.text()) - 1  # pandas is confusing
-        # name = sample_df.iloc[sample_number]['Sample label']
-        name = sample_df.iloc[sample_number]['Name']
-        comment = sample_df.iloc[sample_number]['Composition'] + ' ' + sample_df.iloc[sample_number]['Comment']
-        name = name.replace('/', '_')
-        self.lineEdit_sample_name.setText(name)
-        self.lineEdit_sample_comment.setText(comment)
+
 
     def update_item_info(self):
         sender_object = QObject().sender()

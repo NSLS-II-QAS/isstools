@@ -18,6 +18,7 @@ from isstools.elements.figure_update import update_figure
 from .widget_beamline_status import get_state
 
 from isstools.elements.parameter_handler import parse_plan_parameters, return_parameters_from_widget
+from isstools.dialogs.BasicDialogs import message_box, question_message_box
 
 
 # Libs needed by the ZMQ communication
@@ -33,6 +34,7 @@ from isstools.xasdata.xasdata import XASdataGeneric
 
 class UIRun(*uic.loadUiType(ui_path)):
     def __init__(self,
+                 RE,
                  plan_funcs,
                  db,
                  shutters,
@@ -62,6 +64,7 @@ class UIRun(*uic.loadUiType(ui_path)):
         self.xia = xia
         self.html_log_func = html_log_func
         self.parent_gui = parent_gui
+        self.RE = RE
 
         self.filepaths = []
         self.xia_parser = xiaparser.xiaparser()
@@ -71,7 +74,7 @@ class UIRun(*uic.loadUiType(ui_path)):
         self.comboBox_scan_type.addItems(self.plan_funcs_names)
 
         self.pushButton_scantype_help.clicked.connect(self.show_scan_help)
-
+        self.run_start.clicked.connect(self.run_scan)
         self.comboBox_scan_type.currentIndexChanged.connect(self.populate_parameter_grid)
 
         # List with uids of scans created in the "run" mode:
@@ -97,86 +100,51 @@ class UIRun(*uic.loadUiType(ui_path)):
         self.canvas.draw_idle()
 
     def run_scan(self):
-        ignore_shutter=False
-        if self.run_type.currentText() == 'get_offsets':
-            for shutter in [self.shutters[shutter] for shutter in self.shutters if
-                            self.shutters[shutter].shutter_type == 'PH' and
-                            self.shutters[shutter].status.value == 'Open']:
-                st = shutter.set('Close')
-                while not st.done:
-                    QtWidgets.QApplication.processEvents()
-                    ttime.sleep(0.1)
+        ignore_shutter = False
 
-        else:
-            for shutter in [self.shutters[shutter] for shutter in self.shutters if
-                            self.shutters[shutter].shutter_type != 'SP']:
-                shutter_state = get_state(shutter)
-                if shutter_state != 'Open':
-                    ret = self.questionMessage('Shutter closed',
-                                               'Would you like to run the scan with the shutter closed?')
-                    if not ret:
-                        print('Aborted!')
-                        return False
-                    ignore_shutter=True
-                    break
 
-        # # Send sampling time to the pizzaboxes:
-        #        value = int(round(float(self.analog_samp_time) / self.adc_list[0].sample_rate.value * 100000))
-        #
-        # for adc in self.adc_list:
-        #     adc.averaging_points.put(str(value))
+        for shutter in [self.shutters[shutter] for shutter in self.shutters if
+                        self.shutters[shutter].shutter_type != 'SP']:
+            shutter_state = get_state(shutter)
+            if shutter_state != 'Open':
+                ret = self.questionMessage('Shutter closed',
+                                           'Would you like to run the scan with the shutter closed?')
+                if not ret:
+                    print('Aborted!')
+                    return False
+                ignore_shutter = True
+                break
 
-        for enc in self.enc_list:
-            enc.filter_dt.put(float(self.enc_samp_time) * 100000)
-
-        # not needed at QAS this is a detector
-        if self.xia is not None:
-            if self.xia.input_trigger is not None:
-                self.xia.input_trigger.unit_sel.put(1)  # ms, not us
-                self.xia.input_trigger.period_sp.put(int(self.xia_samp_time))
-
-        self.comment = self.params2[0].text()
-        if (self.comment):
+        name_provided = self.parameter_values[0].text()
+        if name_provided:
             timenow = datetime.datetime.now()
-            print('\nStarting scan at {}'.format(timenow.strftime("%H:%M:%S")))
-            start_scan_timer=timer()
-            
-            # Get parameters from the widgets and organize them in a dictionary (run_params)
-            run_params = {}
-            for i in range(len(self.params1)):
-                if (self.param_types[i] == int):
-                    run_params[self.params3[i].text().split('=')[0]] = self.params2[i].value()
-                elif (self.param_types[i] == float):
-                    run_params[self.params3[i].text().split('=')[0]] = self.params2[i].value()
-                elif (self.param_types[i] == bool):
-                    run_params[self.params3[i].text().split('=')[0]] = bool(self.params2[i].checkState())
-                elif (self.param_types[i] == str):
-                    run_params[self.params3[i].text().split('=')[0]] = self.params2[i].text()
+            print('\nStarting scan at {}'.format(timenow.strftime("%H:%M:%S"), flush='true'))
+            start_scan_timer = timer()
 
-            # Erase last graph
-            self.figure.ax1.clear()
-            #self.figure.ax2.clear()
-            #self.figure.ax3.clear()
-            self.toolbar.update()
-            self.canvas.draw_idle()
-            #self.figure.ax3.grid(alpha = 0.4)
-            
+            # Get parameters from the widgets and organize them in a dictionary (run_params)
+            run_parameters = return_parameters_from_widget(self.parameter_descriptions, self.parameter_values,
+                                                           self.parameter_types)
+
             # Run the scan using the dict created before
             self.run_mode_uids = []
-            self.parent_gui.run_mode = 'run'
-            for uid in self.plan_funcs[self.run_type.currentIndex()](**run_params,
-                                                                     ax=self.figure.ax1,
-                                                                     ignore_shutter=ignore_shutter,
-                                                                     stdout=self.parent_gui.emitstream_out):
-                self.run_mode_uids.append(uid)
+            plan_key = self.comboBox_scan_type.currentText()
+            plan_func = self.plan_funcs[plan_key]
 
-            timenow = datetime.datetime.now()    
+            RE_args = [plan_func(**run_parameters,
+                                 ignore_shutter=ignore_shutter,
+                                 )]
+
+
+            self.run_mode_uids = self.RE(*RE_args)
+
+            timenow = datetime.datetime.now()
             print('Scan complete at {}'.format(timenow.strftime("%H:%M:%S")))
-            stop_scan_timer=timer()  
-            print('Scan duration {}'.format(stop_scan_timer-start_scan_timer))
+            stop_scan_timer = timer()
+            print('Scan duration {} s'.format(stop_scan_timer - start_scan_timer))
+
 
         else:
-            print('\nPlease, type the name of the scan in the field "name"\nTry again')
+            message_box('Error', 'Please provide the name for the scan')
 
     def show_scan_help(self):
         title = self.run_type.currentText()

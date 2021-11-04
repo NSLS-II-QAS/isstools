@@ -33,9 +33,9 @@ class XliveGui(*uic.loadUiType(ui_path)):
 
     def __init__(self,
                  plan_funcs=[],
-                 service_plan_funcs={},
-                 prep_traj_plan=None,
                  diff_plans=[],
+                 service_plan_funcs={},
+                 prep_traj_plan= None,
                  RE=None,
                  db=None,
                  apb=None,
@@ -49,7 +49,6 @@ class XliveGui(*uic.loadUiType(ui_path)):
                  general_scan_func = None,
                  sample_stage= None,
                  window_title="XLive @QAS/07-BM NSLS-II",
-                 job_submitter=None,
                  *args, **kwargs):
         '''
 
@@ -221,7 +220,8 @@ class XliveGui(*uic.loadUiType(ui_path)):
         self.layout_processing.addWidget(self.widget_processing)
 
         if self.RE is not None:
-            self.widget_run = widget_run.UIRun(self.plan_funcs, 
+            self.widget_run = widget_run.UIRun(RE,
+                                               self.plan_funcs,
                                                db, 
                                                shutters_dict, 
                                                self.adc_list, 

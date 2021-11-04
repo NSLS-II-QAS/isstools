@@ -1,5 +1,5 @@
 import sys
-
+import bluesky.plan_stubs as bps
 import pkg_resources
 from PyQt5 import uic
 from bluesky.plan_stubs import mv
@@ -152,6 +152,7 @@ class UIBatch(*uic.loadUiType(ui_path)):
                             child_item = scan.child(kk)
                             if child_item.item_type == 'sample':
                                 sample=child_item
+                                print('got to checkpoint 1')
                                 # randomization
                                 delta_x, delta_y = self.randomize_position()
 
@@ -161,18 +162,8 @@ class UIBatch(*uic.loadUiType(ui_path)):
                                     yield from mv(sample_stage.x, sample.x + delta_x, sample_stage.y,
                                                   sample.y + delta_y)
 
-                                # see if there is child service
-                                if sample.rowCount() != 0:
-                                    for i in range(sample.rowCount()):
-                                        child_service = sample.child(i)
-                                        kwargs = {'stdout': self.parent_gui.emitstream_out}
-                                        if testing:
-                                            print('would have done service', child_service.name)
-                                        else:
-                                            yield from child_service.service_plan(**child_service.service_params, **kwargs)
-
                                 plan = plans_dict[scan.scan_type]
-
+                                print('got to checkpoint 2')
                                 sample_name = '{} {} {}'.format(sample.name, scan.name, exper_index)
                                 self.label_batch_step.setText(sample_name)
                                 kwargs = {'name': sample_name,
@@ -183,6 +174,7 @@ class UIBatch(*uic.loadUiType(ui_path)):
                                 if testing:
                                     print('would have done the scan', sample.name)
                                 else:
+                                    yield from bps.sleep(5)
                                     yield from plan(**kwargs)
 
                             elif child_item.item_type == 'service':

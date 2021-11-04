@@ -93,7 +93,7 @@ class XASBatchExperiment:
             call(['chmod', '666', filename])
 
     def load_trajectories(self):
-        offset = self.hhm.angle_offset.value
+        offset = self.hhm.angle_offset.get
         print(offset)
         for i, traj_file in enumerate(self.trajectory_filenames):
             self.trajectory_manager.load(os.path.basename(traj_file),i+1,is_energy=True, offset=offset )

@@ -377,7 +377,7 @@ class xiaparser:
         center_energy = float(center_energy)
         scan_range = float(scan_range)
 
-        graph_x = xia.mca_x.value
+        graph_x = xia.mca_x.get
         graph_data = getattr(xia, "mca_array" + "{}".format(channel_number) + ".value")
     
         condition = (graph_x <= (center_energy + scan_range)/1000) == (graph_x > (center_energy - scan_range)/1000)
@@ -409,7 +409,7 @@ class xiaparser:
 
         energies, i0_values = np.loadtxt("{}{}-{}".format(path, set_name, "i0")).transpose()
         det_channels.append(energies)
-        det_channels.append(i0_values - pba1.adc7.offset.value)
+        det_channels.append(i0_values - pba1.adc7.offset.get)
 
         for i in range(4):
             cur_det = np.loadtxt("{}{}-{}".format(path, set_name, i + 1))

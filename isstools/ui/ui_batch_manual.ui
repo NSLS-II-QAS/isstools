@@ -116,7 +116,7 @@
    <widget class="QPushButton" name="push_create_batch_experiment">
     <property name="geometry">
      <rect>
-      <x>400</x>
+      <x>520</x>
       <y>20</y>
       <width>141</width>
       <height>36</height>
@@ -154,9 +154,9 @@
    <widget class="QPushButton" name="push_delete_sample">
     <property name="geometry">
      <rect>
-      <x>5</x>
+      <x>10</x>
       <y>350</y>
-      <width>71</width>
+      <width>101</width>
       <height>21</height>
      </rect>
     </property>
@@ -226,6 +226,9 @@
        <width>131</width>
        <height>21</height>
       </rect>
+     </property>
+     <property name="text">
+      <string>sample</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="lineEdit_sample_comment">
@@ -434,30 +437,6 @@
       <string>mm</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="push_import_from_autopilot">
-     <property name="geometry">
-      <rect>
-       <x>240</x>
-       <y>160</y>
-       <width>81</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>From
-Autopilot</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="lineEdit_autopilot">
-     <property name="geometry">
-      <rect>
-       <x>250</x>
-       <y>130</y>
-       <width>61</width>
-       <height>21</height>
-      </rect>
-     </property>
-    </widget>
     <widget class="QPushButton" name="push_create_sample_grid">
      <property name="geometry">
       <rect>
@@ -523,30 +502,6 @@ Autopilot</string>
     <property name="text">
      <string>Uncheck all</string>
     </property>
-   </widget>
-   <widget class="QGroupBox" name="groupBox_3">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>640</y>
-      <width>331</width>
-      <height>151</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>Sample positioner</string>
-    </property>
-    <widget class="QWidget" name="verticalLayoutWidget_2">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>20</y>
-       <width>271</width>
-       <height>121</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="layout_sample_positioner"/>
-    </widget>
    </widget>
   </widget>
   <widget class="QGroupBox" name="groupBox_10">
@@ -696,6 +651,9 @@ Autopilot</string>
        <width>131</width>
        <height>23</height>
       </rect>
+     </property>
+     <property name="text">
+      <string>scan</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_120">
@@ -1416,7 +1374,7 @@ Autopilot</string>
      <x>480</x>
      <y>700</y>
      <width>102</width>
-     <height>71</height>
+     <height>86</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">

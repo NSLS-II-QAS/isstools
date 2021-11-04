@@ -26,12 +26,12 @@ ui_path = pkg_resources.resource_filename('isstools', 'ui/ui_processing.ui')
 
 class UIProcessing(*uic.loadUiType(ui_path)):
     def __init__(self,
-                 hhm,
+                 mono,
                  db,
                  parent_gui,
                  *args, **kwargs):
         '''
-            hhm:
+            mono:
                 the monochromator
             db : the data database
             det_dict:
@@ -45,7 +45,7 @@ class UIProcessing(*uic.loadUiType(ui_path)):
         self.addCanvas()
 
 
-        self.hhm = hhm
+        self.mono = mono
         self.db = db
 
         self.settings = QSettings(parent_gui.window_title, 'XLive')
@@ -240,8 +240,8 @@ class UIProcessing(*uic.loadUiType(ui_path)):
             print('[E0 Calibration] Aborted!')
             return False
 
-        new_value = str(self.hhm.angle_offset.value - (xray.energy2encoder(float(self.edit_E0.text()),
-                   self.hhm.pulses_per_deg) - xray.energy2encoder(float(self.edit_ECal.text()), self.hhm.pulses_per_deg))/self.hhm.pulses_per_deg)
+        new_value = str(self.mono.angle_offset.get() - (xray.energy2encoder(float(self.edit_E0.text()),
+                   self.mono.pulses_per_deg) - xray.energy2encoder(float(self.edit_ECal.text()), self.mono.pulses_per_deg))/self.mono.pulses_per_deg)
         if self.set_new_angle_offset(new_value):
             return
         print ('[E0 Calibration] New value: {}\n[E0 Calibration] Completed!'.format(new_value))
@@ -256,7 +256,7 @@ class UIProcessing(*uic.loadUiType(ui_path)):
 
     def set_new_angle_offset(self, value):
         try:
-            self.hhm.angle_offset.put(float(value))
+            self.mono.angle_offset.put(float(value))
         except Exception as exc:
             if type(exc) == ophyd_utils.errors.LimitError:
                 print('[New offset] {}. No reason to be desperate, though.'.format(exc))

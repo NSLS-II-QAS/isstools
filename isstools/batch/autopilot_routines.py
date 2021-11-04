@@ -31,13 +31,13 @@ class Experiment:
 
 
 class TrajectoryStack:
-    def __init__(self, hhm):
+    def __init__(self, mono):
 
         self.most_recent = 0
         self.slots = [None]*8
-        self.hhm = hhm
-        self.traj_manager = trajectory_manager(hhm)
-        self.current_traj_slot = hhm.lut_number_rbv.read()['hhm_lut_number_rbv']['value']
+        self.mono = mono
+        self.traj_manager = trajectory_manager(mono)
+        self.current_traj_slot = mono.lut_number_rbv.get()
     #
     #
     # def check_if_exists(self, traj_signature):
@@ -100,7 +100,7 @@ class TrajectoryStack:
 
     def create_new_trajectory(self, traj_signature, traj_index): # creates, saves, loads, and initializes trajectory with this signature
 
-        traj_creator = trajectory(self.hhm)
+        traj_creator = trajectory(self.mono)
         if traj_signature['type'] == 'Double Sine':
             traj_creator.elem = traj_signature['parameters']['element']
             traj_creator.edge = traj_signature['parameters']['edge']
@@ -124,19 +124,19 @@ class TrajectoryStack:
 
 
         fname = traj_signature['parameters']['element'] + '_' + str(uuid.uuid4())[:8] + '.txt'
-        fpath = self.hhm.traj_filepath + fname
+        fpath = self.mono.traj_filepath + fname
         traj_creator.save(fpath)
 
         self.traj_manager.load(orig_file_name=fname,
                                new_file_path=traj_index + 1,
-                               is_energy=True, offset=self.hhm.angle_offset.value)
+                               is_energy=True, offset=self.mono.angle_offset.get)
 
         self.traj_manager.init(traj_index + 1)
 
     def batch_create_trajectories(self):
         for i in range(len(self.experiment_table)):
             d = self.experiment_table.iloc[i]
-            traj = trajectory(self.hhm)
+            traj = trajectory(self.mono)
             kwargs = dict(
                 edge_energy=d['Energy'],
                 offsets=([d['pre-edge start'], d['pre-edge stop'],
@@ -170,7 +170,7 @@ class TrajectoryStack:
 
 
     def load_trajectories(self):
-        offset = self.hhm.angle_offset.value
+        offset = self.mono.angle_offset.get
         print(offset)
         for i, traj_file in enumerate(self.trajectory_filenames):
             self.trajectory_manager.load(os.path.basename(traj_file),i+1,is_energy=True, offset=offset )

@@ -186,7 +186,7 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
         update_figure([self.figure_gen_scan.ax], self.toolbar_gen_scan, self.canvas_gen_scan)
 
         # self.push_gen_scan.setEnabled(False)
-        uid_list = self.RE(self.aux_plan_funcs['general_scan'](detectors,
+        uid_list = self.RE(self.aux_plan_funcs['General Scan'](detectors,
                                                                curr_mot,
                                                                rel_start,
                                                                rel_stop,
@@ -334,8 +334,9 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
 
     def set_reference_foil(self):
         foil = self.comboBox_reference_foils.currentText()
-        self.RE(self.aux_plan_funcs['set_reference_foil'](foil))
-        self.RE.md['foil_element'] = self.aux_plan_funcs['get_reference_foil']()
+        self.RE(self.aux_plan_funcs['Set Reference Foil'](element = foil))
+        # self.RE.md['foil_element'] = self.aux_plan_funcs['get_reference_foil']()
+        pass
 
 
 
