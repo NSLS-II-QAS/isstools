@@ -267,7 +267,11 @@ class XliveGui(*uic.loadUiType(ui_path)):
             self.layout_run_diff.addWidget(self.widget_run_diff)
 
 
-            self.widget_sdd_manager = widget_sdd_manager.UISDDManager(self.plan_funcs, sdd, RE)
+            self.widget_sdd_manager = widget_sdd_manager.UISDDManager(service_plan_funcs,
+                                                                      sdd,
+                                                                      RE)
+
+
             self.layout_xspress3_setup.addWidget(self.widget_sdd_manager)
 
    

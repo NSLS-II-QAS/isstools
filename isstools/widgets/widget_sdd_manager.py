@@ -24,7 +24,8 @@ ui_path = pkg_resources.resource_filename('isstools', 'ui/ui_sdd_manager.ui')
 class UISDDManager(*uic.loadUiType(ui_path)):
 
     def __init__(self,
-                 plan_funcs,
+                 service_plan_funcs,
+
                  xs,
                  RE,
                  *args,
@@ -34,7 +35,7 @@ class UISDDManager(*uic.loadUiType(ui_path)):
         self.setupUi(self)
 
         self.addCanvas()
-        self.plan_funcs = plan_funcs
+        self.service_plan_funcs = service_plan_funcs
         self.RE = RE
         self.xs = xs
         self.roi_plots = []
@@ -200,8 +201,8 @@ class UISDDManager(*uic.loadUiType(ui_path)):
 
     def xs3_acquire(self):
         self.roi_plots = []
-        print('acquiring...')
-        plan = self.plan_funcs[3]
+        print('Xspress3 acquisition starting...')
+        plan = self.service_plan_funcs['xs_count']
         acq_time = self.spinBox_acq_time.value()
         self.RE(plan(acq_time = acq_time))
         self.acquired = True
