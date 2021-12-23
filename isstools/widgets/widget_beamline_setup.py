@@ -344,7 +344,7 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
     # def run_get_offsets(self):
     #     for shutter in [self.shutters[shutter] for shutter in self.shutters
     #                     if self.shutters[shutter].shutter_type == 'PH' and
-    #                     self.shutters[shutter].status.value == 'Open']:
+    #                     self.shutters[shutter].status.get() == 'Open']:
     #         st = shutter.set('Close')
     #         while not st.done:
     #             QtWidgets.QApplication.processEvents()

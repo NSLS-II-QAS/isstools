@@ -62,7 +62,7 @@ class UIRunDiff(*uic.loadUiType(ui_path)):
 
         # for shutter in [self.shutter_dictionary[shutter] for shutter in self.shutter_dictionary if
         #                 self.shutter_dictionary[shutter].shutter_type != 'SP']:
-        #     if shutter.state.value:
+        #     if shutter.state.get():
         #         print(self, 'Shutter closed')
         #         break
 
