@@ -52,7 +52,7 @@ class UIRunDiff(*uic.loadUiType(ui_path)):
         self.run_start.clicked.connect(self.run_diffraction)
 
         self.settings = QSettings(parent_gui.window_title, 'XLive')
-        self.user_dir = self.settings.value('usr_dir', defaultValue = '/nsls2/xf07bm/users', type = str)
+        self.user_dir = self.settings.value('usr_dir', defaultValue = '/nsls2/data/qas-new/legacy/processed', type = str)
 
         self.push_open_pattern.clicked.connect(self.open_tiff_files)
         self.addCanvas()
@@ -102,8 +102,8 @@ class UIRunDiff(*uic.loadUiType(ui_path)):
 
         img = plt.imread(self.tiff_file_to_view)
         logarithmic_corrected = exposure.adjust_log(img, 1)
-  
-        self.figure_tiff_image.ax.clear()      
+
+        self.figure_tiff_image.ax.clear()
         self.figure_tiff_image.ax.imshow(logarithmic_corrected, cmap='BuPu_r', vmax=2000)
         self.canvas_tiff_image.draw_idle()
 

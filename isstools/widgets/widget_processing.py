@@ -51,7 +51,7 @@ class UIProcessing(*uic.loadUiType(ui_path)):
         self.settings = QSettings(parent_gui.window_title, 'XLive')
         self.edit_E0.setText(self.settings.value('e0_processing', defaultValue='11470', type=str))
         self.edit_E0.textChanged.connect(self.save_e0_processing_value)
-        self.user_dir = self.settings.value('user_dir', defaultValue = '/nsls2/xf07bm/users/', type = str)
+        self.user_dir = self.settings.value('user_dir', defaultValue = '/nsls2/data/qas-new/legacy/processed/', type = str)
 
         # Initialize 'processing' tab
         self.push_select_file.clicked.connect(self.select_files_to_bin)
