@@ -266,19 +266,19 @@ class XliveGui(*uic.loadUiType(ui_path)):
                                                              parent_gui = self)
             self.layout_run_diff.addWidget(self.widget_run_diff)
 
+            if sdd is not None:
+                self.widget_sdd_manager = widget_sdd_manager.UISDDManager(service_plan_funcs,
+                                                                          sdd,
+                                                                          RE)
 
-            self.widget_sdd_manager = widget_sdd_manager.UISDDManager(service_plan_funcs,
-                                                                      sdd,
-                                                                      RE)
 
-
-            self.layout_xspress3_setup.addWidget(self.widget_sdd_manager)
+                self.layout_xspress3_setup.addWidget(self.widget_sdd_manager)
 
    
-        self.layout_beamline_status.addWidget(widget_beamline_status.UIBeamlineStatus(
-                                                                    shutters=self.shutters_dict,
-                                                                    apb=apb,
-                                                                    mono=mono,))
+            self.layout_beamline_status.addWidget(widget_beamline_status.UIBeamlineStatus(
+                                                                        shutters=self.shutters_dict,
+                                                                        apb=apb,
+                                                                        mono=mono,))
 
         self.filepaths = []
         pc = ProcessingCallback(db=self.db, draw_func_interp=self.widget_run.draw_interpolated_data, draw_func_binned=self.widget_processing.new_bin_df_arrived)
