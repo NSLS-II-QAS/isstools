@@ -203,7 +203,7 @@ class UITrajectoryManager(*uic.loadUiType(ui_path)):
         print(filename)
         if len(filename):
             fileName, fileExtension = os.path.splitext(filename)
-            if fileExtension is not '.txt':
+            if fileExtension != '.txt':
                 filename = fileName + '.txt'
             print(filename)
             if (os.path.isfile(filename)):

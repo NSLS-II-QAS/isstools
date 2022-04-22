@@ -223,9 +223,9 @@ class UIProcessing(*uic.loadUiType(ui_path)):
 
     def replot(self):
         self.erase_plots()
-        if self.listWidget_numerator.currentRow() is not -1:
+        if self.listWidget_numerator.currentRow() != -1:
             self.last_num_text = self.listWidget_numerator.currentItem().text()
-        if self.listWidget_denominator.currentRow() is not -1:
+        if self.listWidget_denominator.currentRow() != -1:
             self.last_den_text = self.listWidget_denominator.currentItem().text()
         if self.interpolated_datasets:
             self.plot_interpolated_datasets()
