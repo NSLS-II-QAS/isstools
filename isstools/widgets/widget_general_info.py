@@ -1,4 +1,3 @@
-
 from PyQt5 import uic, QtGui, QtCore
 import pkg_resources
 import requests
@@ -72,34 +71,46 @@ class UIGeneralInfo(*uic.loadUiType(ui_path)):
         self.label_beam_current.setText('Beam current is {:.1f} mA'.format(kwargs['value']))
 
     def update_accelerator_status(self, **kwargs):
+        accelerator_status = self.accelerator.status.enum_strs[kwargs['value']]
+        # nsls_ii.status.enum_strs = ('Operations',
+        #                             'Setup',
+        #                             'Accel Studies',
+        #                             'Beamline Studies',
+        #                             'Failure',
+        #                             'Maintenance',
+        #                             'Shutdown',
+        #                             'Unscheduled Ops',
+        #                             'Decay Mode Ops')
         if kwargs['value'] == 0:
-            self.label_accelerator_status.setText('Beam available')
-            self.label_accelerator_status.setStyleSheet('color: rgb(19,139,67)')
-            self.label_accelerator_status_indicator.setStyleSheet('background-color: rgb(95,249,95)')
+            accelerator_status_color = "color: rgb(19,139,67)"
+            accelerator_status_indicator = "background-color: rgb(95,249,95)"
         elif kwargs['value'] == 1:
-            self.label_accelerator_status.setText('Setup')
-            self.label_accelerator_status.setStyleSheet('color: rgb(209,116,42)')
-            self.label_accelerator_status_indicator.setStyleSheet('background-color: rgb(246,229,148)')
+            accelerator_status_color = "color: rgb(209,116,42)"
+            accelerator_status_indicator = "background-color: rgb(246,229,148)"
         elif kwargs['value'] == 2:
-            self.label_accelerator_status.setText('Accelerator studies')
-            self.label_accelerator_status.setStyleSheet('color: rgb(209,116,42)')
-            self.label_accelerator_status_indicator.setStyleSheet('background-color: rgb(209,116,42)')
+            accelerator_status_color = "color: rgb(209,116,42)"
+            accelerator_status_indicator = "background-color: rgb(209,116,42)"
         elif kwargs['value'] == 3:
-            self.label_accelerator_status.setText('Beam has dumped')
-            self.label_accelerator_status.setStyleSheet('color: rgb(237,30,30)')
-            self.label_accelerator_status_indicator.setStyleSheet('background-color: rgb(237,30,30)')
+            accelerator_status_color = "color: rgb(237,30,30)"
+            accelerator_status_indicator = "background-color: rgb(237,30,30)"
         elif kwargs['value'] == 4:
-            self.label_accelerator_status.setText('Maintenance')
-            self.label_accelerator_status.setStyleSheet('color: rgb(209,116,42)')
-            self.label_accelerator_status_indicator.setStyleSheet('background-color: rgb(200,149,251)')
+            accelerator_status_color = "color: rgb(209,116,42)"
+            accelerator_status_indicator = "background-color: rgb(200,149,251)"
         elif kwargs['value'] == 5:
-            self.label_accelerator_status.setText('Shutdown')
-            self.label_accelerator_status.setStyleSheet('color: rgb(190,190,190)')
-            self.label_accelerator_status_indicator.setStyleSheet('background-color: rgb(190,190,190)')
+            accelerator_status_color = "color: rgb(190,190,190)"
+            accelerator_status_indicator = "background-color: rgb(190,190,190)"
         elif kwargs['value'] == 6:
-            self.label_accelerator_status.setText('Unscheduled ops')
-            self.label_accelerator_status.setStyleSheet('color: rgb(19,139,67)')
-            self.label_accelerator_status_indicator.setStyleSheet('background-color: rgb(0,177,0)')
+            accelerator_status_color = "color: rgb(19,139,67)"
+            accelerator_status_indicator = "background-color: rgb(0,177,0)"
+        else:
+            accelerator_status_color = "color: rgb(0,0,0)"
+            accelerator_status_indicator = "background-color: rgb(0,0,0)"
+
+        self.label_accelerator_status.setText(accelerator_status)
+        # These stylesheet changing calls break the GUI as they are executed in
+        #   a background thread. Need to use proper Signal/Slot approach.
+        # self.label_accelerator_status.setStyleSheet(accelerator_status_color)
+        # self.label_accelerator_status_indicator.setStyleSheet(accelerator_status_indicator)
 
     def update_user_info(self):
         self.label_user_info.setText('{} is running  under Proposal {}/SAF {} '.
