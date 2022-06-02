@@ -1,10 +1,7 @@
-
 from PyQt5 import uic, QtGui, QtCore
 import pkg_resources
 import requests
 import urllib.request
-
-import itertools
 
 from isstools.dialogs import UpdateUserDialog
 from timeit import default_timer as timer
@@ -13,7 +10,6 @@ ui_path = pkg_resources.resource_filename('isstools', 'ui/ui_general_info.ui')
 
 
 class UIGeneralInfo(*uic.loadUiType(ui_path)):
-    @QtCore.pyqtSlot()
     def __init__(self,
                  accelerator=None,
                  RE = None,
@@ -33,7 +29,6 @@ class UIGeneralInfo(*uic.loadUiType(ui_path)):
         self.timer_update_weather.setInterval(1000*60*5)
         self.timer_update_weather.timeout.connect(self.update_weather)
         self.timer_update_weather.start()
-        self.counter = itertools.count()
 
         self.RE = RE
         self.db = db
@@ -72,50 +67,50 @@ class UIGeneralInfo(*uic.loadUiType(ui_path)):
         self.label_current_time.setText(
             'Today is {0}'.format(QtCore.QDateTime.currentDateTime().toString('MMMM d, yyyy, h:mm:ss ap')))
 
-    @QtCore.pyqtSlot(QtGui.QColor)
     def update_beam_current(self, **kwargs):
-        # print(f"{kwargs = }")
-        rgb_list = [255, 255, 255]
-        current = float(kwargs['value'])
-        rgb = int(min(255, abs(current - 400) * 100))
-        pos = next(self.counter) % 3
-        rgb_list[pos] = rgb
-        rgb_str = ",".join([str(x) for x in rgb_list])
-        print(f"RGB string: {rgb_str}")
-        self.label_beam_current.setText(f'Beam current is {current:.1f} mA')
-        self.label_accelerator_status.setText(f'Beam has dumped {pos}')
-        self.label_accelerator_status.setStyleSheet(f'color: rgb({rgb_str})')
-        # self.label_accelerator_status_indicator.setStyleSheet(f'background-color: rgb({rgb_str})')
+        self.label_beam_current.setText('Beam current is {:.1f} mA'.format(kwargs['value']))
 
     def update_accelerator_status(self, **kwargs):
+        accelerator_status = self.accelerator.status.enum_strs[kwargs['value']]
+        # nsls_ii.status.enum_strs = ('Operations',
+        #                             'Setup',
+        #                             'Accel Studies',
+        #                             'Beamline Studies',
+        #                             'Failure',
+        #                             'Maintenance',
+        #                             'Shutdown',
+        #                             'Unscheduled Ops',
+        #                             'Decay Mode Ops')
         if kwargs['value'] == 0:
-            self.label_accelerator_status.setText('Beam available')
-            self.label_accelerator_status.setStyleSheet('color: rgb(19,139,67)')
-            self.label_accelerator_status_indicator.setStyleSheet('background-color: rgb(95,249,95)')
+            accelerator_status_color = "color: rgb(19,139,67)"
+            accelerator_status_indicator = "background-color: rgb(95,249,95)"
         elif kwargs['value'] == 1:
-            self.label_accelerator_status.setText('Setup')
-            self.label_accelerator_status.setStyleSheet('color: rgb(209,116,42)')
-            self.label_accelerator_status_indicator.setStyleSheet('background-color: rgb(246,229,148)')
+            accelerator_status_color = "color: rgb(209,116,42)"
+            accelerator_status_indicator = "background-color: rgb(246,229,148)"
         elif kwargs['value'] == 2:
-            self.label_accelerator_status.setText('Accelerator studies')
-            self.label_accelerator_status.setStyleSheet('color: rgb(209,116,42)')
-            self.label_accelerator_status_indicator.setStyleSheet('background-color: rgb(209,116,42)')
+            accelerator_status_color = "color: rgb(209,116,42)"
+            accelerator_status_indicator = "background-color: rgb(209,116,42)"
         elif kwargs['value'] == 3:
-            self.label_accelerator_status.setText('Beam has dumped')
-            self.label_accelerator_status.setStyleSheet('color: rgb(237,30,30)')
-            self.label_accelerator_status_indicator.setStyleSheet('background-color: rgb(237,30,30)')
+            accelerator_status_color = "color: rgb(237,30,30)"
+            accelerator_status_indicator = "background-color: rgb(237,30,30)"
         elif kwargs['value'] == 4:
-            self.label_accelerator_status.setText('Maintenance')
-            self.label_accelerator_status.setStyleSheet('color: rgb(209,116,42)')
-            self.label_accelerator_status_indicator.setStyleSheet('background-color: rgb(200,149,251)')
+            accelerator_status_color = "color: rgb(209,116,42)"
+            accelerator_status_indicator = "background-color: rgb(200,149,251)"
         elif kwargs['value'] == 5:
-            self.label_accelerator_status.setText('Shutdown')
-            self.label_accelerator_status.setStyleSheet('color: rgb(190,190,190)')
-            self.label_accelerator_status_indicator.setStyleSheet('background-color: rgb(190,190,190)')
+            accelerator_status_color = "color: rgb(190,190,190)"
+            accelerator_status_indicator = "background-color: rgb(190,190,190)"
         elif kwargs['value'] == 6:
-            self.label_accelerator_status.setText('Unscheduled ops')
-            self.label_accelerator_status.setStyleSheet('color: rgb(19,139,67)')
-            self.label_accelerator_status_indicator.setStyleSheet('background-color: rgb(0,177,0)')
+            accelerator_status_color = "color: rgb(19,139,67)"
+            accelerator_status_indicator = "background-color: rgb(0,177,0)"
+        else:
+            accelerator_status_color = "color: rgb(0,0,0)"
+            accelerator_status_indicator = "background-color: rgb(0,0,0)"
+
+        self.label_accelerator_status.setText(accelerator_status)
+        # These stylesheet changing calls break the GUI as they are executed in
+        #   a background thread. Need to use proper Signal/Slot approach.
+        # self.label_accelerator_status.setStyleSheet(accelerator_status_color)
+        # self.label_accelerator_status_indicator.setStyleSheet(accelerator_status_indicator)
 
     def update_user_info(self):
         self.label_user_info.setText('{} is running  under Proposal {}/SAF {} '.
