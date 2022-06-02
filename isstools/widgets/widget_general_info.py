@@ -4,6 +4,8 @@ import pkg_resources
 import requests
 import urllib.request
 
+import itertools
+
 from isstools.dialogs import UpdateUserDialog
 from timeit import default_timer as timer
 
@@ -11,6 +13,7 @@ ui_path = pkg_resources.resource_filename('isstools', 'ui/ui_general_info.ui')
 
 
 class UIGeneralInfo(*uic.loadUiType(ui_path)):
+    @QtCore.pyqtSlot()
     def __init__(self,
                  accelerator=None,
                  RE = None,
@@ -30,6 +33,7 @@ class UIGeneralInfo(*uic.loadUiType(ui_path)):
         self.timer_update_weather.setInterval(1000*60*5)
         self.timer_update_weather.timeout.connect(self.update_weather)
         self.timer_update_weather.start()
+        self.counter = itertools.count()
 
         self.RE = RE
         self.db = db
@@ -68,8 +72,20 @@ class UIGeneralInfo(*uic.loadUiType(ui_path)):
         self.label_current_time.setText(
             'Today is {0}'.format(QtCore.QDateTime.currentDateTime().toString('MMMM d, yyyy, h:mm:ss ap')))
 
+    @QtCore.pyqtSlot(QtGui.QColor)
     def update_beam_current(self, **kwargs):
-        self.label_beam_current.setText('Beam current is {:.1f} mA'.format(kwargs['value']))
+        # print(f"{kwargs = }")
+        rgb_list = [255, 255, 255]
+        current = float(kwargs['value'])
+        rgb = int(min(255, abs(current - 400) * 100))
+        pos = next(self.counter) % 3
+        rgb_list[pos] = rgb
+        rgb_str = ",".join([str(x) for x in rgb_list])
+        print(f"RGB string: {rgb_str}")
+        self.label_beam_current.setText(f'Beam current is {current:.1f} mA')
+        self.label_accelerator_status.setText(f'Beam has dumped {pos}')
+        self.label_accelerator_status.setStyleSheet(f'color: rgb({rgb_str})')
+        # self.label_accelerator_status_indicator.setStyleSheet(f'background-color: rgb({rgb_str})')
 
     def update_accelerator_status(self, **kwargs):
         if kwargs['value'] == 0:
