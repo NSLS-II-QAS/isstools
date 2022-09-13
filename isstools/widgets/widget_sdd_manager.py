@@ -46,20 +46,20 @@ class UISDDManager(*uic.loadUiType(ui_path)):
         self.timer_update_time.start()
 
         self.push_xs3_acquire.clicked.connect(self.xs3_acquire)
-
-        self.colors = ['r', 'b', 'g', 'm']
-        self.num_channels = 4
+        
+        self.colors = ['r', 'b', 'g', 'm', 'k', 'y']
+        self.num_channels = 6
+        self.num_4_channels = 4
         self.num_rois = 4
-        self.roi_values = numpy.zeros((4, 4, 2))
+        self.roi_values = numpy.zeros((6, 4, 2))
         self.roi_plots = []
         self.acquired = 0
 
 
-        self.checkbox_ch = 'checkBox_ch{}_show'
-
+        self.checkbox_ch = 'checkBox_ch{}_show'        
         for indx in range(self.num_channels):
              getattr(self, self.checkbox_ch.format(indx + 1)).stateChanged.connect(self.plot_traces)
-
+        
         self.checkbox_roi = 'checkBox_roi{}_show'
         for indx in range(self.num_rois):
              getattr(self, self.checkbox_roi.format(indx + 1)).stateChanged.connect(self.update_roi_plot)
@@ -69,9 +69,9 @@ class UISDDManager(*uic.loadUiType(ui_path)):
         self.spinbox_roi = 'spinBox_ch{}_roi{}_{}'
         self.label_roi_rbk = 'label_ch{}_roi{}_{}_rbk'
 
-
+        # Fix ROIs only for 4 element SDD
         self.checkbox_fix_rois = 'checkBox_ch{}_fix_roi'
-        for indx in range(1,self.num_channels):
+        for indx in range(1,self.num_4_channels):
             checkbox_name = self.checkbox_fix_rois.format(indx+1)
             checkbox_object = getattr(self, checkbox_name)
             checkbox_object.stateChanged.connect(self.fix_rois)
