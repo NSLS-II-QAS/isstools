@@ -2,6 +2,7 @@ import pkg_resources
 import inspect
 import re
 import os
+import sys
 from subprocess import call
 from PyQt5 import uic, QtWidgets, QtCore
 from matplotlib.backends.backend_qt5agg import (
@@ -100,6 +101,7 @@ class UIRun(*uic.loadUiType(ui_path)):
         self.canvas.draw_idle()
 
     def run_scan(self):
+        sys.stdout = self.parent_gui.emitstream_out
         ignore_shutter = False
 
 
@@ -117,6 +119,10 @@ class UIRun(*uic.loadUiType(ui_path)):
 
         name_provided = self.parameter_values[0].text()
         if name_provided:
+            if self.parent_gui.hutch == 'c':
+                for indx, description in enumerate(self.parameter_descriptions):
+                    if description.text().startswith('hutch'):
+                        self.parameter_values[indx].setChecked(True)
             timenow = datetime.datetime.now()
             print('\nStarting scan at {}'.format(timenow.strftime("%H:%M:%S"), flush='true'))
             start_scan_timer = timer()

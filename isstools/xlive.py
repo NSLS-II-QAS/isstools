@@ -39,6 +39,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
                  RE=None,
                  db=None,
                  apb=None,
+                 apb_c = None,
                  accelerator=None,
                  mono=None,
                  sdd = None,
@@ -137,6 +138,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
         self.shutters_dict = shutters_dict
 
         self.diff_plans = diff_plans
+        self.hutch = 'b'
 
         self.RE = RE
         self.db = db
@@ -278,7 +280,10 @@ class XliveGui(*uic.loadUiType(ui_path)):
             self.layout_beamline_status.addWidget(widget_beamline_status.UIBeamlineStatus(
                                                                         shutters=self.shutters_dict,
                                                                         apb=apb,
-                                                                        mono=mono,))
+                                                                        apb_c=apb_c,
+                                                                        mono=mono,
+                                                                        parent_gui=self
+            ))
 
         self.filepaths = []
         pc = ProcessingCallback(db=self.db, draw_func_interp=self.widget_run.draw_interpolated_data, draw_func_binned=self.widget_processing.new_bin_df_arrived)

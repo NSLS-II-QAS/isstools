@@ -1,7 +1,7 @@
 import time
 from PyQt5 import uic, QtCore, QtWidgets
 import pkg_resources
-
+from PyQt5.Qt import QObject
 
 from isstools.dialogs import UpdateUserDialog
 
@@ -38,7 +38,9 @@ class UIBeamlineStatus(*uic.loadUiType(ui_path)):
     def __init__(self,
                  shutters={},
                  apb=None,
+                 apb_c = None,
                  mono=None,
+                 parent_gui=None,
                  *args, **kwargs):
 
         super().__init__(*args, **kwargs)
@@ -46,12 +48,23 @@ class UIBeamlineStatus(*uic.loadUiType(ui_path)):
         # Initialize Ophyd elements
         self.shutters_sig.connect(self.change_shutter_color)
         self.apb = apb
+        self.apb_c = apb_c
         self.mono = mono
+        self.parent_gui=parent_gui
 
 
-        daq_rate = self.apb.acq_rate.get()
-        self.spinBox_daq_rate.setValue(daq_rate)
-        self.spinBox_daq_rate.valueChanged.connect(self.update_daq_rate)
+        daq_rate_b = self.apb.acq_rate.get()
+        self.spinBox_daq_rate_b.setValue(daq_rate_b)
+
+
+        daq_rate_c = self.apb_c.acq_rate.get()
+        self.spinBox_daq_rate_c.setValue(daq_rate_c)
+
+        self.spinBox_daq_rate_b.valueChanged.connect(self.update_daq_rate)
+        self.spinBox_daq_rate_c.valueChanged.connect(self.update_daq_rate)
+
+
+        self.radioButton_hutch_b.toggled.connect(self.select_hutch)
 
         enc_rate_in_points = mono.enc.filter_dt.get()
         enc_rate = 1 / (enc_rate_in_points * 10 * 1e-9) / 1e3
@@ -119,10 +132,14 @@ class UIBeamlineStatus(*uic.loadUiType(ui_path)):
 
 
     def update_daq_rate(self):
-        daq_rate = self.spinBox_daq_rate.value()
+        sender_object = QObject().sender()
+        daq_rate = sender_object.value()
         # 374.94 is the nominal RF frequency
         divider = int(374.94 / daq_rate)
-        self.apb.divide.set(divider)
+        if self.parent_gui.hutch == 'b':
+             self.apb.divide.set(divider)
+        elif self.parent_gui.hutch == 'c':
+            self.apb_c.divide.set(divider)
 
     def update_enc_rate(self):
         enc_rate = self.spinBox_enc_rate.value()
@@ -132,3 +149,12 @@ class UIBeamlineStatus(*uic.loadUiType(ui_path)):
         #elf.mono.enc.filter_dt, rate_in_points_rounded, wait=True))
 
         # self.RE(bps.abs_set(self.mono.enc.filter_dt, rate_in_points, wait=True))
+
+    def select_hutch(self):
+        if self.radioButton_hutch_c.isChecked():
+            self.parent_gui.hutch = 'c'
+            self.parent_gui.widget_batch_mode.widget_batch_manual.checkBox_hutch_c.setChecked(True)
+        elif self.radioButton_hutch_b.isChecked():
+            self.parent_gui.hutch = 'b'
+            self.parent_gui.widget_batch_mode.widget_batch_manual.checkBox_hutch_c.setChecked(False)
+

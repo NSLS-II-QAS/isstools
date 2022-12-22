@@ -1,6 +1,7 @@
 import pkg_resources
 import json
 import time
+import sys
 
 from matplotlib.backends.backend_qt5agg import (
     FigureCanvasQTAgg as FigureCanvas,
@@ -358,4 +359,8 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
 
 
     def get_offsets(self):
-        self.RE(self.service_plan_funcs['get_offsets']())
+        sys.stdout = self.parent_gui.emitstream_out
+        if self.parent_gui.hutch == 'b':
+            self.RE(self.service_plan_funcs['get_offsets'](hutch_c = False))
+        if self.parent_gui.hutch == 'c':
+            self.RE(self.service_plan_funcs['get_offsets'](hutch_c = True))
