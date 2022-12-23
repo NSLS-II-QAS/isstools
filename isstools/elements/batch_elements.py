@@ -57,7 +57,10 @@ def _create_new_sample(sample_name, sample_comment, sample_x, sample_y, model=No
         return item
 
 
-def _create_new_scan(scan_name, scan_type, scan_traj, scan_repeat, scan_delay, scan_autofoil, model=None, setCheckable=True):
+def _create_new_scan(scan_name, scan_type, scan_traj, scan_repeat, scan_delay, scan_autofoil,
+                     scan_dif_set_energy, scan_dif_set_exposure, scan_dif_patterns,
+                     scan_dif_repetitions, scan_dif_delay,
+                     model=None, setCheckable=True):
     item = QtGui.QStandardItem(f'{scan_type} with {scan_name}, {scan_repeat} times with {scan_delay} s delay')
     item.setDropEnabled(False)
     item.item_type = 'scan'
@@ -67,6 +70,20 @@ def _create_new_scan(scan_name, scan_type, scan_traj, scan_repeat, scan_delay, s
     item.name = scan_name
     item.delay = scan_delay
     item.autofoil = scan_autofoil
+
+    if scan_type == "XRD take pattern":
+        item = QtGui.QStandardItem(f'{scan_type} with {scan_name}, at {scan_dif_set_energy}eV with '
+                                   f'{scan_dif_set_exposure}s exposure, {scan_dif_patterns} patterns, and '
+                                   f' {scan_dif_repetitions} repetitions with {scan_dif_delay}s delay')
+        item.setDropEnabled(False)
+        item.dif_energy = scan_dif_set_energy
+        item.dif_exposure = scan_dif_set_exposure
+        item.dif_patterns = scan_dif_patterns
+        item.dif_repetitions = scan_dif_repetitions
+        item.dif_delay = scan_dif_delay
+
+
+
     if setCheckable:
         item.setCheckable(True)
     item.setEditable(False)

@@ -242,6 +242,7 @@ class UIBatchManual(*uic.loadUiType(ui_path)):
                 scan_types = [self.comboBox_scans.itemText(i) for i in range(self.comboBox_scans.count())]
                 trajectories = [self.comboBox_lut.itemText(i) for i in range(self.comboBox_lut.count())]
 
+
                 dlg = UpdateScanInfo.UpdateScanInfo(str(item.name), str(item.scan_type),
                                                     item.trajectory, item.repeat, item.delay,
                                                     scan_types, trajectories,
@@ -250,6 +251,7 @@ class UIBatchManual(*uic.loadUiType(ui_path)):
                 if dlg.exec_():
                     item.name, item.scan_type, item.trajectory, item.repeat, item.delay = dlg.getValues()
                     item.setText(f'{item.scan_type} with {item.name} {item.repeat} times with {item.delay} s delay')
+
 
     # def rename_dataset(self):
     #     selection = self.list_project.selectedIndexes()
@@ -283,8 +285,15 @@ class UIBatchManual(*uic.loadUiType(ui_path)):
             scan_repeat = self.spinBox_scan_repeat.value()
             scan_delay = self.spinBox_scan_delay.value()
             scan_autofoil = False
+            scan_dif_set_energy = self.doubleSpinBox_dif_energy.value()
+            scan_dif_set_exposure = self.spinBox_dif_exposure.value()
+            scan_dif_patterns = self.spinBox_dif_subframe_patterns.value()
+            scan_dif_repetitions = self.spinBox_dif_frame_repetitions.value()
+            scan_dif_delay = self.spinBox_dif_delay.value()
             # name = self.lineEdit_scan_name.text()
             _create_new_scan(scan_name, scan_type, scan_traj, scan_repeat, scan_delay, scan_autofoil,
+                             scan_dif_set_energy, scan_dif_set_exposure, scan_dif_patterns,
+                             scan_dif_repetitions, scan_dif_delay,
                              model=self.model_scans)
 
             self.listView_scans.setModel(self.model_scans)

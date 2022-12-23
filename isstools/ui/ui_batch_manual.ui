@@ -1399,7 +1399,7 @@
     </property>
     <layout class="QGridLayout" name="gridLayout_2">
      <item row="0" column="1">
-      <widget class="QDoubleSpinBox" name="doubleSpinBox">
+      <widget class="QDoubleSpinBox" name="doubleSpinBox_dif_energy">
        <property name="maximumSize">
         <size>
          <width>120</width>
@@ -1422,7 +1422,7 @@
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QSpinBox" name="spinBox_subframe_count">
+      <widget class="QSpinBox" name="spinBox_dif_subframe_patterns">
        <property name="maximumSize">
         <size>
          <width>90</width>
@@ -1463,7 +1463,7 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QSpinBox" name="spinBox_exposure">
+      <widget class="QSpinBox" name="spinBox_dif_exposure">
        <property name="maximumSize">
         <size>
          <width>90</width>
@@ -1476,7 +1476,7 @@
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="QSpinBox" name="spinBox_frame_count_2">
+      <widget class="QSpinBox" name="spinBox_dif_frame_repetitions">
        <property name="maximumSize">
         <size>
          <width>90</width>
