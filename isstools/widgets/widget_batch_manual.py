@@ -11,7 +11,7 @@ from isstools.dialogs.BasicDialogs import message_box
 ui_path = pkg_resources.resource_filename('isstools', 'ui/ui_batch_manual.ui')
 from isstools.elements.batch_elements import *
 from isstools.elements.batch_elements import (_create_batch_experiment, _create_new_sample, _create_new_scan,
-                                              _clone_scan_item, _clone_sample_item)
+                                              _clone_scan_item, _clone_sample_item, _clone_scan_dif_item)
 import json
 
 from isstools.dialogs import UpdateSampleInfo, UpdateScanInfo
@@ -330,12 +330,18 @@ class UIBatchManual(*uic.loadUiType(ui_path)):
                                         for index in range(self.listView_scans.model().rowCount()):
                                             item_scan = self.listView_scans.model().item(index)
                                             if item_scan.checkState():
-                                                scans_selected = 1
-                                                new_item_scan = _clone_scan_item(item_scan)
-                                                new_item_sample.appendRow(new_item_scan)
-                                                new_item_scan.setCheckable(False)
-                                                new_item_scan.setEditable(False)
-                                                #new_item_scan.setIcon(icon_scan)
+                                                if item_scan.text().startswith("XAS"):
+                                                    scans_selected = 1
+                                                    new_item_scan = _clone_scan_item(item_scan)
+                                                    new_item_sample.appendRow(new_item_scan)
+                                                    new_item_scan.setCheckable(False)
+                                                    new_item_scan.setEditable(False)
+                                                elif item_scan.text().startswith("XRD"):
+                                                    scans_selected = 1
+                                                    new_item_scan = _clone_scan_dif_item(item_scan)
+                                                    new_item_sample.appendRow(new_item_scan)
+                                                    new_item_scan.setCheckable(False)
+                                                    new_item_scan.setEditable(False)
                                     if scans_selected:
                                         parent.appendRow(new_item_sample)
                                         new_item_sample.setCheckable(False)
@@ -345,8 +351,12 @@ class UIBatchManual(*uic.loadUiType(ui_path)):
                             for index in range(self.listView_scans.model().rowCount()):
                                 item_scan = self.listView_scans.model().item(index)
                                 if item_scan.checkState():
-                                    new_item_scan = _clone_scan_item(item_scan)
-                                    print(f' Repeat {new_item_scan.repeat}')
+                                    if item_scan.text().startswith("XAS"):
+                                       new_item_scan = _clone_scan_item(item_scan)
+                                       print(f' Repeat {new_item_scan.repeat}')
+                                    if item_scan.text().startswith("XRD"):
+                                        new_item_scan = _clone_scan_dif_item(item_scan)
+                                        print(f' Repeat {new_item_scan.dif_repetitions}')
                                     if self.listView_samples.model() is not None:
                                         samples_selected = 0
                                         for index in range(self.listView_samples.model().rowCount()):

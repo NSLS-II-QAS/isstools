@@ -61,28 +61,31 @@ def _create_new_scan(scan_name, scan_type, scan_traj, scan_repeat, scan_delay, s
                      scan_dif_set_energy, scan_dif_set_exposure, scan_dif_patterns,
                      scan_dif_repetitions, scan_dif_delay,
                      model=None, setCheckable=True):
-    item = QtGui.QStandardItem(f'{scan_type} with {scan_name}, {scan_repeat} times with {scan_delay} s delay')
-    item.setDropEnabled(False)
-    item.item_type = 'scan'
-    item.scan_type = scan_type
-    item.trajectory = scan_traj
-    item.repeat = scan_repeat
-    item.name = scan_name
-    item.delay = scan_delay
-    item.autofoil = scan_autofoil
+    if scan_type.startswith('XAS'):
 
-    if scan_type == "XRD take pattern":
+        item = QtGui.QStandardItem(f'{scan_type} with {scan_name}, {scan_repeat} times with {scan_delay} s delay')
+        item.setDropEnabled(False)
+        item.item_type = 'scan'
+        item.scan_type = scan_type
+        item.trajectory = scan_traj
+        item.repeat = scan_repeat
+        item.name = scan_name
+        item.delay = scan_delay
+        item.autofoil = scan_autofoil
+
+    elif scan_type.startswith("XRD"):
         item = QtGui.QStandardItem(f'{scan_type} with {scan_name}, at {scan_dif_set_energy}eV with '
                                    f'{scan_dif_set_exposure}s exposure, {scan_dif_patterns} patterns, and '
                                    f' {scan_dif_repetitions} repetitions with {scan_dif_delay}s delay')
+        item.item_type = 'scan'
+        item.scan_type = scan_type
+        item.name = scan_name
         item.setDropEnabled(False)
         item.dif_energy = scan_dif_set_energy
         item.dif_exposure = scan_dif_set_exposure
         item.dif_patterns = scan_dif_patterns
         item.dif_repetitions = scan_dif_repetitions
         item.dif_delay = scan_dif_delay
-
-
 
     if setCheckable:
         item.setCheckable(True)
@@ -124,7 +127,16 @@ def _clone_scan_item(item_scan):
     new_item_scan.name = item_scan.name
     return new_item_scan
 
-
+def _clone_scan_dif_item(item_scan):
+    new_item_scan = QtGui.QStandardItem(item_scan.text())
+    new_item_scan.item_type = 'scan'
+    new_item_scan.item_energy = item_scan.dif_energy
+    new_item_scan.dif_exposure = item_scan.dif_exposure
+    new_item_scan.dif_patterns = item_scan.dif_patterns
+    new_item_scan.dif_repetitions = item_scan.dif_repetitions
+    new_item_scan.dif_delay = item_scan.dif_delay
+    new_item_scan.name = item_scan.name
+    return new_item_scan
 class TableModel(QtCore.QAbstractTableModel):
 
     def __init__(self, data):
