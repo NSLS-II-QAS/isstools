@@ -30,6 +30,7 @@ timenow = datetime.datetime.now()
 
 ui_path = pkg_resources.resource_filename('isstools', 'ui/ui_run_diff.ui')
 
+
 from isstools.xiaparser import xiaparser
 from isstools.xasdata.xasdata import XASdataGeneric
 
@@ -76,6 +77,44 @@ class UIRunDiff(*uic.loadUiType(ui_path)):
                               'subframe_time' : self.doubleSpinBox_subframe_time.value(),
                               'subframe_count': self.spinBox_subframe_count.value(),
                               'delay'         : self.spinBox_delay.value()
+                              }
+
+
+            # Run the scan using the dict created before
+            self.run_mode_uids = []
+            self.run_mode_uids = self.RE(self.plans_diff(**run_parameters))
+
+
+
+            timenow = datetime.datetime.now()
+            print('Scan complete at {}'.format(timenow.strftime("%H:%M:%S")))
+            stop_scan_timer = timer()
+            print('Scan duration {} s'.format(stop_scan_timer - start_scan_timer))
+
+
+        else:
+            print('Error', 'Please provide the name for the scan')
+
+    def run_diffraction_in_batch(self, sample_name, frame_count, subframe_time, subframe_count, delay=None):
+        run_parameters = []
+
+        # for shutter in [self.shutter_dictionary[shutter] for shutter in self.shutter_dictionary if
+        #                 self.shutter_dictionary[shutter].shutter_type != 'SP']:
+        #     if shutter.state.get():
+        #         print(self, 'Shutter closed')
+        #         break
+
+        # name_provided = self.lineEdit_sample_name.text()
+        name_provided = sample_name
+        if name_provided:
+            timenow = datetime.datetime.now()
+            print('\nStarting scan at {}'.format(timenow.strftime("%H:%M:%S"), flush='true'))
+            start_scan_timer = timer()
+            run_parameters = {'sample_name'   : sample_name,
+                              'frame_count'   : frame_count,
+                              'subframe_time' : subframe_time,
+                              'subframe_count': subframe_count,
+                              'delay'         : delay
                               }
 
 

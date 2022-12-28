@@ -6,10 +6,10 @@ from bluesky.plan_stubs import mv
 from xas.trajectory import trajectory_manager
 from isstools.widgets import widget_batch_manual
 
+
 from isstools.dialogs.BasicDialogs import message_box
 from random import random
 from isstools.batch.autopilot_routines import TrajectoryStack
-
 ui_path = pkg_resources.resource_filename('isstools', 'ui/ui_batch.ui')
 
 
@@ -129,6 +129,12 @@ class UIBatch(*uic.loadUiType(ui_path)):
                                 else:
                                     yield from plan(**kwargs)
 
+                            elif child_item.item_tpye == "scan_xrd":
+                                scan_xrd = child_item
+                                dif_energy = scan_xrd.item_energy
+                                print(dif_energy)
+
+
 
                             elif child_item.item_type == 'service':
                                 service = child_item
@@ -184,6 +190,27 @@ class UIBatch(*uic.loadUiType(ui_path)):
                                     print('would have done service', child_item.name)
                                 else:
                                     yield from service.service_plan(**service.service_params, **kwargs)
+
+                    elif step.item_type == "scan_xrd":
+                        scan_xrd = step
+                        dif_energy = scan_xrd.item_energy
+                        dif_frame_count = scan_xrd.dif_exposure
+                        dif_no_of_patterns = scan_xrd.dif_patterns
+                        dif_no_of_repetitions = scan_xrd.dif_repetitions
+                        dif_delay = scan_xrd.dif_delay
+                        dif_name = scan_xrd.name
+                        print(dif_energy, dif_frame_count, dif_no_of_patterns, dif_no_of_repetitions, dif_delay,
+                              dif_name)
+                        # self.RE(self.mv(self.mono.energy, 17938))
+
+
+
+                        # cls_instance = dif_cls
+                        # cls_instance.run_diffraction_in_batch(sample_name=dif_name, frame_count=dif_frame_count,
+                        #                                       subframe_time=dif_no_of_patterns, subframe_count=dif_no_of_repetitions, delay=dif_delay)
+                        # print(dif)
+
+
 
                     elif step.item_type == 'service':
                         kwargs = {'stdout': self.parent_gui.emitstream_out}
