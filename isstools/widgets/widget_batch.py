@@ -6,6 +6,9 @@ from bluesky.plan_stubs import mv
 from xas.trajectory import trajectory_manager
 from isstools.widgets import widget_batch_manual
 
+from isstools.widgets import run_dif_in_batch
+
+from isstools.widgets.widget_run_diff import UIRunDiff
 
 from isstools.dialogs.BasicDialogs import message_box
 from random import random
@@ -201,7 +204,11 @@ class UIBatch(*uic.loadUiType(ui_path)):
                         dif_name = scan_xrd.name
                         print(dif_energy, dif_frame_count, dif_no_of_patterns, dif_no_of_repetitions, dif_delay,
                               dif_name)
-                        # self.RE(self.mv(self.mono.energy, 17938))
+
+                        print("Energy is set to ", self.mono.energy.set(17938))
+                        self.plan_funcs["XRD take pattern"]("test", 1, 1, 0)
+                        # print(dir(run_dif_in_batch))
+                        # test = UIRunDiff()
 
 
 
