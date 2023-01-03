@@ -96,8 +96,6 @@ class UIBatch(*uic.loadUiType(ui_path)):
                             child_item = sample.child(kk)
                             if child_item.item_type == 'scan':
                                 scan=child_item
-
-
                                 plan = plans_dict[scan.scan_type]
                                 sample_name = '{} {} {}'.format(sample.name, scan.name, exper_index)
                                 self.label_batch_step.setText(sample_name)
@@ -132,12 +130,31 @@ class UIBatch(*uic.loadUiType(ui_path)):
                                 else:
                                     yield from plan(**kwargs)
 
-                            elif child_item.item_tpye == "scan_xrd":
+                            elif child_item.item_type == "scan_xrd":
                                 scan_xrd = child_item
-                                dif_energy = scan_xrd.item_energy
-                                print(dif_energy)
-
-
+                                energy = scan_xrd.item_energy
+                                frame_count = scan_xrd.dif_exposure
+                                subframe_time = scan_xrd.dif_patterns
+                                subframe_count = scan_xrd.dif_repetitions
+                                delay = scan_xrd.dif_delay
+                                sample_name = scan_xrd.name
+                                print(energy, frame_count, subframe_time, subframe_count, sample_name)
+                                plan = plans_dict[scan_xrd.scan_type]
+                                print('got to checkpoint 1')
+                                sample_name = '{} {} {}'.format(sample_name, 'xrd', exper_index)
+                                self.label_batch_step.setText(sample_name)
+                                kwargs = {'sample_name': sample_name,
+                                          'frame_count': frame_count,
+                                          'subframe_time': subframe_time,
+                                          'subframe_count': subframe_count,
+                                          'stdout': self.parent_gui.emitstream_out}
+                                if testing:
+                                    print('would have done the scan', sample.name)
+                                else:
+                                    current_energy = mono.energy.read()['mono1_energy']['value']
+                                    yield from bps.mv(mono.energy, energy)
+                                    yield from plan(**kwargs)
+                                    yield from bps.mv(mono.energy, current_energy)
 
                             elif child_item.item_type == 'service':
                                 service = child_item
@@ -161,7 +178,6 @@ class UIBatch(*uic.loadUiType(ui_path)):
                             child_item = scan.child(kk)
                             if child_item.item_type == 'sample':
                                 sample=child_item
-                                print('got to checkpoint 1')
                                 # randomization
                                 delta_x, delta_y = self.randomize_position()
 
@@ -172,7 +188,6 @@ class UIBatch(*uic.loadUiType(ui_path)):
                                                   sample.y + delta_y)
 
                                 plan = plans_dict[scan.scan_type]
-                                print('got to checkpoint 2')
                                 sample_name = '{} {} {}'.format(sample.name, scan.name, exper_index)
                                 self.label_batch_step.setText(sample_name)
                                 kwargs = {'name': sample_name,
@@ -183,7 +198,8 @@ class UIBatch(*uic.loadUiType(ui_path)):
                                 if testing:
                                     print('would have done the scan', sample.name)
                                 else:
-                                    yield from bps.sleep(5)
+
+
                                     yield from plan(**kwargs)
 
                             elif child_item.item_type == 'service':
@@ -196,26 +212,29 @@ class UIBatch(*uic.loadUiType(ui_path)):
 
                     elif step.item_type == "scan_xrd":
                         scan_xrd = step
-                        dif_energy = scan_xrd.item_energy
-                        dif_frame_count = scan_xrd.dif_exposure
-                        dif_no_of_patterns = scan_xrd.dif_patterns
-                        dif_no_of_repetitions = scan_xrd.dif_repetitions
-                        dif_delay = scan_xrd.dif_delay
-                        dif_name = scan_xrd.name
-                        print(dif_energy, dif_frame_count, dif_no_of_patterns, dif_no_of_repetitions, dif_delay,
-                              dif_name)
-
-                        print("Energy is set to ", self.mono.energy.set(17938))
-                        self.plan_funcs["XRD take pattern"]("test", 1, 1, 0)
-                        # print(dir(run_dif_in_batch))
-                        # test = UIRunDiff()
-
-
-
-                        # cls_instance = dif_cls
-                        # cls_instance.run_diffraction_in_batch(sample_name=dif_name, frame_count=dif_frame_count,
-                        #                                       subframe_time=dif_no_of_patterns, subframe_count=dif_no_of_repetitions, delay=dif_delay)
-                        # print(dif)
+                        energy = scan_xrd.item_energy
+                        frame_count = scan_xrd.dif_exposure
+                        subframe_time = scan_xrd.dif_patterns
+                        subframe_count = scan_xrd.dif_repetitions
+                        delay = scan_xrd.dif_delay
+                        sample_name = scan_xrd.name
+                        print(energy, frame_count, subframe_time, subframe_count,sample_name)
+                        plan = plans_dict[scan_xrd.scan_type]
+                        print('got to checkpoint 1')
+                        sample_name = '{} {} {}'.format(sample_name, 'xrd', exper_index)
+                        self.label_batch_step.setText(sample_name)
+                        kwargs = {'sample_name': sample_name,
+                                  'frame_count': frame_count,
+                                  'subframe_time': subframe_time,
+                                  'subframe_count':subframe_count,
+                                  'stdout': self.parent_gui.emitstream_out}
+                        if testing:
+                            print('would have done the scan', sample.name)
+                        else:
+                            current_energy=mono.energy.read()['mono1_energy']['value']
+                            yield from bps.mv(mono.energy, energy)
+                            yield from plan(**kwargs)
+                            yield from bps.mv(mono.energy, current_energy)
 
 
 

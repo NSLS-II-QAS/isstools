@@ -129,6 +129,7 @@ def _clone_scan_item(item_scan):
 
 def _clone_scan_dif_item(item_scan):
     new_item_scan = QtGui.QStandardItem(item_scan.text())
+    new_item_scan.scan_type = item_scan.scan_type
     new_item_scan.item_type = 'scan_xrd'
     new_item_scan.item_energy = item_scan.dif_energy
     new_item_scan.dif_exposure = item_scan.dif_exposure
