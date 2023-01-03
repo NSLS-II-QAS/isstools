@@ -133,9 +133,9 @@ class UIBatch(*uic.loadUiType(ui_path)):
                             elif child_item.item_type == "scan_xrd":
                                 scan_xrd = child_item
                                 energy = scan_xrd.item_energy
-                                frame_count = scan_xrd.dif_exposure
-                                subframe_time = scan_xrd.dif_patterns
-                                subframe_count = scan_xrd.dif_repetitions
+                                subframe_time = scan_xrd.dif_exposure
+                                subframe_count = scan_xrd.dif_patterns
+                                frame_count = scan_xrd.dif_repetitions
                                 delay = scan_xrd.dif_delay
                                 sample_name = scan_xrd.name
                                 print(energy, frame_count, subframe_time, subframe_count, sample_name)
@@ -213,9 +213,9 @@ class UIBatch(*uic.loadUiType(ui_path)):
                     elif step.item_type == "scan_xrd":
                         scan_xrd = step
                         energy = scan_xrd.item_energy
-                        frame_count = scan_xrd.dif_exposure
-                        subframe_time = scan_xrd.dif_patterns
-                        subframe_count = scan_xrd.dif_repetitions
+                        subframe_time = scan_xrd.dif_exposure
+                        subframe_count = scan_xrd.dif_patterns
+                        frame_count = scan_xrd.dif_repetitions
                         delay = scan_xrd.dif_delay
                         sample_name = scan_xrd.name
                         print(energy, frame_count, subframe_time, subframe_count,sample_name)
