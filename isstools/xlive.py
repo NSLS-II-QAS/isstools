@@ -265,7 +265,8 @@ class XliveGui(*uic.loadUiType(ui_path)):
             self.widget_run_diff = widget_run_diff.UIRunDiff(RE,
                                                              db,
                                                              self.diff_plans,
-                                                             parent_gui = self)
+                                                             parent_gui = self,
+                                                             mono=mono)
             self.layout_run_diff.addWidget(self.widget_run_diff)
 
             if sdd is not None:

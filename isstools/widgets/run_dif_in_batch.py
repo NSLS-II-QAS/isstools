@@ -36,6 +36,7 @@ class Run_diff_in_batch(*uic.loadUiType(ui_path)):
     def __init__(self,
                  RE,
                  db,
+                 mono,
                  plans_diff,
                  parent_gui,
                  *args, **kwargs):
@@ -44,6 +45,7 @@ class Run_diff_in_batch(*uic.loadUiType(ui_path)):
         mpl.rcParams['agg.path.chunksize'] = 10000
         self.RE = RE
         self.db = db
+        self.mono = mono
         self.plans_diff = plans_diff[0]
 
         self.settings = QSettings(parent_gui.window_title, 'XLive')

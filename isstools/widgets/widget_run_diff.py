@@ -20,6 +20,8 @@ from timeit import default_timer as timer
 from skimage import exposure
 import matplotlib as mpl
 from isstools.elements.figure_update import update_figure
+import bluesky.plan_stubs as bps
+from bluesky.plan_stubs import mv
 
 # Libs needed by the ZMQ communication
 import json
@@ -41,6 +43,7 @@ class UIRunDiff(*uic.loadUiType(ui_path)):
                  db,
                  plans_diff,
                  parent_gui,
+                 mono,
                  *args, **kwargs):
 
         super().__init__(*args, **kwargs)
@@ -50,6 +53,7 @@ class UIRunDiff(*uic.loadUiType(ui_path)):
         self.RE = RE
         self.db = db
         self.plans_diff = plans_diff[0]
+        self.mono = mono
         self.run_start.clicked.connect(self.run_diffraction)
 
         self.settings = QSettings(parent_gui.window_title, 'XLive')
@@ -66,6 +70,15 @@ class UIRunDiff(*uic.loadUiType(ui_path)):
         #     if shutter.state.get():
         #         print(self, 'Shutter closed')
         #         break
+
+        current_energy = self.mono.energy.read()['mono1_energy']['value']
+        print("Current Energy is: ",  current_energy)
+
+        desired_energy = self.doubleSpinBox_energy.value()
+        self.RE(bps.mv(self.mono.energy, desired_energy))
+
+        changed_energy = self.mono.energy.read()['mono1_energy']['value']
+        print("Energy changed to: ", changed_energy)
 
         name_provided = self.lineEdit_sample_name.text()
         if name_provided:
@@ -91,6 +104,9 @@ class UIRunDiff(*uic.loadUiType(ui_path)):
             stop_scan_timer = timer()
             print('Scan duration {} s'.format(stop_scan_timer - start_scan_timer))
 
+            self.RE(bps.mv(self.mono.energy, current_energy))
+            print("Energy changed to: ", self.mono.energy.read()['mono1_energy']['value'])
+
 
         else:
             print('Error', 'Please provide the name for the scan')
@@ -105,6 +121,8 @@ class UIRunDiff(*uic.loadUiType(ui_path)):
         #         break
 
         # name_provided = self.lineEdit_sample_name.text()
+
+        current_energy = mono1.energy.read()['mono1_energy']['value']
         name_provided = sample_name
         if name_provided:
             timenow = datetime.datetime.now()
