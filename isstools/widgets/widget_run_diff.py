@@ -22,7 +22,7 @@ import matplotlib as mpl
 from isstools.elements.figure_update import update_figure
 import bluesky.plan_stubs as bps
 from bluesky.plan_stubs import mv
-
+import sys
 # Libs needed by the ZMQ communication
 import json
 import pandas as pd
@@ -54,6 +54,7 @@ class UIRunDiff(*uic.loadUiType(ui_path)):
         self.db = db
         self.plans_diff = plans_diff[0]
         self.mono = mono
+        self.parent_gui = parent_gui
         self.run_start.clicked.connect(self.run_diffraction)
 
         self.settings = QSettings(parent_gui.window_title, 'XLive')
@@ -63,6 +64,8 @@ class UIRunDiff(*uic.loadUiType(ui_path)):
         self.addCanvas()
 
     def run_diffraction(self,db):
+
+        sys.stdout = self.parent_gui.emitstream_out
         run_parameters = []
 
         # for shutter in [self.shutter_dictionary[shutter] for shutter in self.shutter_dictionary if
