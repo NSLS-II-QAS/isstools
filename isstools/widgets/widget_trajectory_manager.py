@@ -53,7 +53,7 @@ class UITrajectoryManager(*uic.loadUiType(ui_path)):
         self.traj_manager = trajectory_manager(hhm)
         self.comboBox_slot_to_load_trajectory.addItems(['1', '2', '3', '4', '5', '6', '7', '8'])
         self.comboBox_slot_to_init_trajectory.addItems(['1', '2', '3', '4', '5', '6', '7', '8'])
-        self.comboBox_slot_to_init_trajectory.setCurrentIndex(self.traj_manager.current_lut() - 1)
+        self.comboBox_slot_to_init_trajectory.setCurrentIndex(int(self.traj_manager.current_lut()) - 1)
         try:
             pass
         #    self.trajectories = self.traj_manager.read_info(silent=True)

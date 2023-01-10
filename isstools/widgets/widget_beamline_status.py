@@ -84,14 +84,14 @@ class UIBeamlineStatus(*uic.loadUiType(ui_path)):
             label.setSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Maximum)
 
             button = QtWidgets.QPushButton('')
-            button.setFixedSize(self.height() * 0.5, self.height() * 0.5)
+            button.setFixedSize(int(self.height() * 0.5), int(self.height() * 0.5))
             self.shutter_layout.addWidget(button)
             # button.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Expanding)
 
             self.horizontalLayout_shutters.addLayout(self.shutter_layout)
 
             self.shutters_buttons.append(button)
-            button.setFixedWidth(button.height() * 1.2)
+            button.setFixedWidth(int(button.height() * 1.2))
             QtCore.QCoreApplication.processEvents()
 
             if hasattr(item, 'status') and hasattr(item.status, 'subscribe'):
