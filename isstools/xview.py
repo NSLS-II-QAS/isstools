@@ -598,7 +598,7 @@ class XviewGui(*uic.loadUiType(ui_path)):
             pathname = QtWidgets.QFileDialog.getExistingDirectory(self, 'Choose folder...', self.workingFolder,
                                                                     options=options)
             separator = '#______________________________________________________\n'
-            if pathname is not '':
+            if pathname != '':
                 for indx, obj in enumerate(selection):
                     ds = self.xasproject._datasets[selection[indx].row()]
                     filename = str(Path(ds.filename).stem)
