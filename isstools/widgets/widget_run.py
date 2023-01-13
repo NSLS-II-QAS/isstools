@@ -122,7 +122,11 @@ class UIRun(*uic.loadUiType(ui_path)):
             if self.parent_gui.hutch == 'c':
                 for indx, description in enumerate(self.parameter_descriptions):
                     if description.text().startswith('hutch'):
-                        self.parameter_values[indx].setChecked(True)
+                        self.parameter_values[indx].setChecked(True)                        
+            elif self.parent_gui.hutch == 'b':
+                for indx, description in enumerate(self.parameter_descriptions):
+                    if description.text().startswith('hutch'):
+                        self.parameter_values[indx].setChecked(False)                        
             timenow = datetime.datetime.now()
             print('\nStarting scan at {}'.format(timenow.strftime("%H:%M:%S"), flush='true'))
             start_scan_timer = timer()
