@@ -137,7 +137,7 @@ class UIBatch(*uic.loadUiType(ui_path)):
                                 subframe_count = scan_xrd.dif_patterns
                                 frame_count = scan_xrd.dif_repetitions
                                 delay = scan_xrd.dif_delay
-                                sample_name = scan_xrd.name
+                                sample_name = sample.name #must be bug here
                                 print(energy, frame_count, subframe_time, subframe_count, sample_name)
                                 plan = plans_dict[scan_xrd.scan_type]
                                 print('got to checkpoint 1')
@@ -149,7 +149,7 @@ class UIBatch(*uic.loadUiType(ui_path)):
                                           'subframe_count': subframe_count,
                                           'stdout': self.parent_gui.emitstream_out}
                                 if testing:
-                                    print('would have done the scan', sample.name)
+                                    print('would have done the scan', sample_name)
                                 else:
                                     current_energy = mono.energy.read()['mono1_energy']['value']
                                     yield from bps.mv(mono.energy, energy)
@@ -212,32 +212,42 @@ class UIBatch(*uic.loadUiType(ui_path)):
 
                     elif step.item_type == "scan_xrd":
                         scan_xrd = step
-                        energy = scan_xrd.item_energy
-                        subframe_time = scan_xrd.dif_exposure
-                        subframe_count = scan_xrd.dif_patterns
-                        frame_count = scan_xrd.dif_repetitions
-                        delay = scan_xrd.dif_delay
-                        sample_name = scan_xrd.name
-                        print(energy, frame_count, subframe_time, subframe_count,sample_name)
-                        plan = plans_dict[scan_xrd.scan_type]
-                        print('got to checkpoint 1')
-                        sample_name = '{} {} {}'.format(sample_name, 'xrd', exper_index)
-                        self.label_batch_step.setText(sample_name)
-                        kwargs = {'sample_name': sample_name,
-                                  'frame_count': frame_count,
-                                  'subframe_time': subframe_time,
-                                  'subframe_count':subframe_count,
-                                  'stdout': self.parent_gui.emitstream_out}
-                        if testing:
-                            print('would have done the scan', sample.name)
-                        else:
-                            current_energy=mono.energy.read()['mono1_energy']['value']
-                            yield from bps.mv(mono.energy, energy)
-                            yield from plan(**kwargs)
-                            yield from bps.mv(mono.energy, current_energy)
+                        for kk in range(step.rowCount()):
+                            child_item = scan_xrd.child(kk)
+                            if child_item.item_type == 'sample':
+                                sample=child_item
+                                # randomization
+                                delta_x, delta_y = self.randomize_position()
 
+                                if testing:
+                                    print('would have moved there', sample.x + delta_x, sample.y + delta_y)
+                                else:
+                                    yield from mv(sample_stage.x, sample.x + delta_x, sample_stage.y,
+                                                  sample.y + delta_y)
 
-
+                                energy = scan_xrd.item_energy
+                                subframe_time = scan_xrd.dif_exposure
+                                subframe_count = scan_xrd.dif_patterns
+                                frame_count = scan_xrd.dif_repetitions
+                                delay = scan_xrd.dif_delay
+                                sample_name = sample.name
+                                print(energy, frame_count, subframe_time, subframe_count,sample_name)
+                                plan = plans_dict[scan_xrd.scan_type]
+                                print('got to checkpoint 1')
+                                sample_name = '{} {} {}'.format(sample_name, 'xrd', exper_index)
+                                self.label_batch_step.setText(sample_name)
+                                kwargs = {'sample_name': sample_name,
+                                          'frame_count': frame_count,
+                                          'subframe_time': subframe_time,
+                                          'subframe_count':subframe_count,
+                                          'stdout': self.parent_gui.emitstream_out}
+                                if testing:
+                                    print('would have done the scan', sample.name)
+                                else:
+                                    current_energy=mono.energy.read()['mono1_energy']['value']
+                                    yield from bps.mv(mono.energy, energy)
+                                    yield from plan(**kwargs)
+                                    yield from bps.mv(mono.energy, current_energy)
                     elif step.item_type == 'service':
                         kwargs = {'stdout': self.parent_gui.emitstream_out}
                         if testing:
