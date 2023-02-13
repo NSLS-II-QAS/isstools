@@ -399,7 +399,7 @@ class UIBatchManual(*uic.loadUiType(ui_path)):
             elif (self.service_parameter_types[i] == str):
                 service_params[f'{variable}'] = f'{self.service_parameter_values[i].text()}'
         service_plan = self.service_plan_funcs[self.comboBox_service_plan.currentText()]
-        new_item_service = QtGui.QStandardItem(f'Service: {self.comboBox_service_plan.currentText()}')
+        new_item_service = QtGui.QStandardItem(f'Service: {self.comboBox_service_plan.currentText()}, Parameters: {service_params}')
         new_item_service.item_type = 'service'
         #new_item_service.setIcon(icon_service)
         new_item_service.service_plan = service_plan
