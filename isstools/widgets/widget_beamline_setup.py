@@ -359,8 +359,11 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
 
 
     def get_offsets(self):
+        self.push_get_offsets.setEnabled(False)
         sys.stdout = self.parent_gui.emitstream_out
         if self.parent_gui.hutch == 'b':
             self.RE(self.service_plan_funcs['get_offsets'](hutch_c = False))
         if self.parent_gui.hutch == 'c':
             self.RE(self.service_plan_funcs['get_offsets'](hutch_c = True))
+
+        self.push_get_offsets.setEnabled(True)

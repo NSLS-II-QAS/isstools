@@ -248,6 +248,14 @@ class UIBatch(*uic.loadUiType(ui_path)):
                                     yield from bps.mv(mono.energy, energy)
                                     yield from plan(**kwargs)
                                     yield from bps.mv(mono.energy, current_energy)
+
+                            elif child_item.item_type == 'service':
+                                service = child_item
+                                kwargs = {'stdout': self.parent_gui.emitstream_out}
+                                if testing:
+                                    print('would have done service', child_item.name)
+                                else:
+                                    yield from service.service_plan(**service.service_params, **kwargs)
                     elif step.item_type == 'service':
                         kwargs = {'stdout': self.parent_gui.emitstream_out}
                         if testing:
