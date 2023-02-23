@@ -53,6 +53,16 @@ class UIBeamlineStatus(*uic.loadUiType(ui_path)):
         self.parent_gui=parent_gui
 
 
+        wfm_length = self.apb.wf_len.get()
+        self.spinBox_wfm_length.setValue(wfm_length)
+        self.spinBox_wfm_length.valueChanged.connect(self.update_wfm_length)
+        # self.spinBox_wfm_length.subscribe(self.update_wfm_length)
+
+        fa_sample = self.apb.sample_len.get()
+        self.spinBox_fa_sample.setValue(fa_sample)
+        self.spinBox_fa_sample.valueChanged.connect(self.update_fa_sample)
+
+
         daq_rate_b = self.apb.acq_rate.get()
         self.spinBox_daq_rate_b.setValue(daq_rate_b)
 
@@ -157,4 +167,12 @@ class UIBeamlineStatus(*uic.loadUiType(ui_path)):
         elif self.radioButton_hutch_b.isChecked():
             self.parent_gui.hutch = 'b'
             self.parent_gui.widget_batch_mode.widget_batch_manual.checkBox_hutch_c.setChecked(False)
+
+    def update_wfm_length(self):
+        _wf_length = self.spinBox_wfm_length.value()
+        self.apb.wf_len.set(_wf_length)
+
+    def update_fa_sample(self):
+        _fa_sample = self.spinBox_fa_sample.value()
+        self.apb.sample_len.set(_fa_sample)
 
