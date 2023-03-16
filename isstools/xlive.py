@@ -10,7 +10,8 @@ from PyQt5 import uic, QtGui, QtCore
 from PyQt5.QtCore import QThread, QSettings
 
 from isstools.widgets import (widget_general_info, widget_trajectory_manager, widget_processing, widget_batch,
-                              widget_run, widget_beamline_setup, widget_run_diff, widget_sdd_manager, widget_beamline_status)
+                              widget_run, widget_beamline_setup, widget_run_diff, widget_sdd_manager, widget_beamline_status,
+                              widget_user_motors)
 
 from isstools.elements import EmittingStream
 from isstools.elements.batch_motion import SamplePositioner
@@ -302,6 +303,10 @@ class XliveGui(*uic.loadUiType(ui_path)):
         sys.stdout = self.emitstream_out
         sys.stderr = self.emitstream_err
         self.setWindowTitle(window_title)
+
+        self.widget_user_motors = widget_user_motors.UIUserMotors(self.motors_dict,
+                                                                  parent_gui=self)
+        self.layout_user_motor_tab.addWidget(self.widget_user_motors)
 
     def update_progress(self, pvname=None, value=None, char_value=None, **kwargs):
         self.progress_sig.emit()
