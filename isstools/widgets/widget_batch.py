@@ -198,9 +198,16 @@ class UIBatch(*uic.loadUiType(ui_path)):
                                 if testing:
                                     print('would have done the scan', sample.name)
                                 else:
-
-
                                     yield from plan(**kwargs)
+
+                                if sample.rowCount() != 0:
+                                    for i in range(sample.rowCount()):
+                                        child_service = sample.child(i)
+                                        child_kwargs = {'stdout': self.parent_gui.emitstream_out}
+                                        if testing:
+                                            print('would have done service', child_service.name)
+                                        else:
+                                            yield from child_service.service_plan(**child_service.service_params, **child_kwargs)
 
                             elif child_item.item_type == 'service':
                                 service = child_item

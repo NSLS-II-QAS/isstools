@@ -413,6 +413,8 @@ class UIBatchManual(*uic.loadUiType(ui_path)):
                     parent.appendRow(new_item_service)
                 elif parent.item_type == 'sample':
                     parent.insertRow(0, new_item_service)
+                elif parent.item_type == 'scan':
+                    parent.insertRow(0, new_item_service)
 
                 new_item_service.setCheckable(False)
                 new_item_service.setEditable(False)

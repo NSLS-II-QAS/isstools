@@ -67,11 +67,11 @@ class UIBeamlineStatus(*uic.loadUiType(ui_path)):
         self.spinBox_daq_rate_b.setValue(daq_rate_b)
 
 
-        daq_rate_c = self.apb_c.acq_rate.get()
-        self.spinBox_daq_rate_c.setValue(daq_rate_c)
+        #daq_rate_c = self.apb_c.acq_rate.get()
+        #self.spinBox_daq_rate_c.setValue(daq_rate_c)
 
         self.spinBox_daq_rate_b.valueChanged.connect(self.update_daq_rate)
-        self.spinBox_daq_rate_c.valueChanged.connect(self.update_daq_rate)
+        #self.spinBox_daq_rate_c.valueChanged.connect(self.update_daq_rate)
 
 
         self.radioButton_hutch_b.toggled.connect(self.select_hutch)
