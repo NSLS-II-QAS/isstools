@@ -3,6 +3,8 @@ from PyQt5 import uic, QtCore, QtWidgets
 import pkg_resources
 from PyQt5.Qt import QObject
 
+from time import sleep as slp
+
 from isstools.dialogs import UpdateUserDialog
 
 
@@ -76,6 +78,13 @@ class UIBeamlineStatus(*uic.loadUiType(ui_path)):
 
         self.radioButton_hutch_b.toggled.connect(self.select_hutch)
 
+        voltage_channels = ['vi0', 'vit', 'vir', 'vip']
+
+
+        for channel in voltage_channels:
+            getattr(self, 'lineEdit_' + channel).setStyleSheet("background-color : blue; color: white;")
+            self.add_voltage_subscriptions(channel)
+
         enc_rate_in_points = mono.enc.filter_dt.get()
         enc_rate = 1 / (enc_rate_in_points * 10 * 1e-9) / 1e3
         #TODO Something is fishy here
@@ -140,6 +149,13 @@ class UIBeamlineStatus(*uic.loadUiType(ui_path)):
     def change_shutter_color(self):
         self.current_button.setStyleSheet("background-color: " + self.current_button_color)
 
+    def add_voltage_subscriptions(self, channel):
+        def update_voltage(value, **kwargs):
+            getattr(self, 'lineEdit_'+ channel).setText(f"{value:1.2f}")
+            if value >= 8:
+                getattr(self, 'lineEdit_' + channel).setStyleSheet("background-color : red; color: white;")
+        getattr(self.apb, channel).subscribe(update_voltage)
+
 
     def update_daq_rate(self):
         sender_object = QObject().sender()
@@ -170,9 +186,9 @@ class UIBeamlineStatus(*uic.loadUiType(ui_path)):
 
     def update_wfm_length(self):
         _wf_length = self.spinBox_wfm_length.value()
-        self.apb.wf_len.set(_wf_length)
+        self.apb.wf_len.set(_wf_length).wait()
 
     def update_fa_sample(self):
         _fa_sample = self.spinBox_fa_sample.value()
-        self.apb.sample_len.set(_fa_sample)
+        self.apb.sample_len.set(_fa_sample).wait()
 

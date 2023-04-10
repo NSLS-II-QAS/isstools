@@ -50,6 +50,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
                  aux_plan_funcs={},
                  general_scan_func = None,
                  sample_stage= None,
+                 wps = None,
                  window_title="XLive @QAS/07-BM NSLS-II",
                  *args, **kwargs):
         '''
@@ -143,6 +144,8 @@ class XliveGui(*uic.loadUiType(ui_path)):
 
         self.RE = RE
         self.db = db
+        self.wps = wps
+
 
         if self.RE is not None:
             self.RE.is_aborted = False
@@ -209,7 +212,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
                                       range(self.tabWidget.count())].index('Silicon Drift Detector setup'))
             self.xia = None
 
-        self.widget_general_info = widget_general_info.UIGeneralInfo(accelerator, RE, db)
+        self.widget_general_info = widget_general_info.UIGeneralInfo(accelerator, mono, RE, db)
         self.layout_general_info.addWidget(self.widget_general_info)
 
         if self.mono is not None:
@@ -278,14 +281,15 @@ class XliveGui(*uic.loadUiType(ui_path)):
 
                 self.layout_xspress3_setup.addWidget(self.widget_sdd_manager)
 
-   
-            self.layout_beamline_status.addWidget(widget_beamline_status.UIBeamlineStatus(
+            self.widget_beamline_status = widget_beamline_status.UIBeamlineStatus(
                                                                         shutters=self.shutters_dict,
                                                                         apb=apb,
                                                                         apb_c=apb_c,
                                                                         mono=mono,
-                                                                        parent_gui=self
-            ))
+                                                                        parent_gui=self)
+
+   
+            self.layout_beamline_status.addWidget(self.widget_beamline_status)
 
         self.filepaths = []
         pc = ProcessingCallback(db=self.db, draw_func_interp=self.widget_run.draw_interpolated_data, draw_func_binned=self.widget_processing.new_bin_df_arrived)
@@ -304,7 +308,9 @@ class XliveGui(*uic.loadUiType(ui_path)):
         sys.stderr = self.emitstream_err
         self.setWindowTitle(window_title)
 
-        self.widget_user_motors = widget_user_motors.UIUserMotors(self.motors_dict,
+        self.widget_user_motors = widget_user_motors.UIUserMotors(motors_dict=self.motors_dict,
+                                                                  apb=apb,
+                                                                  wps=self.wps,
                                                                   parent_gui=self)
         self.layout_user_motor_tab.addWidget(self.widget_user_motors)
 
