@@ -156,7 +156,7 @@ class UISDDManager(*uic.loadUiType(ui_path)):
 
 
     def update_spinboxes(self):
-        print('Updating spinboxes')
+        # print('Updating spinboxes')
         for indx_ch in range(self.num_channels):
             for indx_roi in range(self.num_rois):
                 for indx_lo_hi in range(2):

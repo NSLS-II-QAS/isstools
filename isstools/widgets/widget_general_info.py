@@ -52,7 +52,7 @@ class UIGeneralInfo(*uic.loadUiType(ui_path)):
         self.accelerator.status.subscribe(self.update_accelerator_status)
 
         self.lineEdit_mono_energy.returnPressed.connect(self.update_mono_energy)
-        self.lineEdit_mono_energy.setStyleSheet('border: 2px solid green')
+        self.lineEdit_mono_energy.setStyleSheet('border: 2px solid green;')
 
         self.mono.energy.user_readback.subscribe(self.update_mono_value)
 
@@ -81,13 +81,13 @@ class UIGeneralInfo(*uic.loadUiType(ui_path)):
             _desired_energy = float(_read_desired_energy.split()[0])
             self.lineEdit_mono_energy.setText(f"{_desired_energy:.1f} eV")
             if (_desired_energy) < 4000 or (_desired_energy > 30000):
-                self.lineEdit_mono_energy.setStyleSheet('border: 2px solid red')
+                self.lineEdit_mono_energy.setStyleSheet('border: 2px solid red;')
                 print('Energy value outside the range')
             else:
-                self.lineEdit_mono_energy.setStyleSheet('border: 2px solid green')
+                self.lineEdit_mono_energy.setStyleSheet('border: 2px solid green;')
                 self.mono.energy.user_setpoint.set(_desired_energy).wait()
         except ValueError:
-            self.lineEdit_mono_energy.setStyleSheet('border: 2px solid red')
+            self.lineEdit_mono_energy.setStyleSheet('border: 2px solid red;')
 
 
 
