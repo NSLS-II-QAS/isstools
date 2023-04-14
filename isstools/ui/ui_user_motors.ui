@@ -184,7 +184,7 @@
      </widget>
     </item>
     <item row="1" column="6">
-     <widget class="QPushButton" name="pushButton_ch2_zero">
+     <widget class="QPushButton" name="pushButton_amp_ch2">
       <property name="maximumSize">
        <size>
         <width>50</width>
@@ -257,7 +257,7 @@
      </widget>
     </item>
     <item row="1" column="2">
-     <widget class="QPushButton" name="pushButton_ch1_zero">
+     <widget class="QPushButton" name="pushButton_amp_ch1">
       <property name="maximumSize">
        <size>
         <width>50</width>
@@ -388,7 +388,7 @@
      </widget>
     </item>
     <item row="1" column="13">
-     <widget class="QPushButton" name="pushButton_ch4_zero">
+     <widget class="QPushButton" name="pushButton_amp_ch4">
       <property name="maximumSize">
        <size>
         <width>50</width>
@@ -428,7 +428,7 @@
      </widget>
     </item>
     <item row="1" column="10">
-     <widget class="QPushButton" name="pushButton_ch3_zero">
+     <widget class="QPushButton" name="pushButton_amp_ch3">
       <property name="maximumSize">
        <size>
         <width>50</width>

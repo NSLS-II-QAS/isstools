@@ -45,6 +45,7 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
             self.add_gain_subscriptions(i)
         #     # getattr()
             getattr(self, 'comboBox_ch' + str(i) + '_gain').currentIndexChanged.connect(self.update_gain)
+            getattr(self, 'pushButton_amp_ch' + str(i)).clicked.connect(self.set_current_suppr)
 
         self._ion_chambers = ['i0', 'it', 'ir']
         for i, ic in enumerate(self._ion_chambers):
@@ -56,6 +57,13 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
         for channel in self._mfc_channels:
             self.add_mfc_subscriptions(channel)
             getattr(self, 'lineEdit_' + channel).returnPressed.connect(self.set_flow_in_mfc)
+
+
+    def set_current_suppr(self):
+        sender_obj = QObject().sender()
+        sender_obj_name = sender_obj.objectName()
+        channel_index = sender_obj_name[11:]
+        getattr(self.apb, channel_index).supr_mode.set(2).wait()
 
 
     def set_flow_in_mfc(self):
