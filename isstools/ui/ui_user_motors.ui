@@ -76,7 +76,7 @@
      </widget>
     </item>
     <item row="8" column="8">
-     <widget class="QLabel" name="label_ch2_n2">
+     <widget class="QLabel" name="label_ch4_n2">
       <property name="text">
        <string>He (sccm)</string>
       </property>
@@ -120,7 +120,7 @@
      </widget>
     </item>
     <item row="8" column="2">
-     <widget class="QLineEdit" name="lineEdit_ch1_n2">
+     <widget class="QLineEdit" name="lineEdit_ch2_n2">
       <property name="maximumSize">
        <size>
         <width>60</width>
@@ -140,7 +140,7 @@
      </widget>
     </item>
     <item row="8" column="7">
-     <widget class="QLineEdit" name="lineEdit_ch2_N2">
+     <widget class="QLineEdit" name="lineEdit_ch4_n2">
       <property name="maximumSize">
        <size>
         <width>60</width>
@@ -250,7 +250,7 @@
      </widget>
     </item>
     <item row="8" column="3">
-     <widget class="QLabel" name="label_ch1_n2">
+     <widget class="QLabel" name="label_ch2_n2">
       <property name="text">
        <string>He (sccm)</string>
       </property>
@@ -401,7 +401,7 @@
      </widget>
     </item>
     <item row="9" column="2">
-     <widget class="QLineEdit" name="lineEdit_ch1_ar">
+     <widget class="QLineEdit" name="lineEdit_ch3_ar">
       <property name="maximumSize">
        <size>
         <width>60</width>
@@ -411,14 +411,14 @@
      </widget>
     </item>
     <item row="9" column="3">
-     <widget class="QLabel" name="label_ch1_ar">
+     <widget class="QLabel" name="label_ch3_ar">
       <property name="text">
        <string>He (sccm)</string>
       </property>
      </widget>
     </item>
     <item row="9" column="7">
-     <widget class="QLineEdit" name="lineEdit_ch2_Ar">
+     <widget class="QLineEdit" name="lineEdit_ch5_ar">
       <property name="maximumSize">
        <size>
         <width>60</width>
@@ -472,7 +472,7 @@
      </widget>
     </item>
     <item row="9" column="8">
-     <widget class="QLabel" name="label_ch2_ar">
+     <widget class="QLabel" name="label_ch5_ar">
       <property name="text">
        <string>He (sccm)</string>
       </property>

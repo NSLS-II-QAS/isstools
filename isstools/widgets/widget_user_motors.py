@@ -15,6 +15,7 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
                  motors_dict=None,
                  apb=None,
                  wps = None,
+                 mfc = None,
                  parent_gui=None,
                  *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -22,6 +23,7 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
         self.parent_gui = parent_gui
         self.motors_dict = motors_dict
         self.wps = wps
+        self.mfc = mfc
         self.apb = apb
 
         self._sample_stage_motors = ['sample_stage1_rotary',
@@ -37,6 +39,8 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
 
         self._gains = [f"1E{f:.0f} V/A" for f in range(3,11)]
 
+        self._mfc_channels = ['ch1_he', 'ch2_n2', 'ch3_ar', 'ch4_n2', 'ch5_ar']
+
         for i in range(1,5):
             self.add_gain_subscriptions(i)
         #     # getattr()
@@ -48,6 +52,21 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
 
         for i, ic in enumerate(self._ion_chambers):
             self.add_ion_chambers_grid_subscriptions(i+1, ic)
+
+        for channel in self._mfc_channels:
+            self.add_mfc_subscriptions(channel)
+            getattr(self, 'lineEdit_' + channel).returnPressed.connect(self.set_flow_in_mfc)
+
+
+    def set_flow_in_mfc(self):
+        sender_obj = QObject().sender()
+        sender_obj_name = sender_obj.objectName()
+        sender_obj_value = sender_obj.text()
+        _gas_flow = float(sender_obj_value.split()[0])
+        mfc_index = sender_obj_name[9:]
+        getattr(self.mfc, mfc_index + '_sp').set(_gas_flow).wait()
+
+
 
         # for
 
@@ -84,3 +103,10 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
             getattr(self, 'lineEdit_ch' + str(ch) + "_plateV").setText(f"{value:4.2f} V")
 
         getattr(self.wps, ic + '_plate_rb').subscribe(update_wps_plate_readback)
+
+
+    def add_mfc_subscriptions(self, channel):
+        def update_mfc_readback(value, **kwargs):
+            getattr(self, 'label_' + channel).setText(f"{value:.2f} sccm")
+
+        getattr(self.mfc, channel + '_rb').subscribe(update_mfc_readback)

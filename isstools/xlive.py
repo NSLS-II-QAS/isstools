@@ -51,6 +51,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
                  general_scan_func = None,
                  sample_stage= None,
                  wps = None,
+                 mfc = None,
                  window_title="XLive @QAS/07-BM NSLS-II",
                  *args, **kwargs):
         '''
@@ -145,6 +146,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
         self.RE = RE
         self.db = db
         self.wps = wps
+        self.mfc = mfc
 
 
         if self.RE is not None:
@@ -311,6 +313,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
         self.widget_user_motors = widget_user_motors.UIUserMotors(motors_dict=self.motors_dict,
                                                                   apb=apb,
                                                                   wps=self.wps,
+                                                                  mfc=self.mfc,
                                                                   parent_gui=self)
         self.layout_user_motor_tab.addWidget(self.widget_user_motors)
 
