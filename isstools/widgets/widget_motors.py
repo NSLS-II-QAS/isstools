@@ -93,12 +93,8 @@ class UIWidgetMotors(*uic.loadUiType(ui_path)):
     def update_moving_label(self, value, **kwargs):
         if value == 1:
             self.label_mov_status.setStyleSheet('background-color: rgb(95,249,95)')
-            self.button_move_decrement.setEnabled(False)
-            self.button_move_increment.setEnabled(False)
         else:
             self.label_mov_status.setStyleSheet('background-color: rgb(55,130,60)')
-            self.button_move_decrement.setEnabled(True)
-            self.button_move_increment.setEnabled(True)
 
     def update_set_point(self):
         _read_desired_setpoint = self.lineEdit_setpoint.text()
@@ -125,11 +121,7 @@ class UIWidgetMotors(*uic.loadUiType(ui_path)):
 
     def update_decrement(self):
         self._motor_object.twr.put(1)
-        # _current_step_reading = self.lineEdit_step.text()
-        # _step = float(_current_step_reading.split()[0])
-        #
-        # _current_readback = self._motor_object.position
-        # _set_obj = self._motor_object.set(_current_readback - _step)
+
 
     def update_step(self):
         _user_step_reading = self.lineEdit_step.text()
@@ -140,11 +132,6 @@ class UIWidgetMotors(*uic.loadUiType(ui_path)):
 
     def update_increment(self):
         self._motor_object.twf.put(1)
-        # _current_step_reading = self.lineEdit_step.text()
-        # _step = float(_current_step_reading.split()[0])
-        #
-        # _current_readback = self._motor_object.position
-        # _set_obj = self._motor_object.set(_current_readback + _step)
 
     def stop_the_motor(self):
         self._motor_object.stop()
