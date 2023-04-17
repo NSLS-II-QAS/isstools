@@ -15,6 +15,7 @@ class UIGeneralInfo(*uic.loadUiType(ui_path)):
                  mono = None,
                  RE = None,
                  db = None,
+                 parent_gui = None,
                  *args, **kwargs):
 
         super().__init__(*args, **kwargs)
@@ -32,6 +33,7 @@ class UIGeneralInfo(*uic.loadUiType(ui_path)):
         # self.timer_update_weather.start()
 
         self.mono = mono
+        self.parent_gui = parent_gui
 
         self.RE = RE
         self.db = db
@@ -72,15 +74,18 @@ class UIGeneralInfo(*uic.loadUiType(ui_path)):
     #     self.label_current_weather.setText(string_current_weather)
 
     def update_mono_value(self, value, **kwargs):
-        self.label_mono_value.setText(f"{value:.1f} eV")
-        self.lineEdit_mono_energy.setText(f"{value:.1f} eV")
+        try:
+            self.label_mono_value.setText(f"{value:.1f} eV")
+            self.lineEdit_mono_energy.setText(f"{value:.1f} eV")
+        except:
+            pass
 
     def update_mono_energy(self):
         _read_desired_energy = self.lineEdit_mono_energy.text()
         try:
             _desired_energy = float(_read_desired_energy.split()[0])
             self.lineEdit_mono_energy.setText(f"{_desired_energy:.1f} eV")
-            if (_desired_energy) < 4000 or (_desired_energy > 30000):
+            if (_desired_energy) < 4500 or (_desired_energy > 30000):
                 self.lineEdit_mono_energy.setStyleSheet('border: 2px solid red;')
                 print('Energy value outside the range')
             else:

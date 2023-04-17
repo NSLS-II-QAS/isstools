@@ -214,7 +214,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
                                       range(self.tabWidget.count())].index('Silicon Drift Detector setup'))
             self.xia = None
 
-        self.widget_general_info = widget_general_info.UIGeneralInfo(accelerator, mono, RE, db)
+        self.widget_general_info = widget_general_info.UIGeneralInfo(accelerator, mono, RE, db, parent_gui=self)
         self.layout_general_info.addWidget(self.widget_general_info)
 
         if self.mono is not None:

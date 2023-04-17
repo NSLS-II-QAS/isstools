@@ -1,11 +1,13 @@
 import time
 from PyQt5 import uic, QtCore, QtWidgets
 import pkg_resources
-from PyQt5.Qt import QObject
+from PyQt5.Qt import QObject, QTimer
+
 
 from time import sleep as slp
 
 from isstools.dialogs import UpdateUserDialog
+from functools import partial
 
 
 ui_path = pkg_resources.resource_filename('isstools', 'ui/ui_beamline_status.ui')
@@ -54,15 +56,16 @@ class UIBeamlineStatus(*uic.loadUiType(ui_path)):
         self.mono = mono
         self.parent_gui=parent_gui
 
+        self._old_value = [0]
+        self._value = [0]
+
 
         wfm_length = self.apb.wf_len.get()
-        self.spinBox_wfm_length.setValue(wfm_length)
-        self.spinBox_wfm_length.valueChanged.connect(self.update_wfm_length)
-        # self.spinBox_wfm_length.subscribe(self.update_wfm_length)
+        self.lineEdit_wfm_length.setText(f"{wfm_length}")
+        self.lineEdit_wfm_length.returnPressed.connect(self.update_wfm_length)
 
         fa_sample = self.apb.sample_len.get()
-        self.spinBox_fa_sample.setValue(fa_sample)
-        self.spinBox_fa_sample.valueChanged.connect(self.update_fa_sample)
+        self.lineEdit_fa_sample.setText(f"{fa_sample}")
 
 
         daq_rate_b = self.apb.acq_rate.get()
@@ -73,17 +76,24 @@ class UIBeamlineStatus(*uic.loadUiType(ui_path)):
         #self.spinBox_daq_rate_c.setValue(daq_rate_c)
 
         self.spinBox_daq_rate_b.valueChanged.connect(self.update_daq_rate)
+        self.pushButton_update_wfm.clicked.connect(self.update_wfm_parameters)
         #self.spinBox_daq_rate_c.valueChanged.connect(self.update_daq_rate)
 
 
         self.radioButton_hutch_b.toggled.connect(self.select_hutch)
 
-        voltage_channels = ['vi0', 'vit', 'vir', 'vip']
+        self.voltage_channels = ['vi0', 'vit', 'vir', 'vip']
+
+        # for channel in self.voltage_channels:
+        #     getattr(self, 'lineEdit_' + channel).setStyleSheet("background-color : blue; color: white;")
+        #     self.add_voltage_subscriptions(channel)
+
+        self.timer_update_ic_voltages = QTimer(self)
+        self.timer_update_ic_voltages.setInterval(100)
+        self.timer_update_ic_voltages.timeout.connect(self.update_ic_voltages)
+        self.timer_update_ic_voltages.start()
 
 
-        for channel in voltage_channels:
-            getattr(self, 'lineEdit_' + channel).setStyleSheet("background-color : blue; color: white;")
-            self.add_voltage_subscriptions(channel)
 
         enc_rate_in_points = mono.enc.filter_dt.get()
         enc_rate = 1 / (enc_rate_in_points * 10 * 1e-9) / 1e3
@@ -149,12 +159,33 @@ class UIBeamlineStatus(*uic.loadUiType(ui_path)):
     def change_shutter_color(self):
         self.current_button.setStyleSheet("background-color: " + self.current_button_color)
 
-    def add_voltage_subscriptions(self, channel):
-        def update_voltage(value, **kwargs):
-            getattr(self, 'lineEdit_'+ channel).setText(f"{value:1.2f}")
-            if value >= 8:
-                getattr(self, 'lineEdit_' + channel).setStyleSheet("background-color : red; color: white;")
-        getattr(self.apb, channel).subscribe(update_voltage)
+
+    # def add_voltage_subscriptions(self, channel):
+    #     def update_voltage(value, old_value, **kwargs):
+    #         self._value = [0]
+    #         self._old_value = [0]
+    #         self._value.append(value)
+    #         self._old_value.append(old_value)
+    #         # self.update_text(value, old_value, channel)
+    #         # pass
+    #         # if abs(value-old_value) > 0.1:
+    #         #     getattr(self, 'lineEdit_'+ channel).setText(f"{value:1.2f}")
+    #         #     if value >= 8:
+    #         #         getattr(self, 'lineEdit_' + channel).setStyleSheet("background-color : red; color: white;")
+    #         #     else:
+    #         #         getattr(self, 'lineEdit_' + channel).setStyleSheet("background-color : blue; color: white;")
+    #     getattr(self.apb, channel).subscribe(update_voltage)
+
+    def update_ic_voltages(self):
+        for channel in self.voltage_channels:
+            channel_voltage = getattr(self.apb, channel).get()
+            getattr(self, 'lineEdit_' + channel).setText(f"{channel_voltage:1.2f}")
+            if channel_voltage >= 8:
+                    getattr(self, 'lineEdit_' + channel).setStyleSheet("background-color : red; color: white;")
+            else:
+                getattr(self, 'lineEdit_' + channel).setStyleSheet("background-color : blue; color: white;")
+
+
 
 
     def update_daq_rate(self):
@@ -185,10 +216,18 @@ class UIBeamlineStatus(*uic.loadUiType(ui_path)):
             self.parent_gui.widget_batch_mode.widget_batch_manual.checkBox_hutch_c.setChecked(False)
 
     def update_wfm_length(self):
-        _wf_length = self.spinBox_wfm_length.value()
+        _input = self.lineEdit_wfm_length.text()
+        _wf_length = float(_input.split()[0])
         self.apb.wf_len.set(_wf_length).wait()
 
-    def update_fa_sample(self):
-        _fa_sample = self.spinBox_fa_sample.value()
-        self.apb.sample_len.set(_fa_sample).wait()
+    def update_wfm_parameters(self):
+        _wf_length = self.apb.wf_len.get()
+        self.lineEdit_wfm_length.setText(f"{_wf_length:.1f}")
+
+        _fa_sample = self.apb.sample_len.get()
+        self.lineEdit_fa_sample.setText(f"{_fa_sample:.1f}")
+
+
+
+
 

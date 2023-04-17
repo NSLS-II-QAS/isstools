@@ -26,6 +26,8 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
         self.mfc = mfc
         self.apb = apb
 
+        self._gc = ""
+
         self._sample_stage_motors = ['sample_stage1_rotary',
                                      'sample_stage1_x',
                                      'sample_stage1_y',
@@ -34,7 +36,7 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
                                      'sample_stage1_chi']
 
         for motor in self._sample_stage_motors:
-            self.verticalLayout_sample_motors.addWidget(UIWidgetMotors(self.motors_dict[motor]))
+            self.verticalLayout_sample_motors.addWidget(UIWidgetMotors(self.motors_dict[motor], parent=self.parent_gui))
 
 
         self._gains = [f"1E{f:.0f} V/A" for f in range(3,11)]
@@ -88,33 +90,44 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
     def add_gain_subscriptions(self, ch):
         getattr(self, 'comboBox_ch' + str(ch) + '_gain').addItems(self._gains)
         def update_gain_value(value, **kwargs):
-            getattr(self, 'comboBox_ch' + str(ch) + '_gain').setCurrentIndex(value)
+            try:
+                getattr(self, 'comboBox_ch' + str(ch) + '_gain').setCurrentIndex(value)
+            except:
+                pass
         getattr(self.apb, 'amp_ch' + str(ch)).gain.subscribe(update_gain_value)
 
 
     def add_ion_chambers_plate_subscriptions(self, ch, ic):
         def update_wps_grid_readback(value, **kwargs):
-            if value < 1490:
-                getattr(self, 'lineEdit_ch' + str(ch) + "_gridV").setStyleSheet("border : 2px solid red;")
-            else:
-                getattr(self, 'lineEdit_ch' + str(ch) + "_gridV").setStyleSheet("border : 2px solid green;")
-            getattr(self, 'lineEdit_ch' + str(ch) + "_gridV").setText(f"{value:4.2f} V")
-
+            try:
+                if value < 1490:
+                    getattr(self, 'lineEdit_ch' + str(ch) + "_gridV").setStyleSheet("border : 2px solid red;")
+                else:
+                    getattr(self, 'lineEdit_ch' + str(ch) + "_gridV").setStyleSheet("border : 2px solid green;")
+                getattr(self, 'lineEdit_ch' + str(ch) + "_gridV").setText(f"{value:4.2f} V")
+            except:
+                pass
         getattr(self.wps, ic + '_grid_rb').subscribe(update_wps_grid_readback)
 
     def add_ion_chambers_grid_subscriptions(self, ch, ic):
         def update_wps_plate_readback(value, **kwargs):
-            if value < 1650:
-                getattr(self, 'lineEdit_ch' + str(ch) + "_plateV").setStyleSheet("border : 2px solid red;")
-            else:
-                getattr(self, 'lineEdit_ch' + str(ch) + "_plateV").setStyleSheet("border : 2px solid green;")
-            getattr(self, 'lineEdit_ch' + str(ch) + "_plateV").setText(f"{value:4.2f} V")
+            try:
+                if value < 1650:
+                    getattr(self, 'lineEdit_ch' + str(ch) + "_plateV").setStyleSheet("border : 2px solid red;")
+                else:
+                    getattr(self, 'lineEdit_ch' + str(ch) + "_plateV").setStyleSheet("border : 2px solid green;")
+                getattr(self, 'lineEdit_ch' + str(ch) + "_plateV").setText(f"{value:4.2f} V")
+            except:
+                pass
 
         getattr(self.wps, ic + '_plate_rb').subscribe(update_wps_plate_readback)
 
 
     def add_mfc_subscriptions(self, channel):
         def update_mfc_readback(value, **kwargs):
-            getattr(self, 'label_' + channel).setText(f"{value:.2f} sccm")
+            try:
+                getattr(self, 'label_' + channel).setText(f"{value:.2f} sccm")
+            except:
+                pass
 
         getattr(self.mfc, channel + '_rb').subscribe(update_mfc_readback)
