@@ -181,6 +181,11 @@
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QLabel" name="label">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Mono Energy&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
@@ -190,9 +195,15 @@
        <widget class="QLineEdit" name="lineEdit_mono_energy">
         <property name="maximumSize">
          <size>
-          <width>130</width>
-          <height>20</height>
+          <width>110</width>
+          <height>30</height>
          </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Cantarell</family>
+          <pointsize>14</pointsize>
+         </font>
         </property>
         <property name="frame">
          <bool>true</bool>
@@ -207,8 +218,14 @@
           <height>30</height>
          </size>
         </property>
+        <property name="font">
+         <font>
+          <family>Cantarell</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string>     </string>
+         <string/>
         </property>
        </widget>
       </item>

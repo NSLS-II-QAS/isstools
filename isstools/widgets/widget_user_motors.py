@@ -73,12 +73,33 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
         sender_obj_name = sender_obj.objectName()
         sender_obj_value = sender_obj.text()
         _gas_flow = float(sender_obj_value.split()[0])
+
         mfc_index = sender_obj_name[9:]
         getattr(self.mfc, mfc_index + '_sp').set(_gas_flow).wait()
 
+        # if sender_obj_name == "lineEdit_ch2_n2":
+        #     _total = self.mfc.ch1_he_rb.get() + _gas_flow + self.mfc.ch3_ar_rb.get()
+        #     if _gas_flow < _total * 0.1:
+        #         getattr(self, sender_obj).setStyleSheet("border : 2px solid red;")
+        #     else:
+        #         mfc_index = sender_obj_name[9:]
+        #         getattr(self.mfc, mfc_index + '_sp').set(_gas_flow).wait()
+        #
+        # elif sender_obj_name == "lineEdit_ch1_he":
+        #     _total = _gas_flow + self.mfc.ch2_n2_rb.get() + self.mfc.ch3_ar_rb.get()
+        #     if _gas_flow < _total * 0.1:
+        #         getattr(self, sender_obj).setStyleSheet("border : 2px solid red;")
+        #     else:
+        #         mfc_index = sender_obj_name[9:]
+        #         getattr(self.mfc, mfc_index + '_sp').set(_gas_flow).wait()
+        # else:
+        #     _total =  self.mfc.ch1_he_rb.get()+ self.mfc.ch2_n2_rb.get() + _gas_flow
+        #     if _gas_flow < _total * 0.1:
+        #         getattr(self, sender_obj).setStyleSheet("border : 2px solid red;")
+        #     else:
+        #         mfc_index = sender_obj_name[9:]
+        #         getattr(self.mfc, mfc_index + '_sp').set(_gas_flow).wait()
 
-
-        # for
 
     def update_gain(self):
         sender_obj = QObject().sender()
