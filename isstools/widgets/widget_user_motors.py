@@ -4,6 +4,7 @@ import pkg_resources
 from PyQt5.Qt import QObject
 from functools import partial
 
+from isstools.dialogs.BasicDialogs import message_box
 from isstools.widgets.widget_motors import UIWidgetMotors
 
 # from isstools.dialogs import UpdateUserDialog
@@ -74,31 +75,52 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
         sender_obj_value = sender_obj.text()
         _gas_flow = float(sender_obj_value.split()[0])
 
-        mfc_index = sender_obj_name[9:]
-        getattr(self.mfc, mfc_index + '_sp').set(_gas_flow).wait()
+        if sender_obj_name == 'lineEdit_ch1_he':
+            _total = _gas_flow + self.mfc.ch2_n2_rb.get() + self.mfc.ch3_ar_rb.get()
 
-        # if sender_obj_name == "lineEdit_ch2_n2":
-        #     _total = self.mfc.ch1_he_rb.get() + _gas_flow + self.mfc.ch3_ar_rb.get()
-        #     if _gas_flow < _total * 0.1:
-        #         getattr(self, sender_obj).setStyleSheet("border : 2px solid red;")
-        #     else:
-        #         mfc_index = sender_obj_name[9:]
-        #         getattr(self.mfc, mfc_index + '_sp').set(_gas_flow).wait()
-        #
-        # elif sender_obj_name == "lineEdit_ch1_he":
-        #     _total = _gas_flow + self.mfc.ch2_n2_rb.get() + self.mfc.ch3_ar_rb.get()
-        #     if _gas_flow < _total * 0.1:
-        #         getattr(self, sender_obj).setStyleSheet("border : 2px solid red;")
-        #     else:
-        #         mfc_index = sender_obj_name[9:]
-        #         getattr(self.mfc, mfc_index + '_sp').set(_gas_flow).wait()
-        # else:
-        #     _total =  self.mfc.ch1_he_rb.get()+ self.mfc.ch2_n2_rb.get() + _gas_flow
-        #     if _gas_flow < _total * 0.1:
-        #         getattr(self, sender_obj).setStyleSheet("border : 2px solid red;")
-        #     else:
-        #         mfc_index = sender_obj_name[9:]
-        #         getattr(self.mfc, mfc_index + '_sp').set(_gas_flow).wait()
+            if self.mfc.ch2_n2_rb.get() < (_total * 0.1):
+                message_box('Warning', 'Nitrogen flow rate must be 10% or more of total flow in all the ion chambers. Increase the N2 flow or contact beamline staff')
+            else:
+                mfc_index = sender_obj_name[9:]
+                getattr(self.mfc, mfc_index + '_sp').set(_gas_flow).wait()
+
+        if sender_obj_name == 'lineEdit_ch2_n2':
+            _total = self.mfc.ch1_he_rb.get() + _gas_flow + self.mfc.ch3_ar_rb.get()
+
+            if _gas_flow < (_total * 0.1):
+                message_box('Warning', 'Nitrogen flow rate must be 10% or more of total flow in all the ion chambers. Increase the N2 flow or contact beamline staff')
+            else:
+                mfc_index = sender_obj_name[9:]
+                getattr(self.mfc, mfc_index + '_sp').set(_gas_flow).wait()
+
+        if sender_obj_name == 'lineEdit_ch3_ar':
+            _total = self.mfc.ch1_he_rb.get() + self.mfc.ch2_n2_rb.get() + _gas_flow
+
+            if self.mfc.ch2_n2_rb.get() < (_total * 0.1):
+                message_box('Warning', 'Nitrogen flow rate must be 10% or more of total flow in all the ion chambers. Increase the N2 flow or contact beamline staff')
+            else:
+                mfc_index = sender_obj_name[9:]
+                getattr(self.mfc, mfc_index + '_sp').set(_gas_flow).wait()
+
+        if sender_obj_name == 'lineEdit_ch4_n2':
+            _total = _gas_flow + self.mfc.ch5_ar_rb.get()
+
+            if _gas_flow < (_total * 0.1):
+                message_box('Warning', 'Nitrogen flow rate must be 10% or more of total flow in all the ion chambers. Increase the N2 flow or contact beamline staff')
+            else:
+                mfc_index = sender_obj_name[9:]
+                getattr(self.mfc, mfc_index + '_sp').set(_gas_flow).wait()
+
+        if sender_obj_name == 'lineEdit_ch5_ar':
+            _total = self.mfc.ch4_n2_rb.get() + _gas_flow
+
+            if self.mfc.ch4_n2_rb.get() < (_total * 0.1):
+                message_box('Warning', 'Nitrogen flow rate must be 10% or more of total flow in all the ion chambers. Increase the N2 flow or contact beamline staff')
+            else:
+                mfc_index = sender_obj_name[9:]
+                getattr(self.mfc, mfc_index + '_sp').set(_gas_flow).wait()
+
+
 
 
     def update_gain(self):
