@@ -18,7 +18,7 @@ from isstools.elements.figure_update import update_figure
 from isstools.dialogs.BasicDialogs import question_message_box
 
 from xas.file_io import load_interpolated_df_from_file,  save_binned_df_as_file
-from xas.bin import bin
+from xas.bin import rebin
 
 ui_path = pkg_resources.resource_filename('isstools', 'ui/ui_processing.ui')
 
@@ -149,7 +149,7 @@ class UIProcessing(*uic.loadUiType(ui_path)):
             self.binned_datasets = []
             self.binned_datasets_to_save = []
             for dataset in self.interpolated_datasets:
-                binned_dataset = bin(dataset, e0=e0, edge_start=edge_start,
+                binned_dataset = rebin(dataset, e0=e0, edge_start=edge_start,
                                       edge_end=edge_end, preedge_spacing=preedge_spacing,
                                       xanes_spacing=xanes_spacing, exafs_k_spacing=exafs_spacing)
 

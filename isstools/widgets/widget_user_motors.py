@@ -51,15 +51,20 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
             getattr(self, 'pushButton_amp_ch' + str(i)).clicked.connect(self.set_current_suppr)
 
         self._ion_chambers = ['i0', 'it', 'ir']
-        for i, ic in enumerate(self._ion_chambers):
-            self.add_ion_chambers_plate_subscriptions(i+1, ic)
-
-        for i, ic in enumerate(self._ion_chambers):
-            self.add_ion_chambers_grid_subscriptions(i+1, ic)
+        # for i, ic in enumerate(self._ion_chambers):
+        #     self.add_ion_chambers_plate_subscriptions(i+1, ic)
+        #
+        # for i, ic in enumerate(self._ion_chambers):
+        #     self.add_ion_chambers_grid_subscriptions(i+1, ic)
 
         for channel in self._mfc_channels:
             self.add_mfc_subscriptions(channel)
             getattr(self, 'lineEdit_' + channel).returnPressed.connect(self.set_flow_in_mfc)
+
+        self.update_voltage_values = QtCore.QTimer(self)
+        self.update_voltage_values.setInterval(1000)
+        self.update_voltage_values.timeout.connect(self.update_voltage_reading)
+        self.update_voltage_values.start()
 
 
     def set_current_suppr(self):
@@ -139,31 +144,52 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
                 pass
         getattr(self.apb, 'amp_ch' + str(ch)).gain.subscribe(update_gain_value)
 
+    def update_voltage_reading(self):
+        for channel in self._ion_chambers:
+            _plate = getattr(self.wps, channel + '_plate_rb').get()
+            _grid = getattr(self.wps, channel + '_grid_rb').get()
+            if _plate > -1650:
+                getattr(self, 'lineEdit_' + channel + "_plateV").setStyleSheet("border : 2px solid red;")
+            else:
+                getattr(self, 'lineEdit_' + channel + "_plateV").setStyleSheet("border : 2px solid green;")
+            getattr(self, 'lineEdit_' + channel + "_plateV").setText(f"{_plate:4.2f} V")
 
-    def add_ion_chambers_plate_subscriptions(self, ch, ic):
-        def update_wps_grid_readback(value, **kwargs):
-            try:
-                if value < 1490:
-                    getattr(self, 'lineEdit_ch' + str(ch) + "_gridV").setStyleSheet("border : 2px solid red;")
-                else:
-                    getattr(self, 'lineEdit_ch' + str(ch) + "_gridV").setStyleSheet("border : 2px solid green;")
-                getattr(self, 'lineEdit_ch' + str(ch) + "_gridV").setText(f"{value:4.2f} V")
-            except:
-                pass
-        getattr(self.wps, ic + '_grid_rb').subscribe(update_wps_grid_readback)
+            if _grid > -1490:
+                getattr(self, 'lineEdit_' + channel + "_gridV").setStyleSheet("border : 2px solid red;")
+            else:
+                getattr(self, 'lineEdit_' + channel + "_gridV").setStyleSheet("border : 2px solid green;")
+            getattr(self, 'lineEdit_' + channel + "_gridV").setText(f"{_grid:4.2f} V")
 
-    def add_ion_chambers_grid_subscriptions(self, ch, ic):
-        def update_wps_plate_readback(value, **kwargs):
-            try:
-                if value < 1650:
-                    getattr(self, 'lineEdit_ch' + str(ch) + "_plateV").setStyleSheet("border : 2px solid red;")
-                else:
-                    getattr(self, 'lineEdit_ch' + str(ch) + "_plateV").setStyleSheet("border : 2px solid green;")
-                getattr(self, 'lineEdit_ch' + str(ch) + "_plateV").setText(f"{value:4.2f} V")
-            except:
-                pass
 
-        getattr(self.wps, ic + '_plate_rb').subscribe(update_wps_plate_readback)
+
+
+
+
+
+    # def add_ion_chambers_plate_subscriptions(self, ch, ic):
+    #     def update_wps_grid_readback(value, **kwargs):
+    #         try:
+    #             if value > -1490:
+    #                 getattr(self, 'lineEdit_ch' + str(ch) + "_gridV").setStyleSheet("border : 2px solid red;")
+    #             else:
+    #                 getattr(self, 'lineEdit_ch' + str(ch) + "_gridV").setStyleSheet("border : 2px solid green;")
+    #             getattr(self, 'lineEdit_ch' + str(ch) + "_gridV").setText(f"{value:4.2f} V")
+    #         except:
+    #             pass
+    #     getattr(self.wps, ic + '_grid_rb').subscribe(update_wps_grid_readback)
+    #
+    # def add_ion_chambers_grid_subscriptions(self, ch, ic):
+    #     def update_wps_plate_readback(value, **kwargs):
+    #         try:
+    #             if value > -1650:
+    #                 getattr(self, 'lineEdit_ch' + str(ch) + "_plateV").setStyleSheet("border : 2px solid red;")
+    #             else:
+    #                 getattr(self, 'lineEdit_ch' + str(ch) + "_plateV").setStyleSheet("border : 2px solid green;")
+    #             getattr(self, 'lineEdit_ch' + str(ch) + "_plateV").setText(f"{value:4.2f} V")
+    #         except:
+    #             pass
+    #
+    #     getattr(self.wps, ic + '_plate_rb').subscribe(update_wps_plate_readback)
 
 
     def add_mfc_subscriptions(self, channel):

@@ -48,7 +48,7 @@
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="4" column="6">
-     <widget class="QLineEdit" name="lineEdit_ch2_gridV">
+     <widget class="QLineEdit" name="lineEdit_it_gridV">
       <property name="readOnly">
        <bool>true</bool>
       </property>
@@ -62,7 +62,7 @@
      </widget>
     </item>
     <item row="3" column="2">
-     <widget class="QLineEdit" name="lineEdit_ch1_plateV">
+     <widget class="QLineEdit" name="lineEdit_i0_plateV">
       <property name="readOnly">
        <bool>true</bool>
       </property>
@@ -293,7 +293,7 @@
      </widget>
     </item>
     <item row="3" column="6">
-     <widget class="QLineEdit" name="lineEdit_ch2_plateV">
+     <widget class="QLineEdit" name="lineEdit_it_plateV">
       <property name="readOnly">
        <bool>true</bool>
       </property>
@@ -321,7 +321,7 @@
      </widget>
     </item>
     <item row="4" column="2">
-     <widget class="QLineEdit" name="lineEdit_ch1_gridV">
+     <widget class="QLineEdit" name="lineEdit_i0_gridV">
       <property name="readOnly">
        <bool>true</bool>
       </property>
@@ -381,7 +381,7 @@
      </widget>
     </item>
     <item row="3" column="10">
-     <widget class="QLineEdit" name="lineEdit_ch3_plateV">
+     <widget class="QLineEdit" name="lineEdit_ir_plateV">
       <property name="readOnly">
        <bool>true</bool>
       </property>
@@ -448,7 +448,7 @@
      </widget>
     </item>
     <item row="4" column="10">
-     <widget class="QLineEdit" name="lineEdit_ch3_gridV">
+     <widget class="QLineEdit" name="lineEdit_ir_gridV">
       <property name="readOnly">
        <bool>true</bool>
       </property>
