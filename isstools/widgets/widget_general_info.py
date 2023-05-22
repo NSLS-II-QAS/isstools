@@ -32,6 +32,7 @@ class UIGeneralInfo(*uic.loadUiType(ui_path)):
         # self.timer_update_weather.timeout.connect(self.update_weather)
         # self.timer_update_weather.start()
 
+
         self.mono = mono
         self.parent_gui = parent_gui
 
@@ -56,7 +57,7 @@ class UIGeneralInfo(*uic.loadUiType(ui_path)):
         self.lineEdit_mono_energy.returnPressed.connect(self.update_mono_energy)
         self.lineEdit_mono_energy.setStyleSheet('border: 2px solid green;')
 
-        self.mono.energy.user_readback.subscribe(self.update_mono_value)
+        # self.mono.energy.user_readback.subscribe(self.update_mono_value)
 
     # def update_weather(self):
     #     # try:
@@ -73,12 +74,12 @@ class UIGeneralInfo(*uic.loadUiType(ui_path)):
     #     string_current_weather = 'Weather information not available'
     #     self.label_current_weather.setText(string_current_weather)
 
-    def update_mono_value(self, value, **kwargs):
-        try:
-            self.label_mono_value.setText(f"{value:.1f} eV")
-            self.lineEdit_mono_energy.setText(f"{value:.1f} eV")
-        except:
-            pass
+    # def update_mono_value(self, value, **kwargs):
+    #     try:
+    #         self.label_mono_value.setText(f"{value:.1f} eV")
+    #         self.lineEdit_mono_energy.setText(f"{value:.1f} eV")
+    #     except:
+    #         pass
 
     def update_mono_energy(self):
         _read_desired_energy = self.lineEdit_mono_energy.text()
@@ -100,6 +101,13 @@ class UIGeneralInfo(*uic.loadUiType(ui_path)):
     def update_time(self):
         self.label_current_time.setText(
             'Today is {0}'.format(QtCore.QDateTime.currentDateTime().toString('MMMM d, yyyy, h:mm:ss ap')))
+
+        _energy = self.mono.energy.user_readback.get()
+        try:
+            self.label_mono_value.setText(f"{_energy:.1f} eV")
+            self.lineEdit_mono_energy.setText(f"{energy:.1f} eV")
+        except:
+            pass
 
     def update_beam_current(self, **kwargs):
         self.label_beam_current.setText('Beam current is {:.1f} mA'.format(kwargs['value']))

@@ -41,7 +41,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>320</y>
+     <y>290</y>
      <width>971</width>
      <height>327</height>
     </rect>
@@ -479,6 +479,19 @@
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QPushButton" name="pushButton_getoffsets">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>640</y>
+     <width>100</width>
+     <height>36</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Get Offsets</string>
+   </property>
   </widget>
  </widget>
  <resources/>

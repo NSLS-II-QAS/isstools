@@ -310,10 +310,12 @@ class XliveGui(*uic.loadUiType(ui_path)):
         sys.stderr = self.emitstream_err
         self.setWindowTitle(window_title)
 
-        self.widget_user_motors = widget_user_motors.UIUserMotors(motors_dict=self.motors_dict,
+        self.widget_user_motors = widget_user_motors.UIUserMotors(RE,
+                                                                  motors_dict=self.motors_dict,
                                                                   apb=apb,
                                                                   wps=self.wps,
                                                                   mfc=self.mfc,
+                                                                  service_plan_funcs=service_plan_funcs,
                                                                   parent_gui=self)
         self.layout_user_motor_tab.addWidget(self.widget_user_motors)
 

@@ -3,6 +3,10 @@ from PyQt5 import uic, QtCore, QtWidgets
 import pkg_resources
 from PyQt5.Qt import QObject
 from functools import partial
+# import sys
+
+import sys
+# import RE
 
 from isstools.dialogs.BasicDialogs import message_box
 from isstools.widgets.widget_motors import UIWidgetMotors
@@ -13,10 +17,12 @@ ui_path = pkg_resources.resource_filename('isstools', 'ui/ui_user_motors.ui')
 
 class UIUserMotors(*uic.loadUiType(ui_path)):
     def __init__(self,
+                 RE,
                  motors_dict=None,
                  apb=None,
                  wps = None,
                  mfc = None,
+                 service_plan_funcs = None,
                  parent_gui=None,
                  *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -26,6 +32,8 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
         self.wps = wps
         self.mfc = mfc
         self.apb = apb
+        self.service_plan_funcs = service_plan_funcs
+        self.RE = RE
 
         self._gc = ""
 
@@ -41,6 +49,9 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
 
 
         self._gains = [f"1E{f:.0f} V/A" for f in range(3,11)]
+
+        self.pushButton_getoffsets.clicked.connect(self.get_offsets)
+
 
         self._mfc_channels = ['ch1_he', 'ch2_n2', 'ch3_ar', 'ch4_n2', 'ch5_ar']
 
@@ -159,6 +170,16 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
             else:
                 getattr(self, 'lineEdit_' + channel + "_gridV").setStyleSheet("border : 2px solid green;")
             getattr(self, 'lineEdit_' + channel + "_gridV").setText(f"{_grid:4.2f} V")
+
+    def get_offsets(self):
+        self.pushButton_getoffsets.setEnabled(False)
+        sys.stdout = self.parent_gui.emitstream_out
+        if self.parent_gui.hutch == 'b':
+            self.RE(self.service_plan_funcs['get_offsets'](hutch_c = False))
+        if self.parent_gui.hutch == 'c':
+            self.RE(self.service_plan_funcs['get_offsets'](hutch_c = True))
+
+        self.pushButton_getoffsets.setEnabled(True)
 
 
 
