@@ -135,7 +135,7 @@ class UIBeamlineStatus(*uic.loadUiType(ui_path)):
                         toggle_map = {'Open': "Close",
                             "Close": "Open",
                             "Not Open": "Open"}
-                        shutter.set(toggle_map[state]).wait(timeout=1)
+                        shutter.set(toggle_map[state]).wait(timeout=5)
                         
                     return toggle_shutter
 

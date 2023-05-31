@@ -198,7 +198,7 @@ class XviewGui(*uic.loadUiType(ui_path)):
         if  self.workingFolder:
             self.settings.setValue('WorkingFolder', self.workingFolder)
             if len(self.workingFolder) > 50:
-                self.label_working_folder.setText(self.workingFolder[1:20] + '...' + self.WorkingFolder[-30:])
+                self.label_working_folder.setText(self.workingFolder[1:20] + '...' + self.workingFolder[-30:])
             else:
                 self.label_working_folder.setText(self.workingFolder)
             self.getFileList()

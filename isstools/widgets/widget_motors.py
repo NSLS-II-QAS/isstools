@@ -99,7 +99,7 @@ class UIWidgetMotors(*uic.loadUiType(ui_path)):
     def update_set_point(self):
         _read_desired_setpoint = self.lineEdit_setpoint.text()
         _desired_setpoint = float(_read_desired_setpoint.split()[0])
-        _set_obj = self._motor_object.set(_desired_setpoint).wait()
+        _set_obj = self._motor_object.set(_desired_setpoint)
 
     def update_set_point_value(self, value, **kwargs):
         self.lineEdit_setpoint.setText(f"{value:3.3f} {self._motor_object.egu}")
