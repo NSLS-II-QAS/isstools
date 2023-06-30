@@ -22,7 +22,7 @@ class UIGeneralInfo(*uic.loadUiType(ui_path)):
         self.setupUi(self)
         # Start QTimer to display current day and time
         self.timer_update_time = QtCore.QTimer(self)
-        self.timer_update_time.setInterval(1000)
+        self.timer_update_time.setInterval(100)
         self.timer_update_time.timeout.connect(self.update_time)
         self.timer_update_time.start()
 

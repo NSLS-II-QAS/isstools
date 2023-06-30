@@ -45,6 +45,7 @@ class UISDDManager(*uic.loadUiType(ui_path)):
         self.timer_update_time.timeout.connect(self.update_roi_labels)
         self.timer_update_time.start()
 
+
         self.push_xs3_acquire.clicked.connect(self.xs3_acquire)
         
         self.colors = ['r', 'b', 'g', 'm', 'k', 'y']
@@ -56,7 +57,7 @@ class UISDDManager(*uic.loadUiType(ui_path)):
         self.acquired = 0
 
 
-        self.checkbox_ch = 'checkBox_ch{}_show'        
+        self.checkbox_ch = 'checkBox_ch{}_show'
         for indx in range(self.num_channels):
              getattr(self, self.checkbox_ch.format(indx + 1)).stateChanged.connect(self.plot_traces)
         
@@ -84,7 +85,7 @@ class UISDDManager(*uic.loadUiType(ui_path)):
                 for indx_lo_hi in range(2):
                     spinbox_name = self.spinbox_roi.format(indx_ch + 1, indx_roi + 1, self.lo_hi[indx_lo_hi])
                     spinbox_object = getattr(self, spinbox_name)
-                    spinbox_object.valueChanged.connect(self.set_roi_value)
+                    spinbox_object.editingFinished.connect(self.set_roi_value)
 
     def fix_rois(self):
         sender = QObject()
@@ -155,6 +156,30 @@ class UISDDManager(*uic.loadUiType(ui_path)):
                     label_object.setText(str(value*10))
 
 
+        # Update Roi counts
+
+        try:
+            for ch in range(1,5):
+                for roi in range(1,5):
+                    value = getattr(getattr(getattr(self.xs, 'channel' + str(ch)), 'rois'), 'roi' + f'{roi:02d}').value.get()
+                    getattr(self, 'label_ch' + str(ch) + '_roi' + str(roi) + '_value').setText(f"{value:.0f}")
+
+                    if value < 450000:
+                        getattr(self, 'label_ch' + str(ch) + '_roi' + str(roi) + '_value').setStyleSheet("background-color: lime")
+                    elif value > 450000 and value < 500000:
+                        getattr(self, 'label_ch' + str(ch) + '_roi' + str(roi) + '_value').setStyleSheet("background-color: yellow")
+                    else:
+                        getattr(self, 'label_ch' + str(ch) + '_roi' + str(roi) + '_value').setStyleSheet(
+                            "background-color: red")
+
+
+        except Exception as e :
+            print(f'Error in updating ROI : {e}')
+
+                # if value > 500000:
+
+
+
     def update_spinboxes(self):
         # print('Updating spinboxes')
         for indx_ch in range(self.num_channels):
@@ -169,7 +194,7 @@ class UISDDManager(*uic.loadUiType(ui_path)):
 
     def update_roi_plot(self):
         for roi_plot in self.roi_plots:
-            self.figure_xs3_mca.ax.lines.remove(roi_plot[0])
+            list(self.figure_xs3_mca.ax.lines).remove(roi_plot[0])
         self.roi_plots = []
         ylims=self.figure_xs3_mca.ax.get_ylim()
         for indx_ch in range(self.num_channels):
