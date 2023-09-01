@@ -440,6 +440,25 @@ class XviewGui(*uic.loadUiType(ui_path)):
                     print('Metadata not found')
                     md={}
 
+                denominator_name = self.listBinnedDataDenominator.selectedItems()[0].text()
+                numerator_name = self.listBinnedDataNumerator.selectedItems()[0].text()
+
+                if numerator_name in ['i0', 'it', 'ir'] and self.checkBox_log_bin.isChecked():
+                    mu_channel = f' ln({numerator_name}/{denominator_name})'
+                else:
+                    mu_channel = f' ({numerator_name}/{denominator_name})'
+
+                #
+                # numerators = []
+                # for numerator_name in numerators_names:
+                #     numerators.append(np.array(df[numerator_name]))
+                # denominator = np.array(df[denominator_name])
+                #
+                # if denominator_name == 'i0':
+                #     denominator_sign = -1
+                # else:
+                #     denominator_sign = 1
+
                 self.gen_parser.data_manager.loadBinFile(filepath)
                 df = self.gen_parser.data_manager.binned_df
                 df = df.sort_values('energy')
@@ -454,7 +473,7 @@ class XviewGui(*uic.loadUiType(ui_path)):
                 mu=np.array(mu)
 
                 print(type(mu))
-                ds = xasproject.XASDataSet(name=name,md=md,energy=df['energy'],mu=mu, filename=filepath,datatype='experiment')
+                ds = xasproject.XASDataSet(name=name + mu_channel,md=md,energy=df['energy'],mu=mu, filename=filepath,datatype='experiment')
                 ds.header = header
                 self.xasproject.append(ds)
                 self.statusBar().showMessage('Scans added to the project successfully')

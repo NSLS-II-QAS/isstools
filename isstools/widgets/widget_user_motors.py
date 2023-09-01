@@ -15,6 +15,8 @@ from isstools.widgets.widget_motors import UIWidgetMotors
 
 ui_path = pkg_resources.resource_filename('isstools', 'ui/ui_user_motors.ui')
 
+
+
 class UIUserMotors(*uic.loadUiType(ui_path)):
     def __init__(self,
                  RE,

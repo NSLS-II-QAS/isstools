@@ -41,6 +41,7 @@ class UIRunDiff(*uic.loadUiType(ui_path)):
     def __init__(self,
                  RE,
                  db,
+                 pe1,
                  plans_diff,
                  parent_gui,
                  mono,
@@ -52,6 +53,7 @@ class UIRunDiff(*uic.loadUiType(ui_path)):
         mpl.rcParams['agg.path.chunksize'] = 10000
         self.RE = RE
         self.db = db
+        self.pe1 = pe1
         self.plans_diff = plans_diff[0]
         self.mono = mono
         self.parent_gui = parent_gui
@@ -60,8 +62,26 @@ class UIRunDiff(*uic.loadUiType(ui_path)):
         self.settings = QSettings(parent_gui.window_title, 'XLive')
         self.user_dir = self.settings.value('usr_dir', defaultValue = '/nsls2/data/qas-new/legacy/processed', type = str)
 
+        self.sample_to_detector_distance()
+
         self.push_open_pattern.clicked.connect(self.open_tiff_files)
+        self.pe1.sample_to_detector_distance.subscribe(self.current_sample_to_detector_distance)
+        self.spinBox_s2d_distance.editingFinished.connect(self.update_sample_to_detector_distance)
         self.addCanvas()
+
+    def sample_to_detector_distance(self):
+        _value = self.pe1.sample_to_detector_distance.get()
+        self.label_s2d_distance.setText(f"Sample to detector distance \n current value: {_value:.0f} mm")
+
+
+    def current_sample_to_detector_distance(self, value, **kwargs):
+        self.label_s2d_distance.setText(f"Sample to detector distance \n current value: {value:.0f} mm")
+
+    def update_sample_to_detector_distance(self):
+        _value = self.spinBox_s2d_distance.value()
+        self.pe1.sample_to_detector_distance.put(_value)
+        _value = self.pe1.sample_to_detector_distance.get()
+        print(f'Sample to detector distance is now set to: {_value}')
 
     def run_diffraction(self,db):
 

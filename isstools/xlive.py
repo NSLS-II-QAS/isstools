@@ -44,6 +44,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
                  accelerator=None,
                  mono=None,
                  sdd = None,
+                 pe1 = None,
                  shutters_dict={},
                  det_dict={},
                  motors_dict={},
@@ -147,6 +148,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
         self.db = db
         self.wps = wps
         self.mfc = mfc
+        self.pe1 = pe1
 
 
         if self.RE is not None:
@@ -270,6 +272,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
 
             self.widget_run_diff = widget_run_diff.UIRunDiff(RE,
                                                              db,
+                                                             self.pe1,
                                                              self.diff_plans,
                                                              parent_gui = self,
                                                              mono=mono)

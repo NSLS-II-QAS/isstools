@@ -9,6 +9,14 @@ from isstools.dialogs.UpdateMotorLimit import UIUpdateMotorLimit
 
 ui_path = pkg_resources.resource_filename('isstools', 'ui/ui_widget_motor.ui')
 
+class MyLineEdit(QLineEdit):
+    def __init__(self, parent=None):
+        super(MyLineEdit, self).__init__(parent)
+    def mousePressEvent(self, e):
+        try:
+            self.selectAll()
+        except Exception as e:
+            print(f'Error: {e}')
 
 class UIWidgetMotors(*uic.loadUiType(ui_path)):
     def __init__(self,
@@ -36,7 +44,8 @@ class UIWidgetMotors(*uic.loadUiType(ui_path)):
         self.label_mov_status.setFixedHeight(20)
         self.layout_motor_widget.addWidget(self.label_mov_status)
 
-        self.lineEdit_setpoint = QLineEdit("")
+        # self.lineEdit_setpoint = QLineEdit("")
+        self.lineEdit_setpoint = MyLineEdit("")
         _user_setpoint = f"{self._motor_object.user_setpoint.get():3.3f} { self._motor_object.egu}"
         self.lineEdit_setpoint.setText(_user_setpoint)
         self.lineEdit_setpoint.setFixedWidth(100)
@@ -67,7 +76,8 @@ class UIWidgetMotors(*uic.loadUiType(ui_path)):
         self.layout_motor_widget.addWidget(self.button_move_decrement)
         self.button_move_decrement.clicked.connect(self.update_decrement)
 
-        self.lineEdit_step = QLineEdit("")
+        # self.lineEdit_step = QLineEdit("")
+        self.lineEdit_step = MyLineEdit("")
         self.lineEdit_step.setFixedWidth(100)
         self._motor_object.twv.subscribe(self.update_step_value)
         self.layout_motor_widget.addWidget(self.lineEdit_step)

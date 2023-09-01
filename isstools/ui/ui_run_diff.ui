@@ -30,7 +30,7 @@
      <x>20</x>
      <y>70</y>
      <width>441</width>
-     <height>331</height>
+     <height>351</height>
     </rect>
    </property>
    <layout class="QFormLayout" name="formLayout_2">
@@ -42,7 +42,11 @@
      </widget>
     </item>
     <item row="1" column="1">
-     <widget class="QLineEdit" name="lineEdit_sample_name"/>
+     <widget class="QLineEdit" name="lineEdit_sample_name">
+      <property name="text">
+       <string>test</string>
+      </property>
+     </widget>
     </item>
     <item row="2" column="0">
      <widget class="QLabel" name="label_3">
@@ -58,6 +62,9 @@
       </property>
       <property name="maximum">
        <double>5.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
       </property>
      </widget>
     </item>
@@ -132,13 +139,33 @@
       </property>
      </widget>
     </item>
+    <item row="6" column="1">
+     <widget class="QSpinBox" name="spinBox_s2d_distance">
+      <property name="minimum">
+       <number>0</number>
+      </property>
+      <property name="maximum">
+       <number>9999</number>
+      </property>
+      <property name="value">
+       <number>300</number>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="label_s2d_distance">
+      <property name="text">
+       <string>Sample distance to detector</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QWidget" name="verticalLayoutWidget_2">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>420</y>
+     <x>20</x>
+     <y>440</y>
      <width>431</width>
      <height>191</height>
     </rect>

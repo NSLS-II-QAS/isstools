@@ -172,6 +172,7 @@ class UITrajectoryManager(*uic.loadUiType(ui_path)):
         self.figure_single_trajectory.ax2.plot(self.traj_creator.time_grid[0:-1], self.traj_creator.energy_grid_der,
                                                'r')
         self.figure_single_trajectory.ax2.set_ylabel('Velocity (eV/s)')
+        self.figure_single_trajectory.ax2.yaxis.set_label_position('right')
         self.canvas_single_trajectory.draw_idle()
 
         # Tile trajectory

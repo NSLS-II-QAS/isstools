@@ -30,7 +30,7 @@
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>0</x>
       <y>0</y>
       <width>1591</width>
       <height>961</height>
@@ -42,7 +42,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab_visualize">
      <attribute name="title">
@@ -250,7 +250,7 @@
         <x>540</x>
         <y>0</y>
         <width>1021</width>
-        <height>751</height>
+        <height>811</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="layout_plot_xasproject"/>
@@ -259,7 +259,7 @@
       <property name="geometry">
        <rect>
         <x>280</x>
-        <y>580</y>
+        <y>520</y>
         <width>100</width>
         <height>40</height>
        </rect>
@@ -267,6 +267,7 @@
       <property name="font">
        <font>
         <pointsize>10</pointsize>
+        <italic>false</italic>
        </font>
       </property>
       <property name="text">
@@ -756,6 +757,7 @@
          <property name="font">
           <font>
            <weight>50</weight>
+           <italic>false</italic>
            <bold>false</bold>
           </font>
          </property>
@@ -1000,14 +1002,15 @@
       <property name="geometry">
        <rect>
         <x>280</x>
-        <y>740</y>
-        <width>100</width>
-        <height>40</height>
+        <y>690</y>
+        <width>81</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <pointsize>10</pointsize>
+        <italic>false</italic>
        </font>
       </property>
       <property name="text">
@@ -1018,14 +1021,15 @@
       <property name="geometry">
        <rect>
         <x>280</x>
-        <y>820</y>
-        <width>100</width>
-        <height>40</height>
+        <y>780</y>
+        <width>81</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <pointsize>10</pointsize>
+        <italic>false</italic>
        </font>
       </property>
       <property name="text">
@@ -1363,10 +1367,10 @@
      <widget class="QWidget" name="verticalLayoutWidget_10">
       <property name="geometry">
        <rect>
-        <x>410</x>
-        <y>580</y>
-        <width>122</width>
-        <height>43</height>
+        <x>390</x>
+        <y>520</y>
+        <width>141</width>
+        <height>41</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -1472,9 +1476,9 @@
       <property name="geometry">
        <rect>
         <x>280</x>
-        <y>630</y>
-        <width>260</width>
-        <height>104</height>
+        <y>570</y>
+        <width>251</width>
+        <height>111</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
@@ -1579,10 +1583,10 @@
      <widget class="QWidget" name="verticalLayoutWidget_11">
       <property name="geometry">
        <rect>
-        <x>410</x>
-        <y>740</y>
-        <width>122</width>
-        <height>43</height>
+        <x>370</x>
+        <y>690</y>
+        <width>161</width>
+        <height>51</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -1688,7 +1692,7 @@
       <property name="geometry">
        <rect>
         <x>280</x>
-        <y>790</y>
+        <y>750</y>
         <width>158</width>
         <height>20</height>
        </rect>
@@ -1706,8 +1710,8 @@
       <property name="geometry">
        <rect>
         <x>280</x>
-        <y>870</y>
-        <width>261</width>
+        <y>820</y>
+        <width>251</width>
         <height>51</height>
        </rect>
       </property>
@@ -1756,10 +1760,10 @@
      <widget class="QWidget" name="verticalLayoutWidget_12">
       <property name="geometry">
        <rect>
-        <x>410</x>
-        <y>820</y>
-        <width>122</width>
-        <height>43</height>
+        <x>370</x>
+        <y>770</y>
+        <width>161</width>
+        <height>41</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_10">
@@ -1867,9 +1871,9 @@
      <widget class="QWidget" name="verticalLayoutWidget_2">
       <property name="geometry">
        <rect>
-        <x>570</x>
-        <y>760</y>
-        <width>191</width>
+        <x>540</x>
+        <y>820</y>
+        <width>171</width>
         <height>51</height>
        </rect>
       </property>
@@ -1885,6 +1889,7 @@
          <property name="font">
           <font>
            <weight>50</weight>
+           <italic>false</italic>
            <bold>false</bold>
           </font>
          </property>
@@ -1991,7 +1996,7 @@
      <x>0</x>
      <y>0</y>
      <width>1612</width>
-     <height>25</height>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">

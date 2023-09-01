@@ -51,6 +51,12 @@
     </item>
     <item row="0" column="1">
      <widget class="QSpinBox" name="spinBox_acq_time">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>30</height>
+       </size>
+      </property>
       <property name="minimum">
        <number>1</number>
       </property>
@@ -58,6 +64,12 @@
     </item>
     <item row="1" column="0">
      <widget class="QLabel" name="label_142">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>30</height>
+       </size>
+      </property>
       <property name="text">
        <string>Energy range</string>
       </property>
@@ -65,6 +77,12 @@
     </item>
     <item row="0" column="0">
      <widget class="QLabel" name="label_141">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>30</height>
+       </size>
+      </property>
       <property name="text">
        <string>Acq time (s)</string>
       </property>
@@ -77,8 +95,8 @@
       </property>
       <property name="maximumSize">
        <size>
-        <width>80</width>
-        <height>16777215</height>
+        <width>100</width>
+        <height>30</height>
        </size>
       </property>
       <property name="text">
@@ -91,6 +109,12 @@
       <property name="enabled">
        <bool>true</bool>
       </property>
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>30</height>
+       </size>
+      </property>
       <property name="text">
        <string>Acquire</string>
       </property>
@@ -102,9 +126,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>165</y>
-     <width>921</width>
-     <height>721</height>
+     <y>155</y>
+     <width>941</width>
+     <height>731</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="plot_xs3_mca"/>
@@ -201,10 +225,10 @@
   <widget class="QWidget" name="gridLayoutWidget_4">
    <property name="geometry">
     <rect>
-     <x>970</x>
+     <x>960</x>
      <y>20</y>
-     <width>601</width>
-     <height>861</height>
+     <width>631</width>
+     <height>631</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout_4">

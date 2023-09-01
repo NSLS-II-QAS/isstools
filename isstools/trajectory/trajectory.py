@@ -22,9 +22,19 @@ class trajectory():
         self.hhm = hhm
 
 
-    def define(self, edge_energy = 11564, offsets = ([-200,-30,50,1000]),velocities = ([200, 20, 200]), stitching = ([75, 75, 10, 10, 100, 100]),
-              servocycle = 16000, padding_lo = 1, padding_hi=1, trajectory_type = 'Step', sine_duration = 20, dsine_preedge_duration = 10,
-              dsine_postedge_duration = 20, vel_edge = 10):
+    def define(self,
+               edge_energy = 11564,
+               offsets = ([-200,-30,50,1000]),
+               velocities = ([200, 20, 200]),
+               stitching = ([75, 75, 10, 10, 100, 100]),
+               servocycle = 16000,
+               padding_lo = 1,
+               padding_hi = 1,
+               trajectory_type = 'Step',
+               sine_duration = 20,
+               dsine_preedge_duration = 10,
+               dsine_postedge_duration = 20,
+               vel_edge = 10):
 
         self.servocycle=servocycle
         if trajectory_type == 'Step':
