@@ -100,7 +100,7 @@ class UIGeneralInfo(*uic.loadUiType(ui_path)):
 
     def update_time(self):
         self.label_current_time.setText(
-            'Today is {0}'.format(QtCore.QDateTime.currentDateTime().toString('MMMM d, yyyy, h:mm:ss ap')))
+            'Today is {0}'.format(QtCore.QDateTime.currentDateTime().toString('MMMM d, yyyy\nh:mm:ss ap')))
 
         _energy = self.mono.energy.user_readback.get()
         try:

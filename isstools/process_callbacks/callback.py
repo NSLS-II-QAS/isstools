@@ -15,3 +15,16 @@ class ProcessingCallback(CallbackBase):
 
 
 
+class PilatusCallback(CallbackBase):
+    def __init__(self, db):
+        self.db = db
+        super().__init__()
+
+    def stop(self, doc):
+        print(">>>>>>>>>> Pilatus stopped")
+        path = '/nsls2/data/qas-new/legacy/processed/{year}/{cycle}/{PROPOSAL}XRD'.format(**doc)
+        file_prefix = '{start[sample_name]}-{start[exposure_time]:.1f}s-{start[scan_id]}-'.format(**doc)
+        
+
+
+

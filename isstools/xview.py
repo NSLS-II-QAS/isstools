@@ -193,8 +193,12 @@ class XviewGui(*uic.loadUiType(ui_path)):
         #layout_plot_xasproject
 
     def select_working_folder(self):
-        self.workingFolder = QtWidgets.QFileDialog.getExistingDirectory(self, "Select a folder", self.workingFolder,
+
+        self.workingFolder = QtWidgets.QFileDialog.getExistingDirectory(self, "Select a folder", '/nsls2/data/qas-new/legacy/processed/',
                                                                         QtWidgets.QFileDialog.ShowDirsOnly)
+
+        # self.workingFolder = QtWidgets.QFileDialog.getExistingDirectory(self, "Select a folder", self.workingFolder,
+        #                                                                 QtWidgets.QFileDialog.ShowDirsOnly)
         if  self.workingFolder:
             self.settings.setValue('WorkingFolder', self.workingFolder)
             if len(self.workingFolder) > 50:
