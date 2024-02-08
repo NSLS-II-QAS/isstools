@@ -48,6 +48,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
                  shutters_dict={},
                  det_dict={},
                  motors_dict={},
+                 user_motors_dict ={},
                  aux_plan_funcs={},
                  general_scan_func = None,
                  sample_stage= None,
@@ -138,6 +139,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
         self.prep_traj_plan = prep_traj_plan
 
         self.motors_dict = motors_dict
+        self.user_motors_dict = user_motors_dict
 
         self.shutters_dict = shutters_dict
 
@@ -265,6 +267,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
                                                                                service_plan_funcs,
                                                                                aux_plan_funcs,
                                                                                motors_dict,
+                                                                               user_motors_dict,
                                                                                general_scan_func,
                                                                                shutters_dict,
                                                                                self)

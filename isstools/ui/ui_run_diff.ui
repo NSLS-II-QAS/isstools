@@ -30,32 +30,32 @@
      <x>20</x>
      <y>70</y>
      <width>441</width>
-     <height>351</height>
+     <height>358</height>
     </rect>
    </property>
    <layout class="QFormLayout" name="formLayout_2">
-    <item row="1" column="0">
+    <item row="2" column="0">
      <widget class="QLabel" name="label_4">
       <property name="text">
        <string>Sample Name</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="1">
+    <item row="2" column="1">
      <widget class="QLineEdit" name="lineEdit_sample_name">
       <property name="text">
        <string>test</string>
       </property>
      </widget>
     </item>
-    <item row="2" column="0">
+    <item row="3" column="0">
      <widget class="QLabel" name="label_3">
       <property name="text">
        <string>Exposure Time (Sec)</string>
       </property>
      </widget>
     </item>
-    <item row="2" column="1">
+    <item row="3" column="1">
      <widget class="QDoubleSpinBox" name="doubleSpinBox_subframe_time">
       <property name="frame">
        <bool>false</bool>
@@ -68,28 +68,28 @@
       </property>
      </widget>
     </item>
-    <item row="3" column="0">
+    <item row="4" column="0">
      <widget class="QLabel" name="label_2">
       <property name="text">
        <string>Number of Patterns</string>
       </property>
      </widget>
     </item>
-    <item row="3" column="1">
+    <item row="4" column="1">
      <widget class="QSpinBox" name="spinBox_subframe_count">
       <property name="minimum">
        <number>1</number>
       </property>
      </widget>
     </item>
-    <item row="4" column="0">
+    <item row="5" column="0">
      <widget class="QLabel" name="label_5">
       <property name="text">
        <string>Number of Repetitions</string>
       </property>
      </widget>
     </item>
-    <item row="4" column="1">
+    <item row="5" column="1">
      <widget class="QSpinBox" name="spinBox_frame_count">
       <property name="minimum">
        <number>1</number>
@@ -99,7 +99,7 @@
       </property>
      </widget>
     </item>
-    <item row="5" column="0">
+    <item row="6" column="0">
      <widget class="QLabel" name="label_6">
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Interval between Repetition Starts (Sec)(should be larger than [exposure time* number of patterns], or else it will be ignored)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -109,7 +109,7 @@
       </property>
      </widget>
     </item>
-    <item row="5" column="1">
+    <item row="6" column="1">
      <widget class="QSpinBox" name="spinBox_delay">
       <property name="minimum">
        <number>0</number>
@@ -119,14 +119,14 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="0">
+    <item row="1" column="0">
      <widget class="QLabel" name="label_energy">
       <property name="text">
        <string>Energy</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="1">
+    <item row="1" column="1">
      <widget class="QDoubleSpinBox" name="doubleSpinBox_energy">
       <property name="frame">
        <bool>false</bool>
@@ -139,7 +139,7 @@
       </property>
      </widget>
     </item>
-    <item row="6" column="1">
+    <item row="7" column="1">
      <widget class="QSpinBox" name="spinBox_s2d_distance">
       <property name="minimum">
        <number>0</number>
@@ -152,12 +152,22 @@
       </property>
      </widget>
     </item>
-    <item row="6" column="0">
+    <item row="7" column="0">
      <widget class="QLabel" name="label_s2d_distance">
       <property name="text">
        <string>Sample distance to detector</string>
       </property>
      </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>Detector</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QComboBox" name="comboBox_detector_list"/>
     </item>
    </layout>
   </widget>

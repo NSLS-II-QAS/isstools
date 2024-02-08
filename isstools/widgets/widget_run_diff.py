@@ -55,8 +55,10 @@ class UIRunDiff(*uic.loadUiType(ui_path)):
         self.db = db
         self.pe1 = pe1
         self.plans_diff = plans_diff[0]
+        self.plans_diff_pilatus = plans_diff[2]
         self.mono = mono
         self.parent_gui = parent_gui
+        self.comboBox_detector_list.addItems(['Perkin', 'Pilatus'])
         self.run_start.clicked.connect(self.run_diffraction)
 
         self.settings = QSettings(parent_gui.window_title, 'XLive')
@@ -118,7 +120,11 @@ class UIRunDiff(*uic.loadUiType(ui_path)):
 
             # Run the scan using the dict created before
             self.run_mode_uids = []
-            self.run_mode_uids = self.RE(self.plans_diff(**run_parameters))
+
+            if self.comboBox_detector_list.currentIndex() == 0:
+                self.run_mode_uids = self.RE(self.plans_diff(**run_parameters))
+            else:
+                self.run_mode_uids = self.RE(self.plans_diff_pilatus(**run_parameters))
 
 
 

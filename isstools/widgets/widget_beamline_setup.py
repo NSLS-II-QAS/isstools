@@ -28,6 +28,7 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
                  service_plan_funcs,
                  aux_plan_funcs,
                  motor_dictionary,
+                 user_motor_dict,
                  general_scan_func,
                  shutter_dictionary,
                  parent_gui,
@@ -42,6 +43,7 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
         self.aux_plan_funcs = aux_plan_funcs
         self.service_plan_funcs = service_plan_funcs
         self.motor_dictionary = motor_dictionary
+        self.user_motor_dict = user_motor_dict
         self.gen_scan_func = general_scan_func
         self.shutter_dictionary = shutter_dictionary
         self.parent_gui = parent_gui
@@ -54,7 +56,7 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
         # else:
         #     self.push_get_offsets.setEnabled(False)
 
-        self.push_get_offsets.clicked.connect(self.get_offsets)
+        # self.push_get_offsets.clicked.connect(self.get_offsets)
 
         self.push_set_reference_foil.clicked.connect(self.set_reference_foil)
 
@@ -78,7 +80,10 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
         self.motor_list = [self.motor_dictionary[motor]['description'] for motor in self.motor_dictionary]
         self.motor_sorted_list = list(self.motor_list)
         self.motor_sorted_list.sort()
+
+        self.user_motor_list = [self.user_motor_dict[motor]['description'] for motor in self.user_motor_dict]
         self.add_motors()
+        self.checkBox_user_motor.stateChanged.connect(self.add_motors)
 
         self.cid_gen_scan = self.canvas_gen_scan.mpl_connect('button_press_event', self.getX_gen_scan)
 
@@ -330,7 +335,10 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
 
     def add_motors(self):
         self.comboBox_motors.clear()
-        self.comboBox_motors.addItems(self.motor_sorted_list)
+        if self.checkBox_user_motor.isChecked():
+            self.comboBox_motors.addItems(self.user_motor_list)
+        else:
+            self.comboBox_motors.addItems(self.motor_sorted_list)
 
 
     def set_reference_foil(self):
@@ -358,12 +366,12 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
     #     list(get_offsets(20, *adcs, stdout = self.parent_gui.emitstream_out))
 
 
-    def get_offsets(self):
-        self.push_get_offsets.setEnabled(False)
-        sys.stdout = self.parent_gui.emitstream_out
-        if self.parent_gui.hutch == 'b':
-            self.RE(self.service_plan_funcs['get_offsets'](hutch_c = False))
-        if self.parent_gui.hutch == 'c':
-            self.RE(self.service_plan_funcs['get_offsets'](hutch_c = True))
-
-        self.push_get_offsets.setEnabled(True)
+    # def get_offsets(self):
+    #     self.push_get_offsets.setEnabled(False)
+    #     sys.stdout = self.parent_gui.emitstream_out
+    #     if self.parent_gui.hutch == 'b':
+    #         self.RE(self.service_plan_funcs['get_offsets'](hutch_c = False))
+    #     if self.parent_gui.hutch == 'c':
+    #         self.RE(self.service_plan_funcs['get_offsets'](hutch_c = True))
+    #
+    #     self.push_get_offsets.setEnabled(True)
