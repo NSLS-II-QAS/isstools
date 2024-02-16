@@ -16,7 +16,8 @@ from isstools.widgets import (widget_general_info, widget_trajectory_manager, wi
 from isstools.elements import EmittingStream
 from isstools.elements.batch_motion import SamplePositioner
 from isstools.process_callbacks.callback import ProcessingCallback
-
+from xas.process import process_interpolate_bin
+import time
 ui_path = pkg_resources.resource_filename('isstools', 'ui/XLive.ui')
 
 def auto_redraw_factory(fnc):
@@ -151,6 +152,9 @@ class XliveGui(*uic.loadUiType(ui_path)):
         self.wps = wps
         self.mfc = mfc
         self.pe1 = pe1
+
+
+        self.processing_thread = ProcessingThread(self)
 
 
         if self.RE is not None:
@@ -300,7 +304,16 @@ class XliveGui(*uic.loadUiType(ui_path)):
             self.layout_beamline_status.addWidget(self.widget_beamline_status)
 
         self.filepaths = []
-        pc = ProcessingCallback(db=self.db, draw_func_interp=self.widget_run.draw_interpolated_data, draw_func_binned=self.widget_processing.new_bin_df_arrived)
+        pc = ProcessingCallback(db=self.db,
+                                draw_func_interp=self.widget_run.draw_interpolated_data,
+                                draw_func_binned=self.widget_processing.new_bin_df_arrived,
+                                thread=self.processing_thread)
+
+        # pc = ProcessingCallback(db=self.db,
+        #                         draw_func_interp=self.widget_run.draw_interpolated_data,
+        #                         draw_func_binned=self.widget_processing.new_bin_df_arrived) # old processing callback without threading
+
+
 
         self.token = self.RE.subscribe(pc, 'stop')
 
@@ -362,6 +375,39 @@ class XliveGui(*uic.loadUiType(ui_path)):
             palette.setColor(self.label_11.foregroundRole(), QtGui.QColor(255, 0, 0))
         self.label_11.setPalette(palette)
         self.label_11.setText(self.RE.state)
+
+
+class ProcessingThread(QThread):
+    def __init__(self, gui, processing_ioc_uid=None):
+        QThread.__init__(self)
+        self.gui = gui
+        self.doc = None
+        self.processing_ioc_uid = processing_ioc_uid
+        self.soft_mode = True
+
+    def run(self):
+        attempt = 0
+        while self.doc:
+            try:
+                attempt += 1
+                uid = self.doc['run_start']
+                print(f' File received {uid}')
+                process_interpolate_bin(self.doc,
+                                        self.gui.db,
+                                        self.gui.widget_run.draw_interpolated_data,
+                                        self.gui.widget_processing.new_bin_df_arrived)
+
+                    # process_interpolate_bin(self.doc, self.gui.db, self.gui.widget_run.draw_interpolated_data, None, self.gui.cloud_dispatcher, print_func=self.print)
+                self.doc = None
+            except Exception as e:
+                if self.soft_mode:
+                    print(f'Exception: {e}')
+                    print(f'>>>>>> #{attempt} Attempt to process data ({time.ctime()}) ')
+                    time.sleep(3)
+                else:
+                    raise e
+            if attempt == 5:
+                break
 
 
 # class ReceivingThread(QThread):
