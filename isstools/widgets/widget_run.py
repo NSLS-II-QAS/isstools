@@ -251,14 +251,22 @@ class UIRun(*uic.loadUiType(ui_path)):
 
 
     def draw_interpolated_data(self, df):
+        old = np.seterr(invalid='ignore')
         update_figure([self.figure.ax2, self.figure.ax1, self.figure.ax3], self.toolbar, self.canvas)
         if 'i0' in df and 'it' in df and 'energy' in df:
-            transmission = np.array(np.log(df['i0'] / df['it']))
+            transmission = np.nan_to_num(np.log(np.nan_to_num(np.array(df['i0'])/np.array(df['it']))))
+            # transmission = np.array(np.log(df['i0'] / df['it']))
+
         if 'i0' in df and 'pips' in df and 'energy' in df:
-            fluorescence = np.array(df['pips'] / df['i0'])
+            fluorescence = np.nan_to_num(np.array(df['pips']) / np.array(df['i0']))
+
+            # fluorescence = np.array(df['pips'] / df['i0'])
         if 'i0' in df and 'iff' in df and 'energy' in df:
-            fluorescence = np.array(df['iff'] / df['i0'])
+            fluorescence = np.nan_to_num(np.array(df['iff'])/np.array(df['i0']))
+
+            # fluorescence = np.array(df['iff'] / df['i0'])
         if 'it' in df and 'ir' in df and 'energy' in df:
+            reference = np.nan_to_num(np.log(np.nan_to_num(np.array(df['it']) / np.array(df['ir']))))
             reference = np.array(np.log(df['it'] / df['ir']))
 
         energy = np.array(df['energy'])
