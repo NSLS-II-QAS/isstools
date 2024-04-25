@@ -77,7 +77,19 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
         self.update_voltage_values = QtCore.QTimer(self)
         self.update_voltage_values.setInterval(1000)
         self.update_voltage_values.timeout.connect(self.update_voltage_reading)
+        self.pushButton_forced_release.clicked.connect(self.release_getoffset)
+
         self.update_voltage_values.start()
+
+
+
+    def release_getoffset(self):
+        if self.pushButton_getoffsets.isEnabled():
+            pass
+        else:
+            # self.RE.abort()
+            self.pushButton_getoffsets.setEnabled(True)
+
 
 
     def set_current_suppr(self):

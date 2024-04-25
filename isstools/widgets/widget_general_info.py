@@ -3,6 +3,8 @@ import pkg_resources
 import requests
 import urllib.request
 
+
+
 from isstools.dialogs import UpdateUserDialog
 from timeit import default_timer as timer
 
@@ -100,7 +102,7 @@ class UIGeneralInfo(*uic.loadUiType(ui_path)):
 
     def update_time(self):
         self.label_current_time.setText(
-            'Today is {0}'.format(QtCore.QDateTime.currentDateTime().toString('MMMM d, yyyy\nh:mm:ss ap')))
+            '{0}'.format(QtCore.QDateTime.currentDateTime().toString('dddd, MMMM d, yyyy h:mm:ss ap')))
 
         _energy = self.mono.energy.user_readback.get()
         try:
@@ -110,7 +112,7 @@ class UIGeneralInfo(*uic.loadUiType(ui_path)):
             pass
 
     def update_beam_current(self, **kwargs):
-        self.label_beam_current.setText('Beam current is {:.1f} mA'.format(kwargs['value']))
+        self.label_beam_current.setText('Beam current: {:.1f} mA'.format(kwargs['value']))
 
     def update_accelerator_status(self, **kwargs):
         accelerator_status = self.accelerator.status.enum_strs[kwargs['value']]
@@ -123,43 +125,48 @@ class UIGeneralInfo(*uic.loadUiType(ui_path)):
         #                             'Shutdown',
         #                             'Unscheduled Ops',
         #                             'Decay Mode Ops')
-        if kwargs['value'] == 0:
-            accelerator_status_color = "color: rgb(19,139,67)"
-            accelerator_status_indicator = "background-color: rgb(95,249,95)"
-        elif kwargs['value'] == 1:
-            accelerator_status_color = "color: rgb(209,116,42)"
-            accelerator_status_indicator = "background-color: rgb(246,229,148)"
-        elif kwargs['value'] == 2:
-            accelerator_status_color = "color: rgb(209,116,42)"
-            accelerator_status_indicator = "background-color: rgb(209,116,42)"
-        elif kwargs['value'] == 3:
-            accelerator_status_color = "color: rgb(237,30,30)"
-            accelerator_status_indicator = "background-color: rgb(237,30,30)"
-        elif kwargs['value'] == 4:
-            accelerator_status_color = "color: rgb(209,116,42)"
-            accelerator_status_indicator = "background-color: rgb(200,149,251)"
-        elif kwargs['value'] == 5:
-            accelerator_status_color = "color: rgb(190,190,190)"
-            accelerator_status_indicator = "background-color: rgb(190,190,190)"
-        elif kwargs['value'] == 6:
-            accelerator_status_color = "color: rgb(19,139,67)"
-            accelerator_status_indicator = "background-color: rgb(0,177,0)"
-        else:
-            accelerator_status_color = "color: rgb(0,0,0)"
-            accelerator_status_indicator = "background-color: rgb(0,0,0)"
+        # if kwargs['value'] == 0:
+        #     accelerator_status_color = "color: rgb(19,139,67)"
+        #     accelerator_status_indicator = "background-color: rgb(95,249,95)"
+        # elif kwargs['value'] == 1:
+        #     accelerator_status_color = "color: rgb(209,116,42)"
+        #     accelerator_status_indicator = "background-color: rgb(246,229,148)"
+        # elif kwargs['value'] == 2:
+        #     accelerator_status_color = "color: rgb(209,116,42)"
+        #     accelerator_status_indicator = "background-color: rgb(209,116,42)"
+        # elif kwargs['value'] == 3:
+        #     accelerator_status_color = "color: rgb(237,30,30)"
+        #     accelerator_status_indicator = "background-color: rgb(237,30,30)"
+        # elif kwargs['value'] == 4:
+        #     accelerator_status_color = "color: rgb(209,116,42)"
+        #     accelerator_status_indicator = "background-color: rgb(200,149,251)"
+        # elif kwargs['value'] == 5:
+        #     accelerator_status_color = "color: rgb(190,190,190)"
+        #     accelerator_status_indicator = "background-color: rgb(190,190,190)"
+        # elif kwargs['value'] == 6:
+        #     accelerator_status_color = "color: rgb(19,139,67)"
+        #     accelerator_status_indicator = "background-color: rgb(0,177,0)"
+        # else:
+        #     accelerator_status_color = "color: rgb(0,0,0)"
+        #     accelerator_status_indicator = "background-color: rgb(0,0,0)"
 
-        self.label_accelerator_status.setText(accelerator_status)
+        self.label_accelerator_status.setText(f"Operating Mode: {accelerator_status}")
         # These stylesheet changing calls break the GUI as they are executed in
         #   a background thread. Need to use proper Signal/Slot approach.
         # self.label_accelerator_status.setStyleSheet(accelerator_status_color)
         # self.label_accelerator_status_indicator.setStyleSheet(accelerator_status_indicator)
 
     def update_user_info(self):
-        self.label_user_info.setText('{} is running  under Proposal {}/SAF {} '.
-                                     format(self.RE.md['PI'], self.RE.md['PROPOSAL'], self.RE.md['SAF']))
+        # self.label_user_info.setText('PI: {} Proposal: {} SAF: {} '.
+        #                              format(self.RE.md['PI'], self.RE.md['PROPOSAL'], self.RE.md['SAF']))
+
+        self.label_user_name.setText(f"PI: {self.RE.md['PI']}")
+        self.label_proposal.setText(f"Proposal: {self.RE.md['PROPOSAL']}")
+        self.label_saf.setText(f"SAF: {self.RE.md['SAF']}")
+
         self.cycle = ['', 'Spring', 'Summer', 'Fall']
         self.label_current_cycle.setText(
-            'It is {} {} NSLS Cycle'.format(self.RE.md['year'], self.cycle[int(self.RE.md['cycle'])]))
+            'NSLS-II Cycle: {} {}'.format(self.RE.md['year'], self.cycle[int(self.RE.md['cycle'])]))
 
     def set_user_info(self):
         dlg = UpdateUserDialog.UpdateUserDialog(self.RE.md['year'], self.RE.md['cycle'], self.RE.md['PROPOSAL'],

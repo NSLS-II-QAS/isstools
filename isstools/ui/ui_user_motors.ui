@@ -480,18 +480,31 @@
     </item>
    </layout>
   </widget>
-  <widget class="QPushButton" name="pushButton_getoffsets">
+  <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>640</y>
-     <width>100</width>
-     <height>36</height>
+     <y>630</y>
+     <width>320</width>
+     <height>41</height>
     </rect>
    </property>
-   <property name="text">
-    <string>Get Offsets</string>
-   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QPushButton" name="pushButton_getoffsets">
+      <property name="text">
+       <string>Get Offsets</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_forced_release">
+      <property name="text">
+       <string>Forced release Get Offsets</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>

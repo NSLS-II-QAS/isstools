@@ -67,9 +67,18 @@ class UIRunDiff(*uic.loadUiType(ui_path)):
         self.sample_to_detector_distance()
 
         self.push_open_pattern.clicked.connect(self.open_tiff_files)
+
+        self.comboBox_detector_list.currentTextChanged.connect(self.update_plan_limits)
         self.pe1.sample_to_detector_distance.subscribe(self.current_sample_to_detector_distance)
         self.spinBox_s2d_distance.editingFinished.connect(self.update_sample_to_detector_distance)
         self.addCanvas()
+
+
+    def update_plan_limits(self):
+        if self.comboBox_detector_list.currentIndex() == 1:
+            self.doubleSpinBox_subframe_time.setMaximum(60)
+        else:
+            self.doubleSpinBox_subframe_time.setMaximum(5)
 
     def sample_to_detector_distance(self):
         _value = self.pe1.sample_to_detector_distance.get()
