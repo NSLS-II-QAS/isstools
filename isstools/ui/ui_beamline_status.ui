@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1129</width>
-    <height>136</height>
+    <width>1200</width>
+    <height>133</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,7 +16,7 @@
   <widget class="QGroupBox" name="groupBox_shutters">
    <property name="geometry">
     <rect>
-     <x>790</x>
+     <x>870</x>
      <y>0</y>
      <width>321</width>
      <height>131</height>
@@ -68,10 +68,10 @@
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>280</x>
+     <x>430</x>
      <y>10</y>
      <width>81</width>
-     <height>51</height>
+     <height>54</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -104,110 +104,41 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="gridLayoutWidget">
+  <widget class="QWidget" name="gridLayoutWidget_2">
    <property name="geometry">
     <rect>
-     <x>370</x>
+     <x>520</x>
      <y>10</y>
-     <width>181</width>
-     <height>51</height>
+     <width>281</width>
+     <height>111</height>
     </rect>
    </property>
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0">
-     <widget class="QLabel" name="label_current_cycle_9">
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="2">
+     <widget class="QLabel" name="label_current_cycle_5">
+      <property name="maximumSize">
+       <size>
+        <width>30</width>
+        <height>20</height>
+       </size>
+      </property>
       <property name="font">
        <font>
         <pointsize>10</pointsize>
        </font>
       </property>
       <property name="text">
-       <string>FA Samples</string>
+       <string>kHz</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="label_current_cycle_8">
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>WFM Length</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
+    <item row="3" column="1">
      <widget class="QLineEdit" name="lineEdit_wfm_length">
       <property name="maximumSize">
        <size>
         <width>100</width>
-        <height>16777215</height>
+        <height>20</height>
        </size>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QLineEdit" name="lineEdit_fa_sample">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="gridLayoutWidget_2">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>251</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="1">
-     <widget class="QDoubleSpinBox" name="spinBox_daq_rate_b">
-      <property name="decimals">
-       <number>3</number>
-      </property>
-      <property name="singleStep">
-       <double>0.100000000000000</double>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="label_current_cycle_2">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>10</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>APB B DAQ rate</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QDoubleSpinBox" name="spinBox_daq_rate_c">
-      <property name="decimals">
-       <number>3</number>
-      </property>
-      <property name="singleStep">
-       <double>0.100000000000000</double>
       </property>
      </widget>
     </item>
@@ -215,8 +146,8 @@
      <widget class="QLabel" name="label_current_cycle_6">
       <property name="maximumSize">
        <size>
-        <width>100</width>
-        <height>16777215</height>
+        <width>110</width>
+        <height>20</height>
        </size>
       </property>
       <property name="font">
@@ -229,27 +160,21 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="2">
-     <widget class="QLabel" name="label_current_cycle_7">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_current_cycle_2">
+      <property name="maximumSize">
+       <size>
+        <width>110</width>
+        <height>20</height>
+       </size>
+      </property>
       <property name="font">
        <font>
         <pointsize>10</pointsize>
        </font>
       </property>
       <property name="text">
-       <string>kHz</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="2">
-     <widget class="QLabel" name="label_current_cycle_5">
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>kHz</string>
+       <string>APB B DAQ rate</string>
       </property>
      </widget>
     </item>
@@ -257,8 +182,8 @@
      <widget class="QLabel" name="label_current_cycle_3">
       <property name="maximumSize">
        <size>
-        <width>100</width>
-        <height>10</height>
+        <width>110</width>
+        <height>20</height>
        </size>
       </property>
       <property name="font">
@@ -273,6 +198,12 @@
     </item>
     <item row="2" column="1">
      <widget class="QDoubleSpinBox" name="spinBox_enc_rate">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
       <property name="decimals">
        <number>3</number>
       </property>
@@ -281,12 +212,12 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="2">
-     <widget class="QLabel" name="label_current_cycle_4">
+    <item row="1" column="2">
+     <widget class="QLabel" name="label_current_cycle_7">
       <property name="maximumSize">
        <size>
-        <width>100</width>
-        <height>10</height>
+        <width>30</width>
+        <height>20</height>
        </size>
       </property>
       <property name="font">
@@ -299,34 +230,130 @@
       </property>
      </widget>
     </item>
+    <item row="1" column="1">
+     <widget class="QDoubleSpinBox" name="spinBox_daq_rate_c">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="decimals">
+       <number>3</number>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="QLabel" name="label_current_cycle_4">
+      <property name="maximumSize">
+       <size>
+        <width>30</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>kHz</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QDoubleSpinBox" name="spinBox_daq_rate_b">
+      <property name="maximumSize">
+       <size>
+        <width>110</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="decimals">
+       <number>3</number>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_current_cycle_8">
+      <property name="maximumSize">
+       <size>
+        <width>110</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>WFM Length</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_current_cycle_9">
+      <property name="maximumSize">
+       <size>
+        <width>110</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>FA Samples</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QLineEdit" name="lineEdit_fa_sample">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2">
+     <widget class="QPushButton" name="pushButton_update_wfm">
+      <property name="maximumSize">
+       <size>
+        <width>30</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>...</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QWidget" name="gridLayoutWidget_3">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>80</y>
-     <width>351</width>
-     <height>53</height>
+     <x>10</x>
+     <y>40</y>
+     <width>409</width>
+     <height>89</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout_3">
-    <item row="0" column="1">
-     <widget class="QLabel" name="label_2">
-      <property name="maximumSize">
-       <size>
-        <width>80</width>
-        <height>15</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>It (V)</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
     <item row="0" column="2">
      <widget class="QLabel" name="label_3">
       <property name="maximumSize">
@@ -343,61 +370,8 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="3">
-     <widget class="QLabel" name="label_4">
-      <property name="maximumSize">
-       <size>
-        <width>80</width>
-        <height>15</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>PIPS (V)</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="label">
-      <property name="maximumSize">
-       <size>
-        <width>80</width>
-        <height>15</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>I0 (V)</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
     <item row="1" column="0">
      <widget class="QLineEdit" name="lineEdit_vi0">
-      <property name="maximumSize">
-       <size>
-        <width>80</width>
-        <height>30</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QLineEdit" name="lineEdit_vit">
       <property name="maximumSize">
        <size>
         <width>80</width>
@@ -438,6 +412,159 @@
       </property>
      </widget>
     </item>
+    <item row="2" column="0">
+     <widget class="QLineEdit" name="lineEdit_vi0_phs">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>30</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="QLineEdit" name="lineEdit_vir_phs">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>30</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="3">
+     <widget class="QLineEdit" name="lineEdit_vip_phs">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>30</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>15</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>I0 (V)</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLabel" name="label_2">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>15</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>It (V)</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="lineEdit_vit">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>30</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="lineEdit_vit_phs">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>30</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="3">
+     <widget class="QLabel" name="label_4">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>15</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>PIPS (V)</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
     <item row="1" column="3">
      <widget class="QLineEdit" name="lineEdit_vip">
       <property name="maximumSize">
@@ -459,20 +586,14 @@
       </property>
      </widget>
     </item>
+    <item row="2" column="4">
+     <widget class="QLabel" name="label_5">
+      <property name="text">
+       <string>Ph/sec</string>
+      </property>
+     </widget>
+    </item>
    </layout>
-  </widget>
-  <widget class="QPushButton" name="pushButton_update_wfm">
-   <property name="geometry">
-    <rect>
-     <x>560</x>
-     <y>10</y>
-     <width>21</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>...</string>
-   </property>
   </widget>
  </widget>
  <resources/>

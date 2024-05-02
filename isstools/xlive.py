@@ -271,10 +271,9 @@ class XliveGui(*uic.loadUiType(ui_path)):
                                                                                service_plan_funcs,
                                                                                aux_plan_funcs,
                                                                                motors_dict,
-                                                                               user_motors_dict,
                                                                                general_scan_func,
                                                                                shutters_dict,
-                                                                               self)
+                                                                               parent_gui=self)
             self.layout_beamline_setup.addWidget(self.widget_beamline_setup)
 
             self.widget_run_diff = widget_run_diff.UIRunDiff(RE,
@@ -298,6 +297,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
                                                                         apb=apb,
                                                                         apb_c=apb_c,
                                                                         mono=mono,
+                                                                        mfc=self.mfc,
                                                                         parent_gui=self)
 
    

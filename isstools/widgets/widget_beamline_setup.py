@@ -28,7 +28,6 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
                  service_plan_funcs,
                  aux_plan_funcs,
                  motor_dictionary,
-                 user_motor_dict,
                  general_scan_func,
                  shutter_dictionary,
                  parent_gui,
@@ -43,7 +42,6 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
         self.aux_plan_funcs = aux_plan_funcs
         self.service_plan_funcs = service_plan_funcs
         self.motor_dictionary = motor_dictionary
-        self.user_motor_dict = user_motor_dict
         self.gen_scan_func = general_scan_func
         self.shutter_dictionary = shutter_dictionary
         self.parent_gui = parent_gui
@@ -81,7 +79,7 @@ class UIBeamlineSetup(*uic.loadUiType(ui_path)):
         self.motor_sorted_list = list(self.motor_list)
         self.motor_sorted_list.sort()
 
-        self.user_motor_list = [self.user_motor_dict[motor]['description'] for motor in self.user_motor_dict]
+        self.user_motor_list = [self.motor_dictionary[motor]['description'] for motor in self.motor_dictionary if self.motor_dictionary[motor]['user_motor'] is True]
         self.add_motors()
         self.checkBox_user_motor.stateChanged.connect(self.add_motors)
 

@@ -7,7 +7,7 @@ def create_parameter(description, annotation, units=None):
 
     qitem = None
     qlabel = None
-    def_val = ''
+    def_val = 'test'
 
     if description.find('=') != -1:
         def_val = re.sub(r'.*=', '', description)
@@ -31,9 +31,9 @@ def create_parameter(description, annotation, units=None):
         else:
             def_val = False
         qitem.setCheckState(def_val)
-        qitem.setTristate(False)
+        qitem.setTristate(True)
         # disable the checkBox in wideget_run.py
-        qitem.setEnabled(False)
+        qitem.setEnabled(True)
     elif annotation == str:
         qitem = QtWidgets.QLineEdit()
         def_val = str(def_val)

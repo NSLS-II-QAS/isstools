@@ -107,7 +107,7 @@ class UIGeneralInfo(*uic.loadUiType(ui_path)):
         _energy = self.mono.energy.user_readback.get()
         try:
             self.label_mono_value.setText(f"{_energy:.1f} eV")
-            self.lineEdit_mono_energy.setText(f"{energy:.1f} eV")
+            # self.lineEdit_mono_energy.setText(f"{_energy:.1f} eV")
         except:
             pass
 
@@ -160,9 +160,9 @@ class UIGeneralInfo(*uic.loadUiType(ui_path)):
         # self.label_user_info.setText('PI: {} Proposal: {} SAF: {} '.
         #                              format(self.RE.md['PI'], self.RE.md['PROPOSAL'], self.RE.md['SAF']))
 
-        self.label_user_name.setText(f"PI: {self.RE.md['PI']}")
-        self.label_proposal.setText(f"Proposal: {self.RE.md['PROPOSAL']}")
-        self.label_saf.setText(f"SAF: {self.RE.md['SAF']}")
+        self.label_user_name.setText(f"{self.RE.md['PI']}") # PI
+        self.label_proposal.setText(f"{self.RE.md['PROPOSAL']}") #Proposal
+        self.label_saf.setText(f"{self.RE.md['SAF']}") # SAF
 
         self.cycle = ['', 'Spring', 'Summer', 'Fall']
         self.label_current_cycle.setText(

@@ -39,9 +39,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>150</y>
+      <y>160</y>
       <width>1641</width>
-      <height>961</height>
+      <height>951</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -340,11 +340,14 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>821</width>
+      <width>841</width>
       <height>131</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="layout_general_info">
+     <property name="spacing">
+      <number>2</number>
+     </property>
      <property name="sizeConstraint">
       <enum>QLayout::SetNoConstraint</enum>
      </property>
@@ -353,9 +356,9 @@
    <widget class="QWidget" name="horizontalLayoutWidget_8">
     <property name="geometry">
      <rect>
-      <x>1070</x>
+      <x>860</x>
       <y>10</y>
-      <width>1131</width>
+      <width>1341</width>
       <height>131</height>
      </rect>
     </property>
