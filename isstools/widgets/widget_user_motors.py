@@ -4,7 +4,7 @@ import pkg_resources
 from PyQt5.Qt import QObject
 from functools import partial
 # import sys
-
+from xas.energy_calibration import get_possible_edges, get_atomic_symbol, find_correct_foil
 import sys
 # import RE
 
@@ -78,10 +78,43 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
         self.update_voltage_values.setInterval(1000)
         self.update_voltage_values.timeout.connect(self.update_voltage_reading)
         self.pushButton_forced_release.clicked.connect(self.release_getoffset)
+        self.comboBox_element.addItems(get_atomic_symbol())
+        self.pushButton_set_reference_foil.clicked.connect(self.set_auto_reference_foil)
+        self.comboBox_element.currentIndexChanged.connect(self.populate_possible_edges)
+        # self.comboBox_edge.currentIndexChanged.connect(self.update_edge_label)
+        self.comboBox_edge.addItems(['K'])
+        self.label_edge.setText(f"{4966:.0f} eV")
 
         self.update_voltage_values.start()
 
+    def set_auto_reference_foil(self):
+        _current_element = self.comboBox_element.currentText()
+        _current_edge = self.comboBox_edge.currentText()
+        _element, _edge, _energy = find_correct_foil(element=_current_element, edge=_current_edge)
+        if _element is not None:
+            print(f'Setting Reference foil >>> Element:{_element} Edge:{_edge} Energy:{_energy} eV')
+        else:
+            print(f"No Reference foil found setting to None")
+        uid = self.RE(self.service_plan_funcs['set Reference foil'](element=_element))
 
+
+    def populate_possible_edges(self):
+
+        current_element = self.comboBox_element.currentText()
+        self.comboBox_edge.clear()
+        possible_edges = get_possible_edges(element=current_element)
+        self.comboBox_edge.addItems(possible_edges.keys())
+        _first_element = list(possible_edges.values())[0]
+        self.label_edge.setText(f"{_first_element:.0f} eV")
+
+
+    def update_edge_label(self):
+        possible_edges = get_possible_edges(element=self.comboBox_element.currentText())
+        current_edge = self.comboBox_edge.currentText()
+        try:
+            self.label_edge.setText(f"{possible_edges[current_edge]:.0f}eV")
+        except KeyError:
+            print('Key Error try again')
 
     def release_getoffset(self):
         if self.pushButton_getoffsets.isEnabled():
