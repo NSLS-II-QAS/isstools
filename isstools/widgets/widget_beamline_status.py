@@ -218,7 +218,7 @@ class UIBeamlineStatus(*uic.loadUiType(ui_path)):
                 getattr(self, 'lineEdit_' + volt_ch + '_phs').setText(f"{0}")
             else:
                 getattr(self, 'lineEdit_' + volt_ch + '_phs').setText(f"{flux.transmitted:1.2g}")
-            getattr(self, 'lineEdit_' + volt_ch + '_phs').setStyleSheet("background-color: green; color: white; font: 16px;")
+            getattr(self, 'lineEdit_' + volt_ch + '_phs').setStyleSheet("background-color: green; color: white; font: 16px")
 
 
     def update_ic_voltages(self):

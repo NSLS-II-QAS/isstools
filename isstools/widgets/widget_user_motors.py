@@ -122,7 +122,7 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
         else:
             # self.RE.abort()
             self.pushButton_getoffsets.setEnabled(True)
-
+            
 
 
     def set_current_suppr(self):
