@@ -2,9 +2,10 @@ import time
 from PyQt5 import uic, QtCore, QtWidgets
 import pkg_resources
 from PyQt5.Qt import QObject
+from PyQt5.Qt import QObject, QTimer
 from functools import partial
 # import sys
-from xas.energy_calibration import get_possible_edges, get_atomic_symbol, find_correct_foil
+from xas.energy_calibration import get_possible_edges, get_atomic_symbol, find_correct_foil, atomic_dict_for_ionchamber_gases
 import sys
 # import RE
 
@@ -81,11 +82,70 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
         self.comboBox_element.addItems(get_atomic_symbol())
         self.pushButton_set_reference_foil.clicked.connect(self.set_auto_reference_foil)
         self.comboBox_element.currentIndexChanged.connect(self.populate_possible_edges)
+        self.pushButton_set_ionchamber_gases.clicked.connect(self.set_ionchamber_gases)
+        self.lineEdit_timer.setText(f"DONE")
+        self.lineEdit_timer.setStyleSheet("background-color: green; color: white; font: 16px")
         # self.comboBox_edge.currentIndexChanged.connect(self.update_edge_label)
         self.comboBox_edge.addItems(['K'])
         self.label_edge.setText(f"{4966:.0f} eV")
 
         self.update_voltage_values.start()
+        self.flag = False
+
+        self.timer_ionchamber = QTimer(self)
+        self.timer_ionchamber.setInterval(1000)
+        self.timer_ionchamber.timeout.connect(self.update_ionchamber_timer)
+        self.timer_ionchamber.start()
+        self.count = 300
+
+    def set_i0_and_it_gases(self, gases_i0=None, gases_it=None):
+        if 'helium' not in gases_i0.keys():
+            getattr(self.mfc, 'ch1_he_sp').set(0)
+        else:
+            getattr(self.mfc, 'ch1_he_sp').set(gases_i0['helium'])
+
+        getattr(self.mfc, 'ch2_n2_sp').set(gases_i0['nitrogen'])
+
+        if 'argon' not in gases_i0.keys():
+            getattr(self.mfc, 'ch3_ar_sp').set(0)
+        else:
+            getattr(self.mfc, 'ch3_ar_sp').set(gases_i0['argon'])
+
+        getattr(self.mfc, 'ch4_n2_sp').set(gases_it['nitrogen'])
+        getattr(self.mfc, 'ch5_ar_sp').set(gases_it['argon'])
+
+
+    def update_ionchamber_timer(self):
+        if self.flag:
+            self.lineEdit_timer.setText(f"{self.count}")
+            self.lineEdit_timer.setStyleSheet("background-color: red; color: white; font: 16px")
+            self.count -= 1
+        if self.count <= 0:
+            self.flag = False
+            self.count = 300
+
+            _current_element = self.comboBox_element.currentText()
+            _current_edge = self.comboBox_edge.currentText()
+            gases_i0 = atomic_dict_for_ionchamber_gases[_current_element][_current_edge]['i0']['gases_final']
+            gases_it = atomic_dict_for_ionchamber_gases[_current_element][_current_edge]['it']['gases_final']
+            self.set_i0_and_it_gases(gases_i0=gases_i0, gases_it=gases_it)
+
+            self.lineEdit_timer.setText(f"DONE")
+            self.lineEdit_timer.setStyleSheet("background-color: green; color: white; font: 16px")
+
+
+
+
+
+    def set_ionchamber_gases(self):
+        _current_element = self.comboBox_element.currentText()
+        _current_edge = self.comboBox_edge.currentText()
+
+        gases_i0 = atomic_dict_for_ionchamber_gases[_current_element][_current_edge]['i0']['gases_initial']
+        gases_it = atomic_dict_for_ionchamber_gases[_current_element][_current_edge]['it']['gases_initial']
+
+        self.set_i0_and_it_gases(gases_i0=gases_i0, gases_it=gases_it)
+        self.flag = True
 
     def set_auto_reference_foil(self):
         _current_element = self.comboBox_element.currentText()
@@ -122,7 +182,7 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
         else:
             # self.RE.abort()
             self.pushButton_getoffsets.setEnabled(True)
-            
+
 
 
     def set_current_suppr(self):
