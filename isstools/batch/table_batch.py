@@ -2,7 +2,8 @@ import os
 import uuid
 import pandas as pd
 import numpy as np
-from isstools.trajectory.trajectory import trajectory, trajectory_manager
+# from isstools.trajectory.trajectory import trajectory, trajectory_manager
+from xas.trajectory import trajectory, trajectory_manager
 from isstools.conversions import xray
 from subprocess import call
 from bluesky.plan_stubs import mv

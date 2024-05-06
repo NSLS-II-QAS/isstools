@@ -17,7 +17,8 @@ import isstools.widgets.widget_general_info
 from isstools.conversions import xray
 from isstools.dialogs import UpdateAngleOffset
 
-from isstools.trajectory.trajectory import trajectory, trajectory_manager
+# from isstools.trajectory.trajectory import trajectory, trajectory_manager
+from xas.trajectory import trajectory, trajectory_manager
 
 
 import isstools.widgets.widget_energy_selector
@@ -196,6 +197,12 @@ class UITrajectoryManager(*uic.loadUiType(ui_path)):
     def save_trajectory(self):
         filename = QtWidgets.QFileDialog.getSaveFileName(self, 'Save trajectory...', self.trajectory_path, '*.txt',
                                                          options=QtWidgets.QFileDialog.DontConfirmOverwrite)[0]
+
+        if self.checkBox_traj_single_dir.isChecked():
+            oscillatory_trajectory = False
+        else:
+            oscillatory_trajectory = True
+
         if filename[-4:] == '.txt':
             filename = filename[:-4]
         if filename[filename.find(self.e0):] == self.e0:
@@ -215,7 +222,8 @@ class UITrajectoryManager(*uic.loadUiType(ui_path)):
                     return
             np.savetxt(filename,
                        self.traj_creator.energy_grid, fmt='%.6f',
-                       header = f'element: {self.traj_creator.elem}, edge: {self.traj_creator.edge}, E0: {self.traj_creator.e0}')
+                       header=f'element: {self.traj_creator.elem}, edge: {self.traj_creator.edge}, E0: {self.traj_creator.e0}, oscillatory: {oscillatory_trajectory}')
+                       # header = f'element: {self.traj_creator.elem}, edge: {self.traj_creator.edge}, E0: {self.traj_creator.e0}')
             call(['chmod', '666', filename])
             self.trajectory_path = filename[:filename.rfind('/')] + '/'
             self.label_current_trajectory.setText(filename.rsplit('/', 1)[1])

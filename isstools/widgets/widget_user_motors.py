@@ -85,7 +85,7 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
         self.pushButton_set_ionchamber_gases.clicked.connect(self.set_ionchamber_gases)
         self.lineEdit_timer.setText(f"DONE")
         self.lineEdit_timer.setStyleSheet("background-color: green; color: white; font: 16px")
-        # self.comboBox_edge.currentIndexChanged.connect(self.update_edge_label)
+        self.comboBox_edge.currentIndexChanged.connect(self.update_edge_label)
         self.comboBox_edge.addItems(['K'])
         self.label_edge.setText(f"{4966:.0f} eV")
 
@@ -150,7 +150,12 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
     def set_auto_reference_foil(self):
         _current_element = self.comboBox_element.currentText()
         _current_edge = self.comboBox_edge.currentText()
+
         _element, _edge, _energy = find_correct_foil(element=_current_element, edge=_current_edge)
+        if _element is not None:
+            self.label_reference_foil.setText(f"{_element} {_edge} {_energy} eV")
+        else:
+            self.label_reference_foil.setText(f"None")
         if _element is not None:
             print(f'Setting Reference foil >>> Element:{_element} Edge:{_edge} Energy:{_energy} eV')
         else:
@@ -159,6 +164,7 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
 
 
     def populate_possible_edges(self):
+        self.comboBox_edge.blockSignals(True)
 
         current_element = self.comboBox_element.currentText()
         self.comboBox_edge.clear()
@@ -166,6 +172,7 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
         self.comboBox_edge.addItems(possible_edges.keys())
         _first_element = list(possible_edges.values())[0]
         self.label_edge.setText(f"{_first_element:.0f} eV")
+        self.comboBox_edge.blockSignals(False)
 
 
     def update_edge_label(self):

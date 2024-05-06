@@ -511,7 +511,7 @@
     <rect>
      <x>780</x>
      <y>10</y>
-     <width>301</width>
+     <width>311</width>
      <height>151</height>
     </rect>
    </property>
@@ -523,7 +523,7 @@
      <rect>
       <x>10</x>
       <y>30</y>
-      <width>291</width>
+      <width>296</width>
       <height>114</height>
      </rect>
     </property>
@@ -532,6 +532,12 @@
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
         <widget class="QLabel" name="label_17">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="maximumSize">
           <size>
            <width>60</width>
@@ -555,6 +561,12 @@
        </item>
        <item>
         <widget class="QLabel" name="label_18">
+         <property name="maximumSize">
+          <size>
+           <width>60</width>
+           <height>30</height>
+          </size>
+         </property>
          <property name="text">
           <string>Edge</string>
          </property>
@@ -575,25 +587,48 @@
        </item>
        <item>
         <widget class="QLabel" name="label_edge">
+         <property name="maximumSize">
+          <size>
+           <width>60</width>
+           <height>30</height>
+          </size>
+         </property>
          <property name="text">
-          <string>8979eV</string>
+          <string>10000eV</string>
          </property>
         </widget>
        </item>
       </layout>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_set_reference_foil">
-       <property name="maximumSize">
-        <size>
-         <width>160</width>
-         <height>30</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Set Reference Foil</string>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QPushButton" name="pushButton_set_reference_foil">
+         <property name="maximumSize">
+          <size>
+           <width>160</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Set Reference Foil</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_reference_foil">
+         <property name="maximumSize">
+          <size>
+           <width>120</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
