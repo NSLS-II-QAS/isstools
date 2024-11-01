@@ -81,6 +81,7 @@ class UIBeamlineStatus(*uic.loadUiType(ui_path)):
 
         self.radioButton_hutch_b.toggled.connect(self.select_hutch)
 
+
         self.voltage_channels = ['vi0', 'vit', 'vir', 'vip']
 
         # for channel in self.voltage_channels:
@@ -170,8 +171,15 @@ class UIBeamlineStatus(*uic.loadUiType(ui_path)):
                 total_flow += _current_flow
                 gases[_key] = _current_flow
 
+
             for _key in keys:
-                gases[_key] = gases[_key] / total_flow
+                try:
+                    gases[_key] = gases[_key] / total_flow
+                except ZeroDivisionError:
+                    pass
+
+
+
 
         elif key == 'vit' or key == 'vir':
             keys = ['Nitrogen', 'Argon']
@@ -181,10 +189,18 @@ class UIBeamlineStatus(*uic.loadUiType(ui_path)):
                 total_flow += _current_flow
                 gases[_key] = _current_flow
 
+
             for _key in keys:
-                gases[_key] = gases[_key] / total_flow
+                try:
+                    gases[_key] = gases[_key] / total_flow
+                except ZeroDivisionError:
+                    pass
+
         else:
             gases['nitrogen'] = 100
+
+
+        # gases['nitrogen'] = 100
         return gases
 
     def compute_ionization_chamber_flux(self, ionchamber='vi0', channel='ch1'):

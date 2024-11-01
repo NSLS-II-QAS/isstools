@@ -86,6 +86,9 @@
        <string>B hutch</string>
       </property>
       <property name="checked">
+       <bool>false</bool>
+      </property>
+      <property name="autoExclusive">
        <bool>true</bool>
       </property>
      </widget>
@@ -100,6 +103,12 @@
       <property name="text">
        <string>C hutch</string>
       </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+      <property name="autoExclusive">
+       <bool>true</bool>
+      </property>
      </widget>
     </item>
    </layout>
@@ -110,7 +119,7 @@
      <x>520</x>
      <y>10</y>
      <width>281</width>
-     <height>111</height>
+     <height>126</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout_2">

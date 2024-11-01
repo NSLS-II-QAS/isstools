@@ -18,7 +18,7 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>681</width>
+     <width>694</width>
      <height>115</height>
     </rect>
    </property>
@@ -247,9 +247,15 @@
       </item>
       <item>
        <widget class="QLineEdit" name="lineEdit_mono_energy">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="maximumSize">
          <size>
-          <width>110</width>
+          <width>130</width>
           <height>30</height>
          </size>
         </property>

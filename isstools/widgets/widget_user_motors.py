@@ -96,7 +96,7 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
         self.timer_ionchamber.setInterval(1000)
         self.timer_ionchamber.timeout.connect(self.update_ionchamber_timer)
         self.timer_ionchamber.start()
-        self.count = 300
+        self.count = 600
 
     def set_i0_and_it_gases(self, gases_i0=None, gases_it=None):
         if 'helium' not in gases_i0.keys():
