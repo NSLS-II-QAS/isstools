@@ -109,16 +109,6 @@
       </property>
      </widget>
     </item>
-    <item row="6" column="1">
-     <widget class="QSpinBox" name="spinBox_delay">
-      <property name="minimum">
-       <number>0</number>
-      </property>
-      <property name="maximum">
-       <number>9999</number>
-      </property>
-     </widget>
-    </item>
     <item row="1" column="0">
      <widget class="QLabel" name="label_energy">
       <property name="text">
@@ -136,6 +126,9 @@
       </property>
       <property name="maximum">
        <double>30000.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>20000.000000000000000</double>
       </property>
      </widget>
     </item>
@@ -169,6 +162,9 @@
     <item row="0" column="1">
      <widget class="QComboBox" name="comboBox_detector_list"/>
     </item>
+    <item row="6" column="1">
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_delay"/>
+    </item>
    </layout>
   </widget>
   <widget class="QWidget" name="verticalLayoutWidget_2">
@@ -194,7 +190,7 @@
        <number>1</number>
       </property>
       <property name="text">
-       <string>Always take a fresh dark pattern at the beginning of each repetition</string>
+       <string>For Perkin Elmer: Always take a fresh dark pattern at the beginning of each repetition</string>
       </property>
       <property name="scaledContents">
        <bool>true</bool>

@@ -286,10 +286,10 @@ class UIBatchManual(*uic.loadUiType(ui_path)):
             scan_delay = self.spinBox_scan_delay.value()
             scan_autofoil = False
             scan_dif_set_energy = self.doubleSpinBox_dif_energy.value()
-            scan_dif_set_exposure = self.spinBox_dif_exposure.value()
+            scan_dif_set_exposure = self.doubleSpinBox_dif_exposure.value()
             scan_dif_patterns = self.spinBox_dif_subframe_patterns.value()
             scan_dif_repetitions = self.spinBox_dif_frame_repetitions.value()
-            scan_dif_delay = self.spinBox_dif_delay.value()
+            scan_dif_delay = self.doubleSpinBox_dif_delay.value()
             # name = self.lineEdit_scan_name.text()
             _create_new_scan(scan_name, scan_type, scan_traj, scan_repeat, scan_delay, scan_autofoil,
                              scan_dif_set_energy, scan_dif_set_exposure, scan_dif_patterns,

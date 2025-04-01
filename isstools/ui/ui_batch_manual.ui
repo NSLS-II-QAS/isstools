@@ -1465,19 +1465,6 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QSpinBox" name="spinBox_dif_exposure">
-       <property name="maximumSize">
-        <size>
-         <width>90</width>
-         <height>22</height>
-        </size>
-       </property>
-       <property name="minimum">
-        <number>1</number>
-       </property>
-      </widget>
-     </item>
      <item row="3" column="1">
       <widget class="QSpinBox" name="spinBox_dif_frame_repetitions">
        <property name="maximumSize">
@@ -1494,19 +1481,32 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="1">
-      <widget class="QSpinBox" name="spinBox_dif_delay">
+     <item row="1" column="1">
+      <widget class="QDoubleSpinBox" name="doubleSpinBox_dif_exposure">
        <property name="maximumSize">
         <size>
          <width>90</width>
          <height>22</height>
         </size>
        </property>
-       <property name="minimum">
-        <number>0</number>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QDoubleSpinBox" name="doubleSpinBox_dif_delay">
+       <property name="maximumSize">
+        <size>
+         <width>90</width>
+         <height>22</height>
+        </size>
        </property>
        <property name="maximum">
-        <number>9999</number>
+        <double>5.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
        </property>
       </widget>
      </item>

@@ -258,7 +258,8 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
         sender_obj_value = sender_obj.currentIndex()
         sender_obj_name = sender_obj.objectName()
         channel_index = sender_obj_name[11:12]
-        getattr(self.apb, 'amp_ch' + channel_index).gain.set(sender_obj_value).wait()
+        # getattr(self.apb, 'amp_ch' + channel_index).gain.set(sender_obj_value).wait()
+        getattr(self.apb, 'amp_ch' + channel_index).gain.put(sender_obj_value)
     #
     def add_gain_subscriptions(self, ch):
         getattr(self, 'comboBox_ch' + str(ch) + '_gain').addItems(self._gains)

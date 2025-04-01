@@ -30,7 +30,8 @@ import numpy as np
 
 timenow = datetime.datetime.now()
 
-ui_path = pkg_resources.resource_filename('isstools', 'ui/ui_run_diff.ui')
+# ui_path = pkg_resources.resource_filename('isstools', 'ui/ui_run_diff.ui')
+ui_path = pkg_resources.resource_filename('isstools', 'ui/ui_run_diff_dafs.ui')
 
 
 from isstools.xiaparser import xiaparser
@@ -56,6 +57,7 @@ class UIRunDiff(*uic.loadUiType(ui_path)):
         self.pe1 = pe1
         self.plans_diff = plans_diff[0]
         self.plans_diff_pilatus = plans_diff[2]
+        self.plans_diff_pilatus_dafs = plans_diff[3]
         self.mono = mono
         self.parent_gui = parent_gui
         self.comboBox_detector_list.addItems(['Perkin', 'Pilatus'])
@@ -123,17 +125,40 @@ class UIRunDiff(*uic.loadUiType(ui_path)):
                               'frame_count'   : self.spinBox_frame_count.value(),
                               'subframe_time' : self.doubleSpinBox_subframe_time.value(),
                               'subframe_count': self.spinBox_subframe_count.value(),
-                              'delay'         : self.spinBox_delay.value()
+                              'delay'         : self.doubleSpinBox_delay.value()
                               }
 
 
             # Run the scan using the dict created before
             self.run_mode_uids = []
 
+            # if self.comboBox_detector_list.currentIndex() == 0:
+            #     self.run_mode_uids = self.RE(self.plans_diff(**run_parameters))
+            # else:
+            #     self.run_mode_uids = self.RE(self.plans_diff_pilatus(**run_parameters))
+
             if self.comboBox_detector_list.currentIndex() == 0:
                 self.run_mode_uids = self.RE(self.plans_diff(**run_parameters))
             else:
-                self.run_mode_uids = self.RE(self.plans_diff_pilatus(**run_parameters))
+                if self.checkBox_dafs_mode.isChecked():
+                    parameters = {'e0' : float(self.doubleSpinBox_e0.value()),
+                    'below_edge' : float(self.doubleSpinBox_below_edge.value()),
+                    'above_edge': float(self.doubleSpinBox_above_edge.value()),
+                    'edge_start' : float(self.doubleSpinBox_edge_start.value()),
+                    'edge_end' : float(self.doubleSpinBox_edge_end.value()),
+                    'pre_edge_spacing' : float(self.doubleSpinBox_pre_edge_spacing.value()),
+                    'xanes_spacing' : float(self.doubleSpinBox_xanes_spacing.value()),
+                    'exafs_k_spacing' : float(self.doubleSpinBox_exafs_k_spacing.value()),
+                    'dafs_mode': self.checkBox_dafs_mode.isChecked()}
+
+                    final_dict = {**run_parameters, **parameters}
+
+                    self.run_mode_uids = self.RE(self.plans_diff_pilatus_dafs(**final_dict))
+                else:
+                    self.run_mode_uids = self.RE(self.plans_diff_pilatus(**run_parameters))
+
+
+
 
 
 
