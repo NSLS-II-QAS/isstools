@@ -5,12 +5,22 @@ from PyQt5.Qt import QObject
 from PyQt5.Qt import QObject, QTimer
 from functools import partial
 # import sys
-from xas.energy_calibration import get_possible_edges, get_atomic_symbol, find_correct_foil, atomic_dict_for_ionchamber_gases
+from xas.energy_calibration import get_possible_edges, get_atomic_symbol, find_correct_foil
 import sys
+import json
 # import RE
 
 from isstools.dialogs.BasicDialogs import message_box
 from isstools.widgets.widget_motors import UIWidgetMotors
+
+path_ionchamber_gases_dict = '/nsls2/data/qas-new/shared/config/repos/xas/xas/ionchamber_gas_dict.json'
+
+try:
+    with open(path_ionchamber_gases_dict) as fp:
+        atomic_dict_for_ionchamber_gases = json.load(fp)
+except FileNotFoundError:
+    atomic_dict_for_ionchamber_gases = {}
+
 
 # from isstools.dialogs import UpdateUserDialog
 
