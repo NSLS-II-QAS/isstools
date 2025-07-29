@@ -132,7 +132,7 @@ class UIUserMotors(*uic.loadUiType(ui_path)):
             self.count -= 1
         if self.count <= 0:
             self.flag = False
-            self.count = 300
+            self.count = 600
 
             _current_element = self.comboBox_element.currentText()
             _current_edge = self.comboBox_edge.currentText()
