@@ -11,7 +11,7 @@ from PyQt5.QtCore import QThread, QSettings
 
 from isstools.widgets import (widget_general_info, widget_trajectory_manager, widget_processing, widget_batch,
                               widget_run, widget_beamline_setup, widget_run_diff, widget_sdd_manager, widget_beamline_status,
-                              widget_user_motors)
+                              widget_user_motors, widget_xspress3x_manager)
 
 from isstools.elements import EmittingStream
 from isstools.elements.batch_motion import SamplePositioner
@@ -45,6 +45,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
                  accelerator=None,
                  mono=None,
                  sdd = None,
+                 xspress3x=None,
                  pe1 = None,
                  shutters_dict={},
                  det_dict={},
@@ -212,15 +213,16 @@ class XliveGui(*uic.loadUiType(ui_path)):
         # Looking for xias:
         regex = re.compile('xia\d{1}')
         matches = [det for det in self.det_dict if re.match(regex, det)]
-        self.xia_list = [self.det_dict[x]['obj'] for x in self.det_dict if x in matches]
-        if len(self.xia_list):
-            self.xia = self.xia_list[0]
-            self.widget_sdd_manager = widget_sdd_manager.UISDDManager(self.xia_list)
-            self.layout_sdd_manager.addWidget(self.widget_sdd_manager)
-        else:
-            self.tabWidget.removeTab([self.tabWidget.tabText(index) for index in
-                                      range(self.tabWidget.count())].index('Silicon Drift Detector setup'))
-            self.xia = None
+        self.xia = None
+        # self.xia_list = [self.det_dict[x]['obj'] for x in self.det_dict if x in matches]
+        # if len(self.xia_list):
+        #     self.xia = self.xia_list[0]
+        #     self.widget_sdd_manager = widget_sdd_manager.UISDDManager(self.xia_list)
+        #     self.layout_sdd_manager.addWidget(self.widget_sdd_manager)
+        # else:
+        #     self.tabWidget.removeTab([self.tabWidget.tabText(index) for index in
+        #                               range(self.tabWidget.count())].index('Silicon Drift Detector setup'))
+        #     self.xia = None
 
         self.widget_general_info = widget_general_info.UIGeneralInfo(accelerator, mono, RE, db, parent_gui=self)
         self.layout_general_info.addWidget(self.widget_general_info)
@@ -291,6 +293,10 @@ class XliveGui(*uic.loadUiType(ui_path)):
 
 
                 self.layout_xspress3_setup.addWidget(self.widget_sdd_manager)
+
+            if xspress3x is not None:
+                self.widget_xspress3x_manager = widget_xspress3x_manager.UIXSXManager(service_plan_funcs, sdd, RE)
+                self.layout_sdd_manager.addWidget(self.widget_xspress3x_manager)
 
             self.widget_beamline_status = widget_beamline_status.UIBeamlineStatus(
                                                                         shutters=self.shutters_dict,
