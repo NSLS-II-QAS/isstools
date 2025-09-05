@@ -73,7 +73,7 @@ class UIXSXManager(*uic.loadUiType(ui_path)):
         self.label_roi_rbk = 'label_ch{}_roi{}_{}_rbk'
 
         # Fix ROIs only for 4 element SDD
-        self.checkbox_fix_rois = 'checkBox_ch{}_fix_roi'
+        # self.checkbox_fix_rois = 'checkBox_ch{}_fix_roi'
 
         for i in [1 , 2 , 3]:
             getattr(self, f"frame_{i}").setFrameShape(QFrame.HLine)
@@ -83,12 +83,12 @@ class UIXSXManager(*uic.loadUiType(ui_path)):
             self.gridLayout_4.addWidget(getattr(self, f"frame_{i}"), row, 0, 1, self.gridLayout_4.columnCount())
 
 
-        for indx in self.num_4_channels:
-            checkbox_object = getattr(self, f"checkBox_ch{indx}_fix_roi")
+        # for indx in self.num_4_channels:
+        #     checkbox_object = getattr(self, f"checkBox_ch{indx}_fix_roi")
 
             # checkbox_name = self.checkbox_fix_rois.format(indx)
             # checkbox_object = getattr(self, checkbox_name)
-            checkbox_object.stateChanged.connect(self.fix_rois)
+            # checkbox_object.stateChanged.connect(self.fix_rois)
 
 
         self.update_spinboxes()
@@ -98,29 +98,29 @@ class UIXSXManager(*uic.loadUiType(ui_path)):
                 for indx_lo_hi in ['lo', 'hi']:
                     getattr(self, f"spinBox_ch{indx_ch}_roi{indx_roi}_{indx_lo_hi}").editingFinished.connect(self.set_roi_value)
 
-    def fix_rois(self):
-        sender = QObject()
-        sender_object = sender.sender().objectName()
-        indx_ch = sender_object[11]
-
-        if sender.sender().isChecked():
-            for jj in range(2):
-                # repeat to make sure no values are forced
-                for indx_roi in range(self.num_rois):
-                    for indx_lo_hi in range(2):
-                        spinbox_name_ch1 = self.spinbox_roi.format(1, indx_roi + 1, self.lo_hi[indx_lo_hi])
-                        spinbox_object_ch1 = getattr(self, spinbox_name_ch1)
-                        value = spinbox_object_ch1.value()
-                        spinbox_name = self.spinbox_roi.format(indx_ch, indx_roi + 1, self.lo_hi[indx_lo_hi])
-                        spinbox_object = getattr(self, spinbox_name)
-                        spinbox_object.setValue(value)
-                        spinbox_object.setEnabled(False)
-        else:
-            for indx_roi in range(self.num_rois):
-                for indx_lo_hi in range(2):
-                    spinbox_name = self.spinbox_roi.format(indx_ch, indx_roi + 1, self.lo_hi[indx_lo_hi])
-                    spinbox_object = getattr(self, spinbox_name)
-                    spinbox_object.setEnabled(True)
+    # def fix_rois(self):
+    #     sender = QObject()
+    #     sender_object = sender.sender().objectName()
+    #     indx_ch = sender_object[11]
+    #
+    #     if sender.sender().isChecked():
+    #         for jj in range(2):
+    #             # repeat to make sure no values are forced
+    #             for indx_roi in range(self.num_rois):
+    #                 for indx_lo_hi in range(2):
+    #                     spinbox_name_ch1 = self.spinbox_roi.format(1, indx_roi + 1, self.lo_hi[indx_lo_hi])
+    #                     spinbox_object_ch1 = getattr(self, spinbox_name_ch1)
+    #                     value = spinbox_object_ch1.value()
+    #                     spinbox_name = self.spinbox_roi.format(indx_ch, indx_roi + 1, self.lo_hi[indx_lo_hi])
+    #                     spinbox_object = getattr(self, spinbox_name)
+    #                     spinbox_object.setValue(value)
+    #                     spinbox_object.setEnabled(False)
+    #     else:
+    #         for indx_roi in range(self.num_rois):
+    #             for indx_lo_hi in range(2):
+    #                 spinbox_name = self.spinbox_roi.format(indx_ch, indx_roi + 1, self.lo_hi[indx_lo_hi])
+    #                 spinbox_object = getattr(self, spinbox_name)
+    #                 spinbox_object.setEnabled(True)
 
     def set_roi_value(self):
         print('Setting Roi')
