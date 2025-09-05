@@ -18,7 +18,7 @@ import numpy
 from isstools.elements.figure_update import update_figure
 
 
-ui_path = pkg_resources.resource_filename('isstools', 'ui/ui_sdd_manager.ui')
+ui_path = pkg_resources.resource_filename('isstools', 'ui/ui_xspress3x_manager.ui')
 
 
 class UIXSXManager(*uic.loadUiType(ui_path)):
