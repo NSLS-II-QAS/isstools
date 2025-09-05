@@ -138,28 +138,44 @@
     <rect>
      <x>260</x>
      <y>20</y>
-     <width>628</width>
-     <height>86</height>
+     <width>681</width>
+     <height>101</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="1">
-     <widget class="QCheckBox" name="checkBox_ch2_show">
+    <item row="2" column="4">
+     <widget class="QCheckBox" name="checkBox_ch5_fix_roi">
       <property name="text">
-       <string>Channel 2</string>
+       <string>fix ROIs</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="4">
+     <widget class="QCheckBox" name="checkBox_ch5_show">
+      <property name="text">
+       <string>Channel 5</string>
       </property>
       <property name="checked">
        <bool>true</bool>
       </property>
      </widget>
     </item>
-    <item row="2" column="1">
-     <widget class="QCheckBox" name="checkBox_ch2_fix_roi">
+    <item row="1" column="2">
+     <widget class="QCheckBox" name="checkBox_ch3_show">
+      <property name="maximumSize">
+       <size>
+        <width>150</width>
+        <height>20</height>
+       </size>
+      </property>
       <property name="text">
-       <string>fix ROIs</string>
+       <string>Channel 3</string>
       </property>
       <property name="checked">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
      </widget>
     </item>
@@ -173,38 +189,8 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="3">
-     <widget class="QCheckBox" name="checkBox_ch4_show">
-      <property name="text">
-       <string>Channel 4</string>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="2">
-     <widget class="QCheckBox" name="checkBox_ch3_show">
-      <property name="text">
-       <string>Channel 3</string>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QCheckBox" name="checkBox_ch1_show">
-      <property name="text">
-       <string>Channel 1</string>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="4">
-     <widget class="QCheckBox" name="checkBox_ch4_fix_roi_2">
+    <item row="2" column="6">
+     <widget class="QCheckBox" name="checkBox_ch7_fix_roi">
       <property name="text">
        <string>fix ROIs</string>
       </property>
@@ -213,10 +199,36 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="4">
-     <widget class="QCheckBox" name="checkBox_ch4_show_2">
+    <item row="2" column="7">
+     <widget class="QCheckBox" name="checkBox_ch8_fix_roi">
       <property name="text">
-       <string>Channel 5</string>
+       <string>fix ROIs</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QCheckBox" name="checkBox_ch1_show">
+      <property name="maximumSize">
+       <size>
+        <width>150</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Channel 1</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="6">
+     <widget class="QCheckBox" name="checkBox_ch7_show">
+      <property name="text">
+       <string>Channel 7</string>
       </property>
       <property name="checked">
        <bool>true</bool>
@@ -227,6 +239,26 @@
      <widget class="QLabel" name="label_147">
       <property name="text">
        <string>7 Element</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="7">
+     <widget class="QCheckBox" name="checkBox_ch8_show">
+      <property name="text">
+       <string>Channel 8</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="5">
+     <widget class="QCheckBox" name="checkBox_ch6_fix_roi">
+      <property name="text">
+       <string>fix ROIs</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
       </property>
      </widget>
     </item>
@@ -241,12 +273,54 @@
      </widget>
     </item>
     <item row="1" column="5">
-     <widget class="QCheckBox" name="checkBox_ch4_show_3">
+     <widget class="QCheckBox" name="checkBox_ch6_show">
       <property name="text">
-       <string>Channel 5</string>
+       <string>Channel 6</string>
       </property>
       <property name="checked">
        <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QCheckBox" name="checkBox_ch4_show">
+      <property name="text">
+       <string>Channel 4</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QCheckBox" name="checkBox_ch2_show">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>150</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Channel 2</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QCheckBox" name="checkBox_ch2_fix_roi">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>fix ROIs</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
       </property>
      </widget>
     </item>
@@ -257,13 +331,20 @@
     <rect>
      <x>960</x>
      <y>20</y>
-     <width>611</width>
-     <height>741</height>
+     <width>609</width>
+     <height>908</height>
     </rect>
    </property>
-   <layout class="QGridLayout" name="gridLayout_4">
-    <item row="47" column="3">
-     <widget class="QSpinBox" name="spinBox_ch6_roi4_lo">
+   <layout class="QGridLayout" name="gridLayout_4" rowstretch="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">
+    <item row="21" column="6">
+     <widget class="QLabel" name="label_ch3_roi3_hi_rbk">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="5">
+     <widget class="QSpinBox" name="spinBox_ch4_roi1_hi">
       <property name="maximumSize">
        <size>
         <width>100</width>
@@ -275,261 +356,21 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="7">
-     <widget class="QLabel" name="label_173">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>30</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>Counts</string>
-      </property>
-     </widget>
-    </item>
-    <item row="17" column="7">
-     <widget class="QLabel" name="label_ch3_roi2_value">
-      <property name="maximumSize">
-       <size>
-        <width>200</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="45" column="3">
-     <widget class="QSpinBox" name="spinBox_ch5_roi4_lo">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="39" column="5">
-     <widget class="QSpinBox" name="spinBox_ch2_roi4_hi">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="31" column="4">
-     <widget class="QLabel" name="label_ch4_roi3_lo_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="41" column="6">
-     <widget class="QLabel" name="label_ch3_roi4_hi_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="5">
-     <widget class="QSpinBox" name="spinBox_ch1_roi1_hi">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="43" column="7">
-     <widget class="QLabel" name="label_ch4_roi4_value">
-      <property name="maximumSize">
-       <size>
-        <width>200</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="25" column="7">
-     <widget class="QLabel" name="label_ch1_roi3_value">
-      <property name="maximumSize">
-       <size>
-        <width>200</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="12" column="6">
-     <widget class="QLabel" name="label_ch7_roi1_hi_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="31" column="5">
-     <widget class="QSpinBox" name="spinBox_ch4_roi3_hi">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="3">
-     <widget class="QSpinBox" name="spinBox_ch3_roi1_lo">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="31" column="3">
-     <widget class="QSpinBox" name="spinBox_ch4_roi3_lo">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="15" column="7">
-     <widget class="QLabel" name="label_ch2_roi2_value">
-      <property name="maximumSize">
-       <size>
-        <width>200</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="33" column="4">
-     <widget class="QLabel" name="label_ch5_roi3_lo_rbk">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="27" column="4">
-     <widget class="QLabel" name="label_ch2_roi3_lo_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="21" column="3">
-     <widget class="QSpinBox" name="spinBox_ch5_roi2_lo">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="31" column="7">
-     <widget class="QLabel" name="label_ch4_roi3_value">
-      <property name="maximumSize">
-       <size>
-        <width>200</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="15" column="2">
+    <item row="11" column="2">
      <widget class="QLabel" name="label_155">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="text">
        <string>CH2</string>
       </property>
      </widget>
     </item>
-    <item row="5" column="7">
-     <widget class="QLabel" name="label_ch3_roi1_value">
+    <item row="4" column="4">
+     <widget class="QLabel" name="label_ch4_roi1_lo_rbk">
       <property name="maximumSize">
        <size>
-        <width>200</width>
+        <width>16777215</width>
         <height>20</height>
        </size>
       </property>
@@ -538,7 +379,30 @@
       </property>
      </widget>
     </item>
-    <item row="11" column="2">
+    <item row="5" column="5">
+     <widget class="QSpinBox" name="spinBox_ch5_roi1_hi">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="17" column="2">
+     <widget class="QLabel" name="label_179">
+      <property name="text">
+       <string>CH8</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="2">
      <widget class="QLabel" name="label_169">
       <property name="maximumSize">
        <size>
@@ -551,8 +415,21 @@
       </property>
      </widget>
     </item>
-    <item row="37" column="7">
-     <widget class="QLabel" name="label_ch1_roi4_value">
+    <item row="22" column="3">
+     <widget class="QSpinBox" name="spinBox_ch4_roi3_lo">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="30" column="7">
+     <widget class="QLabel" name="label_ch3_roi4_value">
       <property name="maximumSize">
        <size>
         <width>200</width>
@@ -564,288 +441,7 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="5">
-     <widget class="QLabel" name="label_145">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>High limit</string>
-      </property>
-     </widget>
-    </item>
-    <item row="36" column="5">
-     <widget class="QSpinBox" name="spinBox_ch7_roi3_hi">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="4">
-     <widget class="QLabel" name="label_ch3_roi1_lo_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="7">
-     <widget class="QLabel" name="label_ch5_roi1_value">
-      <property name="maximumSize">
-       <size>
-        <width>200</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="6">
-     <widget class="QLabel" name="label_ch5_roi1_hi_rbk">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="19" column="3">
-     <widget class="QSpinBox" name="spinBox_ch4_roi2_lo">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="4">
-     <widget class="QLabel" name="label_ch1_roi1_lo_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="4">
-     <widget class="QLabel" name="label_ch2_roi1_lo_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="35" column="4">
-     <widget class="QLabel" name="label_ch6_roi3_lo_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="47" column="7">
-     <widget class="QLabel" name="label_ch6_roi4_value">
-      <property name="maximumSize">
-       <size>
-        <width>200</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="2">
-     <widget class="QLabel" name="label_150">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>CH3</string>
-      </property>
-     </widget>
-    </item>
-    <item row="24" column="6">
-     <widget class="QLabel" name="label_ch7_roi2_hi_rbk">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="23" column="5">
-     <widget class="QSpinBox" name="spinBox_ch6_roi2_hi">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="35" column="2">
-     <widget class="QLabel" name="label_171">
-      <property name="text">
-       <string>CH6</string>
-      </property>
-     </widget>
-    </item>
-    <item row="36" column="6">
-     <widget class="QLabel" name="label_ch7_roi3_hi_rbk">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="12" column="7">
-     <widget class="QLabel" name="label_ch7_roi1_value">
-      <property name="maximumSize">
-       <size>
-        <width>200</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="37" column="5">
-     <widget class="QSpinBox" name="spinBox_ch1_roi4_hi">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="24" column="7">
-     <widget class="QLabel" name="label_ch7_roi2_value">
-      <property name="maximumSize">
-       <size>
-        <width>200</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="43" column="4">
-     <widget class="QLabel" name="label_ch4_roi4_lo_rbk">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="19" column="4">
-     <widget class="QLabel" name="label_ch4_roi2_lo_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="6">
-     <widget class="QLabel" name="label_ch4_roi1_hi_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="21" column="5">
-     <widget class="QSpinBox" name="spinBox_ch5_roi2_hi">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="24" column="3">
-     <widget class="QSpinBox" name="spinBox_ch7_roi2_lo">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="21" column="6">
+    <item row="14" column="6">
      <widget class="QLabel" name="label_ch5_roi2_hi_rbk">
       <property name="enabled">
        <bool>true</bool>
@@ -861,8 +457,22 @@
       </property>
      </widget>
     </item>
-    <item row="15" column="6">
-     <widget class="QLabel" name="label_ch2_roi2_hi_rbk">
+    <item row="24" column="2">
+     <widget class="QLabel" name="label_171">
+      <property name="text">
+       <string>CH6</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="6">
+     <widget class="QLabel" name="label_ch3_roi1_hi_rbk">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="35" column="6">
+     <widget class="QLabel" name="label_ch8_roi4_hi_rbk">
       <property name="maximumSize">
        <size>
         <width>16777215</width>
@@ -874,7 +484,137 @@
       </property>
      </widget>
     </item>
-    <item row="45" column="5">
+    <item row="15" column="4">
+     <widget class="QLabel" name="label_ch6_roi2_lo_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="QLabel" name="label_149">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>CH2</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="7">
+     <widget class="QLabel" name="label_ch1_roi1_value">
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="6">
+     <widget class="QLabel" name="label_ch6_roi1_hi_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="29" column="5">
+     <widget class="QSpinBox" name="spinBox_ch2_roi4_hi">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="30" column="4">
+     <widget class="QLabel" name="label_ch3_roi4_lo_rbk">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="35" column="7">
+     <widget class="QLabel" name="label_ch8_roi4_value">
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="16" column="7">
+     <widget class="QLabel" name="label_ch7_roi2_value">
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="25" column="4">
+     <widget class="QLabel" name="label_ch7_roi3_lo_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="26" column="7">
+     <widget class="QLabel" name="label_ch8_roi3_value">
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="32" column="5">
      <widget class="QSpinBox" name="spinBox_ch5_roi4_hi">
       <property name="enabled">
        <bool>true</bool>
@@ -890,8 +630,93 @@
       </property>
      </widget>
     </item>
-    <item row="13" column="1">
-     <widget class="QLineEdit" name="lineEdit_2">
+    <item row="32" column="4">
+     <widget class="QLabel" name="label_ch5_roi4_lo_rbk">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="26" column="4">
+     <widget class="QLabel" name="label_ch8_roi3_lo_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="16" column="2">
+     <widget class="QLabel" name="label_175">
+      <property name="text">
+       <string>CH7</string>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="4">
+     <widget class="QFrame" name="frame_1">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="4">
+     <widget class="QLabel" name="label_ch5_roi1_lo_rbk">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QCheckBox" name="checkBox_roi1_show">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>30</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>ROI 1</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="3">
+     <widget class="QSpinBox" name="spinBox_ch7_roi1_lo">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="19" column="0">
+     <widget class="QCheckBox" name="checkBox_roi3_show">
       <property name="maximumSize">
        <size>
         <width>100</width>
@@ -899,11 +724,444 @@
        </size>
       </property>
       <property name="text">
-       <string>Co K</string>
+       <string>ROI 3</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="7">
+     <widget class="QLabel" name="label_ch6_roi1_value">
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="6">
+     <widget class="QLabel" name="label_ch1_roi2_hi_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="31" column="2">
+     <widget class="QLabel" name="label_166">
+      <property name="text">
+       <string>CH4</string>
+      </property>
+     </widget>
+    </item>
+    <item row="21" column="5">
+     <widget class="QSpinBox" name="spinBox_ch3_roi3_hi">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="33" column="5">
+     <widget class="QSpinBox" name="spinBox_ch6_roi4_hi">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="15" column="5">
+     <widget class="QSpinBox" name="spinBox_ch6_roi2_hi">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="13" column="7">
+     <widget class="QLabel" name="label_ch4_roi2_value">
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="33" column="3">
+     <widget class="QSpinBox" name="spinBox_ch6_roi4_lo">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="28" column="4">
+     <widget class="QLabel" name="label_ch1_roi4_lo_rbk">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="6">
+     <widget class="QLabel" name="label_ch7_roi1_hi_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="2">
+     <widget class="QLabel" name="label_174">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>CH7</string>
+      </property>
+     </widget>
+    </item>
+    <item row="25" column="6">
+     <widget class="QLabel" name="label_ch7_roi3_hi_rbk">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="5">
+     <widget class="QSpinBox" name="spinBox_ch2_roi2_hi">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="16" column="5">
+     <widget class="QSpinBox" name="spinBox_ch7_roi2_hi">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="4">
+     <widget class="QLabel" name="label_ch2_roi2_lo_rbk">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Disabled</string>
+      </property>
+     </widget>
+    </item>
+    <item row="33" column="2">
+     <widget class="QLabel" name="label_172">
+      <property name="text">
+       <string>CH6</string>
+      </property>
+     </widget>
+    </item>
+    <item row="18" column="4">
+     <widget class="QFrame" name="frame_2">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="17" column="7">
+     <widget class="QLabel" name="label_ch8_roi2_value">
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="4">
+     <widget class="QLabel" name="label_ch2_roi1_lo_rbk">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Disabled</string>
+      </property>
+     </widget>
+    </item>
+    <item row="29" column="4">
+     <widget class="QLabel" name="label_ch2_roi4_lo_rbk">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>Disabled</string>
+      </property>
+     </widget>
+    </item>
+    <item row="34" column="5">
+     <widget class="QSpinBox" name="spinBox_ch7_roi4_hi">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="14" column="2">
+     <widget class="QLabel" name="label_153">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string>CH5</string>
       </property>
      </widget>
     </item>
     <item row="13" column="2">
+     <widget class="QLabel" name="label_156">
+      <property name="text">
+       <string>CH4</string>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="6">
+     <widget class="QLabel" name="label_ch2_roi2_hi_rbk">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Disabled</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QSpinBox" name="spinBox_ch1_roi1_lo">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="29" column="2">
+     <widget class="QLabel" name="label_165">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>CH2</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="6">
+     <widget class="QLabel" name="label_ch8_roi1_hi_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="22" column="4">
+     <widget class="QLabel" name="label_ch4_roi3_lo_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="5">
+     <widget class="QSpinBox" name="spinBox_ch1_roi2_hi">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QLabel" name="label_148">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>CH1</string>
+      </property>
+     </widget>
+    </item>
+    <item row="13" column="4">
+     <widget class="QLabel" name="label_ch4_roi2_lo_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="19" column="6">
+     <widget class="QLabel" name="label_ch1_roi3_hi_rbk">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="25" column="2">
+     <widget class="QLabel" name="label_176">
+      <property name="text">
+       <string>CH7</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="4">
+     <widget class="QLabel" name="label_ch3_roi1_lo_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="22" column="6">
+     <widget class="QLabel" name="label_ch4_roi3_hi_rbk">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="25" column="7">
+     <widget class="QLabel" name="label_ch7_roi3_value">
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="32" column="2">
+     <widget class="QLabel" name="label_163">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string>CH5</string>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="2">
      <widget class="QLabel" name="label_154">
       <property name="maximumSize">
        <size>
@@ -916,7 +1174,20 @@
       </property>
      </widget>
     </item>
-    <item row="35" column="7">
+    <item row="4" column="3">
+     <widget class="QSpinBox" name="spinBox_ch4_roi1_lo">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="24" column="7">
      <widget class="QLabel" name="label_ch6_roi3_value">
       <property name="maximumSize">
        <size>
@@ -929,36 +1200,20 @@
       </property>
      </widget>
     </item>
-    <item row="13" column="0">
-     <widget class="QCheckBox" name="checkBox_roi2_show">
+    <item row="33" column="7">
+     <widget class="QLabel" name="label_ch6_roi4_value">
       <property name="maximumSize">
        <size>
-        <width>100</width>
+        <width>200</width>
         <height>20</height>
        </size>
       </property>
       <property name="text">
-       <string>ROI 2</string>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
+       <string>TextLabel</string>
       </property>
      </widget>
     </item>
-    <item row="35" column="5">
-     <widget class="QSpinBox" name="spinBox_ch6_roi3_hi">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="37" column="0">
+    <item row="28" column="0">
      <widget class="QCheckBox" name="checkBox_roi4_show">
       <property name="maximumSize">
        <size>
@@ -974,35 +1229,24 @@
       </property>
      </widget>
     </item>
-    <item row="31" column="6">
-     <widget class="QLabel" name="label_ch4_roi3_hi_rbk">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="37" column="6">
-     <widget class="QLabel" name="label_ch1_roi4_hi_rbk">
+    <item row="28" column="1">
+     <widget class="QLineEdit" name="lineEdit_4">
       <property name="maximumSize">
        <size>
-        <width>16777215</width>
+        <width>100</width>
         <height>20</height>
        </size>
       </property>
       <property name="text">
-       <string>TextLabel</string>
+       <string>Pt L3</string>
       </property>
      </widget>
     </item>
-    <item row="36" column="2">
-     <widget class="QLabel" name="label_176">
-      <property name="text">
-       <string>CH7</string>
+    <item row="2" column="3">
+     <widget class="QSpinBox" name="spinBox_ch2_roi1_lo">
+      <property name="enabled">
+       <bool>false</bool>
       </property>
-     </widget>
-    </item>
-    <item row="15" column="3">
-     <widget class="QSpinBox" name="spinBox_ch2_roi2_lo">
       <property name="maximumSize">
        <size>
         <width>100</width>
@@ -1014,28 +1258,8 @@
       </property>
      </widget>
     </item>
-    <item row="19" column="2">
-     <widget class="QLabel" name="label_156">
-      <property name="text">
-       <string>CH4</string>
-      </property>
-     </widget>
-    </item>
-    <item row="11" column="6">
-     <widget class="QLabel" name="label_ch6_roi1_hi_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="5">
-     <widget class="QSpinBox" name="spinBox_ch2_roi1_hi">
+    <item row="25" column="3">
+     <widget class="QSpinBox" name="spinBox_ch7_roi3_lo">
       <property name="maximumSize">
        <size>
         <width>100</width>
@@ -1047,22 +1271,50 @@
       </property>
      </widget>
     </item>
-    <item row="23" column="6">
-     <widget class="QLabel" name="label_ch6_roi2_hi_rbk">
+    <item row="2" column="6">
+     <widget class="QLabel" name="label_ch2_roi1_hi_rbk">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Disabled</string>
+      </property>
+     </widget>
+    </item>
+    <item row="13" column="3">
+     <widget class="QSpinBox" name="spinBox_ch4_roi2_lo">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="6">
+     <widget class="QLabel" name="label_ch4_roi1_hi_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
       <property name="text">
        <string>TextLabel</string>
       </property>
      </widget>
     </item>
-    <item row="47" column="2">
-     <widget class="QLabel" name="label_172">
-      <property name="text">
-       <string>CH6</string>
-      </property>
-     </widget>
-    </item>
-    <item row="13" column="5">
-     <widget class="QSpinBox" name="spinBox_ch1_roi2_hi">
+    <item row="19" column="5">
+     <widget class="QSpinBox" name="spinBox_ch1_roi3_hi">
       <property name="maximumSize">
        <size>
         <width>100</width>
@@ -1087,8 +1339,125 @@
       </property>
      </widget>
     </item>
-    <item row="29" column="3">
-     <widget class="QSpinBox" name="spinBox_ch3_roi3_lo">
+    <item row="35" column="3">
+     <widget class="QSpinBox" name="spinBox_ch8_roi4_lo">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="4">
+     <widget class="QLabel" name="label_ch1_roi2_lo_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="31" column="6">
+     <widget class="QLabel" name="label_ch4_roi4_hi_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="14" column="5">
+     <widget class="QSpinBox" name="spinBox_ch5_roi2_hi">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="24" column="5">
+     <widget class="QSpinBox" name="spinBox_ch6_roi3_hi">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="12" column="7">
+     <widget class="QLabel" name="label_ch3_roi2_value">
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="7">
+     <widget class="QLabel" name="label_ch2_roi2_value">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Disabled</string>
+      </property>
+     </widget>
+    </item>
+    <item row="30" column="2">
+     <widget class="QLabel" name="label_167">
+      <property name="text">
+       <string>CH3</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="5">
+     <widget class="QSpinBox" name="spinBox_ch6_roi1_hi">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="3">
+     <widget class="QSpinBox" name="spinBox_ch6_roi1_lo">
       <property name="maximumSize">
        <size>
         <width>100</width>
@@ -1101,726 +1470,6 @@
      </widget>
     </item>
     <item row="23" column="3">
-     <widget class="QSpinBox" name="spinBox_ch6_roi2_lo">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="3">
-     <widget class="QSpinBox" name="spinBox_ch4_roi1_lo">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="5">
-     <widget class="QSpinBox" name="spinBox_ch4_roi1_hi">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="17" column="2">
-     <widget class="QLabel" name="label_157">
-      <property name="text">
-       <string>CH3</string>
-      </property>
-     </widget>
-    </item>
-    <item row="33" column="5">
-     <widget class="QSpinBox" name="spinBox_ch5_roi3_hi">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="15" column="5">
-     <widget class="QSpinBox" name="spinBox_ch2_roi2_hi">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="12" column="2">
-     <widget class="QLabel" name="label_174">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>CH7</string>
-      </property>
-     </widget>
-    </item>
-    <item row="25" column="3">
-     <widget class="QSpinBox" name="spinBox_ch1_roi3_lo">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="27" column="2">
-     <widget class="QLabel" name="label_160">
-      <property name="text">
-       <string>CH2</string>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="2">
-     <widget class="QLabel" name="label_152">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>CH5</string>
-      </property>
-     </widget>
-    </item>
-    <item row="19" column="7">
-     <widget class="QLabel" name="label_ch4_roi2_value">
-      <property name="maximumSize">
-       <size>
-        <width>200</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="12" column="4">
-     <widget class="QLabel" name="label_ch7_roi1_lo_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="35" column="6">
-     <widget class="QLabel" name="label_ch6_roi3_hi_rbk">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="43" column="5">
-     <widget class="QSpinBox" name="spinBox_ch4_roi4_hi">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="27" column="6">
-     <widget class="QLabel" name="label_ch2_roi3_hi_rbk">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="24" column="4">
-     <widget class="QLabel" name="label_ch7_roi2_lo_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="23" column="4">
-     <widget class="QLabel" name="label_ch6_roi2_lo_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="25" column="6">
-     <widget class="QLabel" name="label_ch1_roi3_hi_rbk">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="45" column="4">
-     <widget class="QLabel" name="label_ch5_roi4_lo_rbk">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="47" column="4">
-     <widget class="QLabel" name="label_ch6_roi4_lo_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="41" column="5">
-     <widget class="QSpinBox" name="spinBox_ch3_roi4_hi">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="17" column="4">
-     <widget class="QLabel" name="label_ch3_roi2_lo_rbk">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="41" column="4">
-     <widget class="QLabel" name="label_ch3_roi4_lo_rbk">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="15" column="4">
-     <widget class="QLabel" name="label_ch2_roi2_lo_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="19" column="6">
-     <widget class="QLabel" name="label_ch4_roi2_hi_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="4">
-     <widget class="QLabel" name="label_ch4_roi1_lo_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="13" column="3">
-     <widget class="QSpinBox" name="spinBox_ch1_roi2_lo">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="27" column="5">
-     <widget class="QSpinBox" name="spinBox_ch2_roi3_hi">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="11" column="7">
-     <widget class="QLabel" name="label_ch6_roi1_value">
-      <property name="maximumSize">
-       <size>
-        <width>200</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="43" column="3">
-     <widget class="QSpinBox" name="spinBox_ch4_roi4_lo">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="4">
-     <widget class="QLabel" name="label_ch5_roi1_lo_rbk">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="12" column="5">
-     <widget class="QSpinBox" name="spinBox_ch7_roi1_hi">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="3">
-     <widget class="QLabel" name="label_144">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>Low limit</string>
-      </property>
-     </widget>
-    </item>
-    <item row="19" column="5">
-     <widget class="QSpinBox" name="spinBox_ch4_roi2_hi">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="33" column="6">
-     <widget class="QLabel" name="label_ch5_roi3_hi_rbk">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="5">
-     <widget class="QSpinBox" name="spinBox_ch3_roi1_hi">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="17" column="3">
-     <widget class="QSpinBox" name="spinBox_ch3_roi2_lo">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="29" column="5">
-     <widget class="QSpinBox" name="spinBox_ch3_roi3_hi">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="27" column="3">
-     <widget class="QSpinBox" name="spinBox_ch2_roi3_lo">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="36" column="3">
-     <widget class="QSpinBox" name="spinBox_ch7_roi3_lo">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="36" column="4">
-     <widget class="QLabel" name="label_ch7_roi3_lo_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="45" column="2">
-     <widget class="QLabel" name="label_163">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="text">
-       <string>CH5</string>
-      </property>
-     </widget>
-    </item>
-    <item row="37" column="2">
-     <widget class="QLabel" name="label_164">
-      <property name="text">
-       <string>CH1</string>
-      </property>
-     </widget>
-    </item>
-    <item row="29" column="4">
-     <widget class="QLabel" name="label_ch3_roi3_lo_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="11" column="4">
-     <widget class="QLabel" name="label_ch6_roi1_lo_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="41" column="3">
-     <widget class="QSpinBox" name="spinBox_ch3_roi4_lo">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="25" column="4">
-     <widget class="QLabel" name="label_ch1_roi3_lo_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="12" column="3">
-     <widget class="QSpinBox" name="spinBox_ch7_roi1_lo">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="39" column="3">
-     <widget class="QSpinBox" name="spinBox_ch2_roi4_lo">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="21" column="4">
-     <widget class="QLabel" name="label_ch5_roi2_lo_rbk">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="37" column="4">
-     <widget class="QLabel" name="label_ch1_roi4_lo_rbk">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="3">
-     <widget class="QSpinBox" name="spinBox_ch1_roi1_lo">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="31" column="2">
-     <widget class="QLabel" name="label_161">
-      <property name="text">
-       <string>CH4</string>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="5">
-     <widget class="QSpinBox" name="spinBox_ch5_roi1_hi">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="25" column="5">
-     <widget class="QSpinBox" name="spinBox_ch1_roi3_hi">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="7">
-     <widget class="QLabel" name="label_ch1_roi1_value">
-      <property name="maximumSize">
-       <size>
-        <width>200</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="47" column="5">
-     <widget class="QSpinBox" name="spinBox_ch6_roi4_hi">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="17" column="5">
-     <widget class="QSpinBox" name="spinBox_ch3_roi2_hi">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="21" column="7">
-     <widget class="QLabel" name="label_ch5_roi2_value">
-      <property name="maximumSize">
-       <size>
-        <width>200</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="41" column="2">
-     <widget class="QLabel" name="label_167">
-      <property name="text">
-       <string>CH3</string>
-      </property>
-     </widget>
-    </item>
-    <item row="33" column="3">
      <widget class="QSpinBox" name="spinBox_ch5_roi3_lo">
       <property name="enabled">
        <bool>true</bool>
@@ -1836,15 +1485,28 @@
       </property>
      </widget>
     </item>
-    <item row="39" column="2">
-     <widget class="QLabel" name="label_165">
+    <item row="10" column="1">
+     <widget class="QLineEdit" name="lineEdit_2">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
       <property name="text">
-       <string>CH2</string>
+       <string>Co K</string>
       </property>
      </widget>
     </item>
-    <item row="41" column="7">
-     <widget class="QLabel" name="label_ch3_roi4_value">
+    <item row="16" column="6">
+     <widget class="QLabel" name="label_ch7_roi2_hi_rbk">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="7">
+     <widget class="QLabel" name="label_ch5_roi1_value">
       <property name="maximumSize">
        <size>
         <width>200</width>
@@ -1856,8 +1518,15 @@
       </property>
      </widget>
     </item>
-    <item row="35" column="3">
-     <widget class="QSpinBox" name="spinBox_ch6_roi3_lo">
+    <item row="28" column="2">
+     <widget class="QLabel" name="label_164">
+      <property name="text">
+       <string>CH1</string>
+      </property>
+     </widget>
+    </item>
+    <item row="34" column="3">
+     <widget class="QSpinBox" name="spinBox_ch7_roi4_lo">
       <property name="maximumSize">
        <size>
         <width>100</width>
@@ -1869,58 +1538,135 @@
       </property>
      </widget>
     </item>
-    <item row="43" column="2">
-     <widget class="QLabel" name="label_166">
+    <item row="20" column="4">
+     <widget class="QLabel" name="label_ch2_roi3_lo_rbk">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Disabled</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="3">
+     <widget class="QSpinBox" name="spinBox_ch3_roi1_lo">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="5">
+     <widget class="QSpinBox" name="spinBox_ch8_roi1_hi">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="22" column="5">
+     <widget class="QSpinBox" name="spinBox_ch4_roi3_hi">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="22" column="7">
+     <widget class="QLabel" name="label_ch4_roi3_value">
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="26" column="2">
+     <widget class="QLabel" name="label_180">
+      <property name="text">
+       <string>CH8</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="5">
+     <widget class="QSpinBox" name="spinBox_ch1_roi1_hi">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="35" column="4">
+     <widget class="QLabel" name="label_ch8_roi4_lo_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="21" column="4">
+     <widget class="QLabel" name="label_ch3_roi3_lo_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="2">
+     <widget class="QLabel" name="label_151">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
       <property name="text">
        <string>CH4</string>
       </property>
      </widget>
     </item>
-    <item row="13" column="4">
-     <widget class="QLabel" name="label_ch1_roi2_lo_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="29" column="2">
-     <widget class="QLabel" name="label_162">
-      <property name="text">
-       <string>CH3</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="7">
-     <widget class="QLabel" name="label_ch2_roi1_value">
-      <property name="maximumSize">
-       <size>
-        <width>200</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="33" column="2">
-     <widget class="QLabel" name="label_158">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="text">
-       <string>CH5</string>
-      </property>
-     </widget>
-    </item>
-    <item row="11" column="3">
-     <widget class="QSpinBox" name="spinBox_ch6_roi1_lo">
+    <item row="8" column="3">
+     <widget class="QSpinBox" name="spinBox_ch8_roi1_lo">
       <property name="maximumSize">
        <size>
         <width>100</width>
@@ -1932,8 +1678,21 @@
       </property>
      </widget>
     </item>
-    <item row="39" column="6">
-     <widget class="QLabel" name="label_ch2_roi4_hi_rbk">
+    <item row="25" column="5">
+     <widget class="QSpinBox" name="spinBox_ch7_roi3_hi">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="13" column="6">
+     <widget class="QLabel" name="label_ch4_roi2_hi_rbk">
       <property name="maximumSize">
        <size>
         <width>16777215</width>
@@ -1942,6 +1701,262 @@
       </property>
       <property name="text">
        <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="17" column="4">
+     <widget class="QLabel" name="label_ch8_roi2_lo_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="4">
+     <widget class="QLabel" name="label_ch1_roi1_lo_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="33" column="4">
+     <widget class="QLabel" name="label_ch6_roi4_lo_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="7">
+     <widget class="QLabel" name="label_173">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>30</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Counts</string>
+      </property>
+     </widget>
+    </item>
+    <item row="30" column="6">
+     <widget class="QLabel" name="label_ch3_roi4_hi_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="4">
+     <widget class="QLabel" name="label_ch6_roi1_lo_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="16" column="4">
+     <widget class="QLabel" name="label_ch7_roi2_lo_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="28" column="3">
+     <widget class="QSpinBox" name="spinBox_ch1_roi4_lo">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="7">
+     <widget class="QLabel" name="label_ch4_roi1_value">
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="32" column="7">
+     <widget class="QLabel" name="label_ch5_roi4_value">
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="15" column="6">
+     <widget class="QLabel" name="label_ch6_roi2_hi_rbk">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="0">
+     <widget class="QCheckBox" name="checkBox_roi2_show">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>ROI 2</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="20" column="5">
+     <widget class="QSpinBox" name="spinBox_ch2_roi3_hi">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="7">
+     <widget class="QLabel" name="label_ch2_roi1_value">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Disabled</string>
+      </property>
+     </widget>
+    </item>
+    <item row="34" column="4">
+     <widget class="QLabel" name="label_ch7_roi4_lo_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="17" column="3">
+     <widget class="QSpinBox" name="spinBox_ch8_roi2_lo">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="5">
+     <widget class="QSpinBox" name="spinBox_ch2_roi1_hi">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="3">
+     <widget class="QSpinBox" name="spinBox_ch1_roi2_lo">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="2">
+     <widget class="QLabel" name="label_152">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>CH5</string>
       </property>
      </widget>
     </item>
@@ -1958,27 +1973,31 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="0">
-     <widget class="QCheckBox" name="checkBox_roi1_show">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>30</height>
-       </size>
-      </property>
+    <item row="12" column="2">
+     <widget class="QLabel" name="label_157">
       <property name="text">
-       <string>ROI 1</string>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
+       <string>CH3</string>
       </property>
      </widget>
     </item>
-    <item row="13" column="6">
-     <widget class="QLabel" name="label_ch1_roi2_hi_rbk">
+    <item row="12" column="3">
+     <widget class="QSpinBox" name="spinBox_ch3_roi2_lo">
       <property name="maximumSize">
        <size>
-        <width>16777215</width>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="14" column="7">
+     <widget class="QLabel" name="label_ch5_roi2_value">
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
         <height>20</height>
        </size>
       </property>
@@ -1987,21 +2006,20 @@
       </property>
      </widget>
     </item>
-    <item row="29" column="6">
-     <widget class="QLabel" name="label_ch3_roi3_hi_rbk">
-      <property name="text">
-       <string>TextLabel</string>
+    <item row="24" column="3">
+     <widget class="QSpinBox" name="spinBox_ch6_roi3_lo">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
       </property>
      </widget>
     </item>
-    <item row="24" column="2">
-     <widget class="QLabel" name="label_175">
-      <property name="text">
-       <string>CH7</string>
-      </property>
-     </widget>
-    </item>
-    <item row="29" column="7">
+    <item row="21" column="7">
      <widget class="QLabel" name="label_ch3_roi3_value">
       <property name="maximumSize">
        <size>
@@ -2014,77 +2032,8 @@
       </property>
      </widget>
     </item>
-    <item row="25" column="1">
-     <widget class="QLineEdit" name="lineEdit_3">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>Ni K</string>
-      </property>
-     </widget>
-    </item>
-    <item row="21" column="2">
-     <widget class="QLabel" name="label_153">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="text">
-       <string>CH5</string>
-      </property>
-     </widget>
-    </item>
-    <item row="11" column="5">
-     <widget class="QSpinBox" name="spinBox_ch6_roi1_hi">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="27" column="7">
-     <widget class="QLabel" name="label_ch2_roi3_value">
-      <property name="maximumSize">
-       <size>
-        <width>200</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="24" column="5">
-     <widget class="QSpinBox" name="spinBox_ch7_roi2_hi">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="39" column="4">
-     <widget class="QLabel" name="label_ch2_roi4_lo_rbk">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="2">
-     <widget class="QLabel" name="label_151">
+    <item row="28" column="6">
+     <widget class="QLabel" name="label_ch1_roi4_hi_rbk">
       <property name="maximumSize">
        <size>
         <width>16777215</width>
@@ -2092,11 +2041,60 @@
        </size>
       </property>
       <property name="text">
-       <string>CH4</string>
+       <string>TextLabel</string>
       </property>
      </widget>
     </item>
-    <item row="13" column="7">
+    <item row="17" column="5">
+     <widget class="QSpinBox" name="spinBox_ch8_roi2_hi">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="29" column="6">
+     <widget class="QLabel" name="label_ch2_roi4_hi_rbk">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Disabled</string>
+      </property>
+     </widget>
+    </item>
+    <item row="20" column="2">
+     <widget class="QLabel" name="label_160">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>CH2</string>
+      </property>
+     </widget>
+    </item>
+    <item row="20" column="6">
+     <widget class="QLabel" name="label_ch2_roi3_hi_rbk">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>Disabled</string>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="7">
      <widget class="QLabel" name="label_ch1_roi2_value">
       <property name="maximumSize">
        <size>
@@ -2109,8 +2107,8 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="2">
-     <widget class="QLabel" name="label_149">
+    <item row="0" column="5">
+     <widget class="QLabel" name="label_145">
       <property name="maximumSize">
        <size>
         <width>16777215</width>
@@ -2118,12 +2116,12 @@
        </size>
       </property>
       <property name="text">
-       <string>CH2</string>
+       <string>Width</string>
       </property>
      </widget>
     </item>
-    <item row="36" column="7">
-     <widget class="QLabel" name="label_ch7_roi3_value">
+    <item row="31" column="7">
+     <widget class="QLabel" name="label_ch4_roi4_value">
       <property name="maximumSize">
        <size>
         <width>200</width>
@@ -2135,41 +2133,8 @@
       </property>
      </widget>
     </item>
-    <item row="25" column="2">
-     <widget class="QLabel" name="label_159">
-      <property name="text">
-       <string>CH1</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="3">
-     <widget class="QSpinBox" name="spinBox_ch2_roi1_lo">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="47" column="6">
-     <widget class="QLabel" name="label_ch6_roi4_hi_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="45" column="7">
-     <widget class="QLabel" name="label_ch5_roi4_value">
+    <item row="3" column="7">
+     <widget class="QLabel" name="label_ch3_roi1_value">
       <property name="maximumSize">
        <size>
         <width>200</width>
@@ -2181,33 +2146,7 @@
       </property>
      </widget>
     </item>
-    <item row="39" column="7">
-     <widget class="QLabel" name="label_ch2_roi4_value">
-      <property name="maximumSize">
-       <size>
-        <width>200</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="7">
-     <widget class="QLabel" name="label_ch4_roi1_value">
-      <property name="maximumSize">
-       <size>
-        <width>200</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="45" column="6">
+    <item row="32" column="6">
      <widget class="QLabel" name="label_ch5_roi4_hi_rbk">
       <property name="enabled">
        <bool>true</bool>
@@ -2223,21 +2162,15 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="6">
-     <widget class="QLabel" name="label_ch2_roi1_hi_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
+    <item row="19" column="2">
+     <widget class="QLabel" name="label_159">
       <property name="text">
-       <string>TextLabel</string>
+       <string>CH1</string>
       </property>
      </widget>
     </item>
-    <item row="37" column="3">
-     <widget class="QSpinBox" name="spinBox_ch1_roi4_lo">
+    <item row="26" column="5">
+     <widget class="QSpinBox" name="spinBox_ch8_roi3_hi">
       <property name="maximumSize">
        <size>
         <width>100</width>
@@ -2249,7 +2182,320 @@
       </property>
      </widget>
     </item>
-    <item row="9" column="3">
+    <item row="8" column="4">
+     <widget class="QLabel" name="label_ch8_roi1_lo_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="3">
+     <widget class="QLabel" name="label_144">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Low limit</string>
+      </property>
+     </widget>
+    </item>
+    <item row="16" column="3">
+     <widget class="QSpinBox" name="spinBox_ch7_roi2_lo">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="15" column="7">
+     <widget class="QLabel" name="label_ch6_roi2_value">
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="21" column="2">
+     <widget class="QLabel" name="label_162">
+      <property name="text">
+       <string>CH3</string>
+      </property>
+     </widget>
+    </item>
+    <item row="19" column="4">
+     <widget class="QLabel" name="label_ch1_roi3_lo_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="19" column="1">
+     <widget class="QLineEdit" name="lineEdit_3">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Ni K</string>
+      </property>
+     </widget>
+    </item>
+    <item row="22" column="2">
+     <widget class="QLabel" name="label_161">
+      <property name="text">
+       <string>CH4</string>
+      </property>
+     </widget>
+    </item>
+    <item row="23" column="4">
+     <widget class="QLabel" name="label_ch5_roi3_lo_rbk">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="35" column="2">
+     <widget class="QLabel" name="label_181">
+      <property name="text">
+       <string>CH8</string>
+      </property>
+     </widget>
+    </item>
+    <item row="31" column="5">
+     <widget class="QSpinBox" name="spinBox_ch4_roi4_hi">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2">
+     <widget class="QLabel" name="label_150">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>CH3</string>
+      </property>
+     </widget>
+    </item>
+    <item row="14" column="4">
+     <widget class="QLabel" name="label_ch5_roi2_lo_rbk">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="23" column="2">
+     <widget class="QLabel" name="label_158">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string>CH5</string>
+      </property>
+     </widget>
+    </item>
+    <item row="31" column="3">
+     <widget class="QSpinBox" name="spinBox_ch4_roi4_lo">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="12" column="6">
+     <widget class="QLabel" name="label_ch3_roi2_hi_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="28" column="7">
+     <widget class="QLabel" name="label_ch1_roi4_value">
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="33" column="6">
+     <widget class="QLabel" name="label_ch6_roi4_hi_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="7">
+     <widget class="QLabel" name="label_ch8_roi1_value">
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="5">
+     <widget class="QSpinBox" name="spinBox_ch3_roi1_hi">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="15" column="2">
+     <widget class="QLabel" name="label_170">
+      <property name="text">
+       <string>CH6</string>
+      </property>
+     </widget>
+    </item>
+    <item row="28" column="5">
+     <widget class="QSpinBox" name="spinBox_ch1_roi4_hi">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="20" column="3">
+     <widget class="QSpinBox" name="spinBox_ch2_roi3_lo">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="29" column="7">
+     <widget class="QLabel" name="label_ch2_roi4_value">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Disabled</string>
+      </property>
+     </widget>
+    </item>
+    <item row="20" column="7">
+     <widget class="QLabel" name="label_ch2_roi3_value">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Disabled</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="3">
      <widget class="QSpinBox" name="spinBox_ch5_roi1_lo">
       <property name="enabled">
        <bool>true</bool>
@@ -2265,102 +2511,27 @@
       </property>
      </widget>
     </item>
-    <item row="23" column="7">
-     <widget class="QLabel" name="label_ch6_roi2_value">
-      <property name="maximumSize">
-       <size>
-        <width>200</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="25" column="0">
-     <widget class="QCheckBox" name="checkBox_roi3_show">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>ROI 3</string>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="23" column="2">
-     <widget class="QLabel" name="label_170">
-      <property name="text">
-       <string>CH6</string>
-      </property>
-     </widget>
-    </item>
-    <item row="43" column="6">
-     <widget class="QLabel" name="label_ch4_roi4_hi_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
     <item row="17" column="6">
-     <widget class="QLabel" name="label_ch3_roi2_hi_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>20</height>
-       </size>
-      </property>
+     <widget class="QLabel" name="label_ch8_roi2_hi_rbk">
       <property name="text">
        <string>TextLabel</string>
       </property>
      </widget>
     </item>
-    <item row="5" column="6">
-     <widget class="QLabel" name="label_ch3_roi1_hi_rbk">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="2">
-     <widget class="QLabel" name="label_148">
+    <item row="19" column="3">
+     <widget class="QSpinBox" name="spinBox_ch1_roi3_lo">
       <property name="maximumSize">
        <size>
         <width>100</width>
         <height>20</height>
        </size>
       </property>
-      <property name="text">
-       <string>CH1</string>
+      <property name="maximum">
+       <number>40960</number>
       </property>
      </widget>
     </item>
-    <item row="37" column="1">
-     <widget class="QLineEdit" name="lineEdit_4">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>Pt L3</string>
-      </property>
-     </widget>
-    </item>
-    <item row="33" column="7">
+    <item row="23" column="7">
      <widget class="QLabel" name="label_ch5_roi3_value">
       <property name="maximumSize">
        <size>
@@ -2373,31 +2544,11 @@
       </property>
      </widget>
     </item>
-    <item row="48" column="2">
-     <widget class="QLabel" name="label_177">
-      <property name="text">
-       <string>CH7</string>
-      </property>
-     </widget>
-    </item>
-    <item row="48" column="3">
-     <widget class="QSpinBox" name="spinBox_ch7_roi4_lo">
+    <item row="7" column="7">
+     <widget class="QLabel" name="label_ch7_roi1_value">
       <property name="maximumSize">
        <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
-      </property>
-     </widget>
-    </item>
-    <item row="48" column="4">
-     <widget class="QLabel" name="label_ch7_roi4_lo_rbk">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
+        <width>200</width>
         <height>20</height>
        </size>
       </property>
@@ -2406,20 +2557,14 @@
       </property>
      </widget>
     </item>
-    <item row="48" column="5">
-     <widget class="QSpinBox" name="spinBox_ch7_roi4_hi">
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximum">
-       <number>40960</number>
+    <item row="12" column="4">
+     <widget class="QLabel" name="label_ch3_roi2_lo_rbk">
+      <property name="text">
+       <string>TextLabel</string>
       </property>
      </widget>
     </item>
-    <item row="48" column="6">
+    <item row="34" column="6">
      <widget class="QLabel" name="label_ch7_roi4_hi_rbk">
       <property name="maximumSize">
        <size>
@@ -2432,7 +2577,310 @@
       </property>
      </widget>
     </item>
-    <item row="48" column="7">
+    <item row="14" column="3">
+     <widget class="QSpinBox" name="spinBox_ch5_roi2_lo">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="5">
+     <widget class="QSpinBox" name="spinBox_ch7_roi1_hi">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="21" column="3">
+     <widget class="QSpinBox" name="spinBox_ch3_roi3_lo">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="3">
+     <widget class="QSpinBox" name="spinBox_ch2_roi2_lo">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="35" column="5">
+     <widget class="QSpinBox" name="spinBox_ch8_roi4_hi">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="2">
+     <widget class="QLabel" name="label_178">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>CH8</string>
+      </property>
+     </widget>
+    </item>
+    <item row="26" column="3">
+     <widget class="QSpinBox" name="spinBox_ch8_roi3_lo">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="29" column="3">
+     <widget class="QSpinBox" name="spinBox_ch2_roi4_lo">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="6">
+     <widget class="QLabel" name="label_ch5_roi1_hi_rbk">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="13" column="5">
+     <widget class="QSpinBox" name="spinBox_ch4_roi2_hi">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="23" column="5">
+     <widget class="QSpinBox" name="spinBox_ch5_roi3_hi">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="30" column="3">
+     <widget class="QSpinBox" name="spinBox_ch3_roi4_lo">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="31" column="4">
+     <widget class="QLabel" name="label_ch4_roi4_lo_rbk">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="15" column="3">
+     <widget class="QSpinBox" name="spinBox_ch6_roi2_lo">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="19" column="7">
+     <widget class="QLabel" name="label_ch1_roi3_value">
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="24" column="4">
+     <widget class="QLabel" name="label_ch6_roi3_lo_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="4">
+     <widget class="QLabel" name="label_ch7_roi1_lo_rbk">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="30" column="5">
+     <widget class="QSpinBox" name="spinBox_ch3_roi4_hi">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="24" column="6">
+     <widget class="QLabel" name="label_ch6_roi3_hi_rbk">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="32" column="3">
+     <widget class="QSpinBox" name="spinBox_ch5_roi4_lo">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="26" column="6">
+     <widget class="QLabel" name="label_ch8_roi3_hi_rbk">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="23" column="6">
+     <widget class="QLabel" name="label_ch5_roi3_hi_rbk">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="34" column="2">
+     <widget class="QLabel" name="label_177">
+      <property name="text">
+       <string>CH7</string>
+      </property>
+     </widget>
+    </item>
+    <item row="12" column="5">
+     <widget class="QSpinBox" name="spinBox_ch3_roi2_hi">
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximum">
+       <number>40960</number>
+      </property>
+     </widget>
+    </item>
+    <item row="34" column="7">
      <widget class="QLabel" name="label_ch7_roi4_value">
       <property name="maximumSize">
        <size>
@@ -2445,55 +2893,13 @@
       </property>
      </widget>
     </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="gridLayoutWidget_5">
-   <property name="geometry">
-    <rect>
-     <x>970</x>
-     <y>810</y>
-     <width>240</width>
-     <height>80</height>
-    </rect>
-   </property>
-   <layout class="QGridLayout" name="gridLayout_6">
-    <item row="1" column="1">
-     <widget class="QCheckBox" name="checkBox_ch5_show">
-      <property name="enabled">
-       <bool>false</bool>
+    <item row="27" column="4">
+     <widget class="QFrame" name="frame_3">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
       </property>
-      <property name="mouseTracking">
-       <bool>true</bool>
-      </property>
-      <property name="text">
-       <string>Channel 5</string>
-      </property>
-      <property name="checked">
-       <bool>false</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QCheckBox" name="checkBox_ch6_show">
-      <property name="text">
-       <string>Channel 6</string>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QLabel" name="label_168">
-      <property name="text">
-       <string>unused channel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="label_146">
-      <property name="text">
-       <string>Single element SDD</string>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
       </property>
      </widget>
     </item>

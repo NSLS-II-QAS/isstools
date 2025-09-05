@@ -295,7 +295,7 @@ class XliveGui(*uic.loadUiType(ui_path)):
                 self.layout_xspress3_setup.addWidget(self.widget_sdd_manager)
 
             if xspress3x is not None:
-                self.widget_xspress3x_manager = widget_xspress3x_manager.UIXSXManager(service_plan_funcs, sdd, RE)
+                self.widget_xspress3x_manager = widget_xspress3x_manager.UIXSXManager(service_plan_funcs, xspress3x, RE)
                 self.layout_sdd_manager.addWidget(self.widget_xspress3x_manager)
 
             self.widget_beamline_status = widget_beamline_status.UIBeamlineStatus(
