@@ -258,8 +258,8 @@
     <rect>
      <x>960</x>
      <y>10</y>
-     <width>624</width>
-     <height>928</height>
+     <width>611</width>
+     <height>921</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout_4" rowstretch="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">
